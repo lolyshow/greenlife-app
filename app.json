@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "greenlife-app",
+    "slug": "greenlife-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "greenlife-app"
+}

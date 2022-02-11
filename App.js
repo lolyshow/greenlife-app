@@ -4,6 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from "./screens/Splash";
 import StartScreen from "./screens/Start";
+import NextScreen from "./screens/NextScreen";
+import SignUp from "./screens/SignUp";
+import Login from "./screens/Login";
 function HomeScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -41,13 +44,13 @@ function App() {
         }}
       >
         <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen
-              name="Start"
-              component={StartScreen}
-              options={{ headerLeft: null, gesturesEnabled: false }}
-            />
-
+        <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
+        <Stack.Screen name="NextScreen" component={NextScreen} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Home" component={HomeScreen} />
+
+        {/* NextScreen */}
       </Stack.Navigator>
     </NavigationContainer>
   );

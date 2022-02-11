@@ -17,7 +17,7 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 
 // import logoWatermark from "../assets/logoWatermark.png";
 
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo2.png";
 
 // import SwipeGestureComponents from "../components/SwipeGestureComponents";
 

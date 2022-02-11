@@ -268,7 +268,7 @@ export default class Start extends Component {
             <GreenButton
               text="Next"
               buttonWidth={200}
-              onPress={() => this.props.navigation.navigate("Login")}
+              onPress={() => this.props.navigation.navigate("NextScreen")}
             />
           </View>
         </View>

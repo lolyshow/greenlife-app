@@ -11,7 +11,7 @@ import WhiteButton from "../components/WhiteButton";
 import InputBox from "../components/InputBox";
 export default function NextScreen(props) {
 
-  const [pinNo, setPinNo] = useState("1");
+  const [pinNo, setPinNo] = useState("");
   
 
 
@@ -35,15 +35,6 @@ export default function NextScreen(props) {
         <View style={{padding:20}}>
             <Text style = {{fontSize:15, fontWeight:"bold"}}>Member ID</Text>
             <View style={styles.inputWrapper}>
-                {/* <TextInput
-                style={styles.input}
-                underlineColorAndroid="transparent"
-                autoCapitalize="none"
-                keyboardType="numeric"
-                placeholder="Insert ID here"
-                //   inputValue={this.state.number}
-                //   onChangeText={(number) => this.setState({ number })}
-                /> */}
 
                 <InputBox
                   keyboardType="numeric"
@@ -69,7 +60,7 @@ export default function NextScreen(props) {
                   placeholder="*********"
                 />
                 <View style = {{flexDirection:'row-reverse'}}>
-                  <Text style={{color:"#0C9344"}} onPress={() => {this.props.navigation.navigate("ForgotPassword");}}>Forgot Password</Text>
+                  <Text style={{color:"#0C9344"}} onPress={() => {props.navigation.navigate("ForgotPassword");}}>Forgot Password</Text>
                 </View>
                 
             </View>
@@ -83,7 +74,7 @@ export default function NextScreen(props) {
                 <GreenButton
                     text="Login"
                     buttonWidth={250}
-                    onPress={() => props.navigation.navigate("Login")}
+                    onPress={() => props.navigation.navigate("EmailVerify")}
                 />
             </View>
 

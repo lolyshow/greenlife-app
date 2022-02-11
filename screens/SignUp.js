@@ -138,7 +138,7 @@ export default function NextScreen(props) {
                     <GreenButton
                         text="Sign Up"
                         buttonWidth={250}
-                        onPress={() => props.navigation.navigate("Login")}
+                        onPress={() => props.navigation.navigate("EmailVerify")}
                     />
                 </View>
             </View>

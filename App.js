@@ -7,6 +7,10 @@ import StartScreen from "./screens/Start";
 import NextScreen from "./screens/NextScreen";
 import SignUp from "./screens/SignUp";
 import Login from "./screens/Login";
+import ForgotPassword from "./screens/ForgotPassword";
+import EmailVerify from "./screens/EmailVerify";
+import GtpsLogin from "./screens/GtpsLogin";
+
 function HomeScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -48,6 +52,10 @@ function App() {
         <Stack.Screen name="NextScreen" component={NextScreen} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="EmailVerify" component={EmailVerify} />
+        <Stack.Screen name="GtpsLogin" component={GtpsLogin} />
+        
         <Stack.Screen name="Home" component={HomeScreen} />
 
         {/* NextScreen */}

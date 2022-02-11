@@ -9,10 +9,12 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 import GreenButton from "../components/GreenButton";
 import WhiteButton from "../components/WhiteButton";
 import InputBox from "../components/InputBox";
-export default function ForgotPassword(props) {
+export default function NextScreen(props) {
 
   const [pinNo, setPinNo] = useState("");
   
+
+
   return (
     <View
         source={unsplash}
@@ -25,39 +27,63 @@ export default function ForgotPassword(props) {
         </View>
 
         <View style={{padding:20}}>
-            <Text style = {{fontSize:20, fontWeight:"bold"}}>Forgot Password</Text>
-            <Text style = {{fontSize:12, color:"#979797", marginTop:10,}}>Don't worry just input your email, we will send you a link to recover your account</Text>
+            <Text style = {{fontSize:20, fontWeight:"bold"}}>GTPS Member Sign In</Text>
+            
         </View>
 
 
         <View style={{padding:20}}>
-            {/* <Text style = {{fontSize:15, fontWeight:"bold"}}>Member ID</Text> */}
+            <Text style = {{fontSize:15, fontWeight:"bold"}}>Member ID</Text>
             <View style={styles.inputWrapper}>
-                
+
                 <InputBox
                   keyboardType="numeric"
                   onChangeText={(pinNo) => setPinNo(pinNo)}
                   inputValue={pinNo}
                   borderWidth={1}
                   // inputLabel="Number of PINS"
-                  placeholder="Enter email address"
+                  placeholder="Insert ID here"
                 />
-
             </View>
         </View>
 
 
+        <View style={{padding:20}}>
+            <Text style = {{fontSize:15, fontWeight:"bold"}}>Password</Text>
+            <View style={styles.inputWrapper}>
+                <InputBox
+                  keyboardType="numeric"
+                  onChangeText={(pinNo) => setPinNo(pinNo)}
+                  inputValue={pinNo}
+                  borderWidth={1}
+                  // inputLabel="Number of PINS"
+                  placeholder="*********"
+                />
+                <View style = {{flexDirection:'row-reverse'}}>
+                  <Text style={{color:"#0C9344"}} onPress={() => {props.navigation.navigate("ForgotPassword");}}>Forgot Password</Text>
+                </View>
+                
+            </View>
+        </View>
+
+
+        
+
         <View style = {styles.body}>
             <View style={styles.buttonWrapper}>
                 <GreenButton
-                    text="Submit"
+                    text="Login"
                     buttonWidth={250}
-                    onPress={() => props.navigation.navigate("Login")}
+                    onPress={() => props.navigation.navigate("EmailVerify")}
                 />
             </View>
 
 
-            
+            <View style={{ marginTop:20}}>
+                <Text>New User
+                    <Text style={{ marginTop:20,color:"#0C9344"}} onPress={() => {props.navigation.navigate("SignUp");}}> Sign up Here</Text>
+                </Text>
+            </View>
         </View>
 
        
@@ -88,7 +114,12 @@ const styles = StyleSheet.create({
   inputContainer: {
   // width:350,
   borderWidth: 1,
+  // borderRadius:10,
   justifyContent:'space-between',
+  // padding:10,
+//   borderRightWidth: 1,
+  // height: 60,
+  // marginTop:10,
   flexDirection:'row',
 },
   title: {
@@ -108,6 +139,5 @@ const styles = StyleSheet.create({
     marginTop:10,
     flexDirection: "column",
     marginBottom: 10,
-    justifyContent:'center'
   },
 });

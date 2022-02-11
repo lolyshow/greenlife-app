@@ -41,7 +41,7 @@ export default function NextScreen(props) {
             </View>
 
             <View style={{ marginTop:10}}>
-                <Text style={{color:"white",fontWeight:'bold'}}>Sign in as GTPS User</Text>
+                <Text style={{color:"white",fontWeight:'bold'}} onPress={()=> props.navigation.navigate("GtpsLogin")}>Sign in as GTPS User</Text>
             </View>
         </View>
 

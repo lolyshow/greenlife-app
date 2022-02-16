@@ -1,15 +1,21 @@
-import * as React from 'react';
+import React, {Component} from 'react';
 import { View, Text,Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreen from "./screens/Splash";
-import StartScreen from "./screens/Start";
-import NextScreen from "./screens/NextScreen";
-import SignUp from "./screens/SignUp";
-import Login from "./screens/Login";
-import ForgotPassword from "./screens/ForgotPassword";
-import EmailVerify from "./screens/EmailVerify";
-import GtpsLogin from "./screens/GtpsLogin";
+import SplashScreen from "./screens/Auth/Splash";
+import StartScreen from "./screens/Auth/Start";
+import NextScreen from "./screens/Auth/NextScreen";
+import SignUp from "./screens/Auth/SignUp";
+import Login from "./screens/Auth/Login";
+import ForgotPassword from "./screens/Auth/ForgotPassword";
+import EmailVerify from "./screens/Auth/EmailVerify";
+import GtpsLogin from "./screens/Auth/GtpsLogin";
+
+import Home from "./screens/MainScreens/Home";
+import BottomTabNavigator from "./screens/Navigations/TabNavigator";
+import DrawerNavigator from "./screens/Navigations/DrawerNavigator";
+import { Provider, useSelector } from "react-redux";
+import { store } from "./redux/store";
 
 function HomeScreen() {
   return (
@@ -19,9 +25,18 @@ function HomeScreen() {
   );
 }
 
+export default App = () => {
+  return (
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  );
+};
+
 const Stack = createNativeStackNavigator();
 
-function App() {
+function AppContainer() {
+  const { loginStatus, showSplash } = useSelector((state) => state.reducers);
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -47,21 +62,25 @@ function App() {
           }),
         }}
       >
-        <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
-        <Stack.Screen name="NextScreen" component={NextScreen} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-        <Stack.Screen name="EmailVerify" component={EmailVerify} />
-        <Stack.Screen name="GtpsLogin" component={GtpsLogin} />
-        
-        <Stack.Screen name="Home" component={HomeScreen} />
 
+        {!loginStatus ? (
+          <>
+            <Stack.Screen name="Splash" component={SplashScreen} />
+            <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
+            <Stack.Screen name="NextScreen" component={NextScreen} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="EmailVerify" component={EmailVerify} />
+            <Stack.Screen name="GtpsLogin" component={GtpsLogin} />
+          </>
+         ) : (
+          <>
+            <Stack.Screen name="Home" component={DrawerNavigator} options={{ headerLeft: null, gesturesEnabled: false }}/>
+          </>
+        )} 
         {/* NextScreen */}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-export default App;

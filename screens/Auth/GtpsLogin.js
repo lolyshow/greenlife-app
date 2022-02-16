@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet,ImageBackground,Dimensions,Image,TextInput } from "react-native";
-import logo from "../assets/logo2.png";
-import unsplash from "../assets/unsplash.png";
+import logo from "../../assets/logo2.png";
+import unsplash from "../../assets/unsplash.png";
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
 
-import GreenButton from "../components/GreenButton";
-import WhiteButton from "../components/WhiteButton";
-import InputBox from "../components/InputBox";
+import GreenButton from "../../components/GreenButton";
+import WhiteButton from "../../components/WhiteButton";
+import InputBox from "../../components/InputBox";
 export default function NextScreen(props) {
 
   const [pinNo, setPinNo] = useState("");
@@ -27,8 +27,8 @@ export default function NextScreen(props) {
         </View>
 
         <View style={{padding:20}}>
-            <Text style = {{fontSize:20, fontWeight:"bold"}}>Welcome Back</Text>
-            <Text style = {{fontSize:12, color:"#979797"}}>Sign In to continue</Text>
+            <Text style = {{fontSize:20, fontWeight:"bold"}}>GTPS Member Sign In</Text>
+            
         </View>
 
 

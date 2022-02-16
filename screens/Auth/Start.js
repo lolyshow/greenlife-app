@@ -15,18 +15,18 @@ import {
 
 // import Logo from "../assets/shago1.png";
 
-import commission from "../assets/commission.png";
+import commission from "../../assets/commission.png";
 
-import shop from "../assets/shop1.png";
-import logo from "../assets/logo2.jpg";
+import shop from "../../assets/shop1.png";
+import logo from "../../assets/logo2.jpg";
 
-import investment from "../assets/Investment.png";
+import investment from "../../assets/Investment.png";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
 
-import GreenButton from "../components/GreenButton";
+import GreenButton from "../../components/GreenButton";
 
 
 // import SwipeGestureComponents from "../components/SwipeGestureComponents";

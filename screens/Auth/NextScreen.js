@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet,ImageBackground,Dimensions,Image } from "react-native";
-import logo from "../assets/logo.png";
-import unsplash from "../assets/unsplash.png";
+import logo from "../../assets/logo.png";
+import unsplash from "../../assets/unsplash.png";
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
 
-import GreenButton from "../components/GreenButton";
-import WhiteButton from "../components/WhiteButton";
+import GreenButton from "../../components/GreenButton";
+import WhiteButton from "../../components/WhiteButton";
 export default function NextScreen(props) {
 
     

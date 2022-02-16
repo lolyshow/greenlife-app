@@ -52,7 +52,7 @@ const BottomTabNavigator = () => {
     })}
     
     >
-      <Tab.Screen name="Home" component={MainStackNavigator} />
+      <Tab.Screen name="Home" options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
       
       {/* <Tab.Screen name="Contact" component={ContactStackNavigator} /> */}
     </Tab.Navigator>

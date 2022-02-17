@@ -106,7 +106,7 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="Commission"
-                            // onPress={() => {props.navigation.navigate('SupportScreen')}}
+                            onPress={() => {props.navigation.navigate('CommissionReport')}}
                         />
 
                         <DrawerItem 

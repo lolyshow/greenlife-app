@@ -10,7 +10,7 @@ import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 
 
 
-const AddMember = ({ navigation,props }) => {
+const CommissionReport = ({ navigation,props }) => {
 
     const [searchPhrase, setSearchPhrase] = useState("");
     const [clicked, setClicked] = useState(false);
@@ -58,89 +58,52 @@ const AddMember = ({ navigation,props }) => {
         <View style = {styles.BodyContainer}>
             <View style ={styles.BodyHeader}>
 
-                <Text style = {{fontWeight:'bold', fontSize:20}}>Add New Member</Text>
+                <Text style = {{fontWeight:'bold', fontSize:20}}>My Commission Report</Text>
             </View>
 
             <View >
+                <View style = {styles.Card}>
+                    <Text>Wallet Balance</Text>
+                    <Text style = {{margin:20,fontSize:25,fontWeight:'bold'}}>=N=0.00</Text>
+                    <View>
+                        <ButtonComponent
+                            textinput="Withdraw"
+                            buttonWidth={100}
+                            onPress={() => this.submitForm()}
+                            // size ={"sm"}
+                            boldText = {"bold"}
+                            backgroundColor = {"#0C9344"}
+                            borderRadius = {10}
+                            textColor={"#FFFFFF"}
+                            borderWidth = {1}
+                            borderColors = {"#FFFFFF"}
 
-                <SearchBar
-                searchPhrase={searchPhrase}
-                setSearchPhrase={(text) => setSearchPhraseFunc(text)}
-                clicked={clicked}
-                searchPlaceHolder={"Search Member ID here"}
-                setClicked={(clicked) => setClickedFunc(clicked)}
-                />
+                        />
+
+                    </View>
+                </View>
+
+                <View>
+
+                    <Text style = {{fontWeight:'bold', fontSize:20,marginTop:40,marginBottom:40}}>My Commission Report</Text>
+                </View>
+
+                <View style = {[styles.Card2,{justifyContent:'center'}]}>
+
+                    <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>No Commission Yet</Text>
+                    
+                </View>
+               
             </View>   
 
-            <View >
+                                   
 
-                <Text style = {{fontWeight:'bold', fontSize:15,marginTop:10,marginBottom:20}}>Registration Fee: =N=70,000.00</Text>
-            </View>                          
-
-            <ScrollView style ={styles.ContentBody}>
-
-
-                <View style = {{paddingTop:30}}>
-                    <InputBox
-                    // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    inputValue={"Enter First Name"}
-                    borderWidth={1}
-                    inputLabel = {"First Name"}
-                    placeholder={"Member ID"}
-                    textColor="black"
-                    background="#FFFFFF"
-                    />
-                </View>
-
-                <View style = {{paddingTop:30}}>
-                    <InputBox
-                    // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    inputValue={"Enter Last Name"}
-                    borderWidth={1}
-                    inputLabel = {"Last Name"}
-                    placeholder={"Member ID"}
-                    textColor="black"
-                    background="#FFFFFF"
-                    />
-                </View>
-                
-                <View style = {{paddingTop:30}}>
-                    <InputBox
-                    // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    inputValue={"Enter Email"}
-                    borderWidth={1}
-                    inputLabel = {"Email"}
-                    placeholder={"Member ID"}
-                    textColor="black"
-                    background="#FFFFFF"
-                    />
-                </View>
-
-
-                <View style = {{paddingTop:30}}>
-                    <InputBox
-                    // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    inputValue={"Enter Phone"}
-                    borderWidth={1}
-                    inputLabel = {"Phone"}
-                    placeholder={"Member ID"}
-                    textColor="black"
-                    background="#FFFFFF"
-                    />
-                </View>
-
-
-                
-            </ScrollView>
+            
             
         </View>
       {/* CardBody Ends */}
 
-        <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+        {/* <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
             <View style={{justifyContent:'center',marginTop:20}}>
                 <ButtonComponent
                     textinput="Add Member"
@@ -157,7 +120,7 @@ const AddMember = ({ navigation,props }) => {
                 />
                 
             </View>
-        </View>
+        </View> */}
     </View>
   );
 };
@@ -170,7 +133,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    flex: 0.9,
+    flex: 0.85,
     padding:20,
   },
   headerContainer:{
@@ -188,7 +151,36 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 3,
-  }
+  },
+
+    Card:{
+    // flex:1,
+    borderRadius:10,
+    padding:20,
+    height:200,
+    marginTop:10,
+    backgroundColor:"white",
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    // justifyContent:'center',
+    alignContent:'center',
+    alignItems:'center'
+  },
+  Card2:{
+    // flex:1,
+    borderRadius:10,
+    padding:20,
+    height:180,
+    marginTop:10,
+    backgroundColor:"white",
+    shadowColor: '#171717',
+    borderWidth:1,
+    shadowRadius: 1,
+    alignContent:'center',
+    alignItems:'center'
+  },
 });
 
-export default AddMember;
+export default CommissionReport;

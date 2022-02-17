@@ -24,7 +24,7 @@ const SearchBar = (props) => {
         {/* Input field */}
         <TextInput
           style={styles.input}
-          placeholder="Search"
+          placeholder={props.searchPlaceHolder?props.searchPlaceHolder:"search"}
           value={props.searchPhrase}
           onChangeText={props.setSearchPhrase}
           onFocus={() => {

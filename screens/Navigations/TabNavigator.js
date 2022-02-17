@@ -7,6 +7,7 @@ import { MainStackNavigator, ContactStackNavigator } from "./StackNavigator";
 import { NavigationContainer } from '@react-navigation/native';
 import Home from "../MainScreens/Home";
 import MemberPayment from "../MainScreens/AddNewMemberPayment";
+import AddMember from "../MainScreens/AddMember";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -99,6 +100,7 @@ function BottomTabNavigator() {
       <Stack.Screen name="Home" component={HomeTabs} />
       <Stack.Screen name="Prof" component={Home} />
       <Stack.Screen name="MemberPayment" component={MemberPayment} />
+      <Stack.Screen name = "AddMember" component = {AddMember}/>
     </Stack.Navigator>
   );
 }

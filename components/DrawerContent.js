@@ -95,7 +95,7 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="Manage Member"
-                            // onPress={() => {props.navigation.navigate('SettingsScreen')}}
+                            onPress={() => {props.navigation.navigate('AddMember')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

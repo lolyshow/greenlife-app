@@ -13,6 +13,8 @@ import {
     Switch
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Feather from "react-native-vector-icons/Feather";
 import ButtonComponent from "./ButtonComponent";
 export default function DrawerContent(props){
 
@@ -54,7 +56,7 @@ export default function DrawerContent(props){
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="home-outline" 
+                                name="view-dashboard" 
                                 color={color}
                                 size={size}
                                 />
@@ -71,12 +73,12 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="My Profile"
-                            // onPress={() => {props.navigation.navigate('Profile')}}
+                            onPress={() => {props.navigation.navigate('Prof')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
-                                <Icon 
-                                name="bookmark-outline" 
+                                <MaterialIcons 
+                                name="payment" 
                                 color={color}
                                 size={size}
                                 />
@@ -87,7 +89,7 @@ export default function DrawerContent(props){
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="settings-outline" 
+                                name="account-group" 
                                 color={color}
                                 size={size}
                                 />
@@ -97,8 +99,8 @@ export default function DrawerContent(props){
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
-                                <Icon 
-                                name="account-check-outline" 
+                                <MaterialIcons 
+                                name="payments" 
                                 color={color}
                                 size={size}
                                 />
@@ -109,14 +111,14 @@ export default function DrawerContent(props){
 
                         <DrawerItem 
                             icon={({color, size}) => (
-                                <Icon 
-                                name="account-check-outline" 
+                                <Feather 
+                                name="shopping-bag" 
                                 color={color}
                                 size={size}
                                 />
                             )}
                             labelStyle={{fontWeight:'bold'}}
-                            label="E-Shop"
+                            label="shop"
                             // onPress={() => {props.navigation.navigate('SupportScreen')}}
                         />
                     </Drawer.Section>

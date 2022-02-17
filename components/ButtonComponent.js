@@ -1,16 +1,16 @@
 import React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 
-const ButtonComponent = ({ onPress, textinput, size, backgroundColor,borderRadius,textColor,borderWidth,borderColors }) => (
+const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText }) => (
     
     
     <TouchableOpacity
       onPress={onPress}
-      style={{width:100,backgroundColor:backgroundColor,borderRadius:borderRadius,height:40,justifyContent:'center',borderWidth:1,borderColor:borderColors,}}
+      style={{width:buttonWidth?buttonWidth:100,backgroundColor:backgroundColor,borderRadius:borderRadius,height:40,justifyContent:'center',borderWidth:1,borderColor:borderColors,}}
     >
 
-      {console.log("thisIsTitle",textinput)}
-      <Text style={[styles.appButtonText, {color:textColor,fontSize: 12,}]}>
+      {console.log("thisIsTitlefd",boldText)}
+      <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'normal', fontSize: 12,}]}>
         {textinput}
       </Text>
     </TouchableOpacity>

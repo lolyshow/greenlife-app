@@ -1,12 +1,16 @@
 
 import React from "react";
 import { View, Button, Text, StyleSheet,ScrollView,TouchableOpacity,Switch } from "react-native";
+import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple} from 'react-native-paper';
 import SearchBar from "../../components/SearchBar";
 import Clipboard from '@react-native-community/clipboard';
 import { color } from "react-native-reanimated";
 import GreenButton from "../../components/GreenButton";
 import WhiteButton from "../../components/WhiteButton";
 import ButtonComponent from "../../components/ButtonComponent";
+import ToggleDrawerBtn from "../../components/ToggleDrawerBtn";
+import FontAwesome from 'react-native-vector-icons/MaterialIcons';
+
 export default class Home extends React.Component {
   // function Home(props){
 
@@ -52,7 +56,7 @@ export default class Home extends React.Component {
       this.setState(({isEnabled : true}))
      }
     }
-
+    toggleNav = () =>{ console.log("navToggled");   this.props.navigation.openDrawer()}
 
   render(){
 
@@ -63,7 +67,10 @@ export default class Home extends React.Component {
       {/* header Starts */}
       <View style = {styles.headerContainer}>
         <View>
-          <Text>LeftIcon</Text>
+          {/* <Text onPress = {this.toggleNav}>LeftIcon</Text> */}
+          <ToggleDrawerBtn 
+            onPress = {this.toggleNav}
+          />
         </View>
         
         <View>
@@ -72,11 +79,14 @@ export default class Home extends React.Component {
         </View>
 
         <View>
-          <Text>right Text</Text>
+          <Avatar.Image 
+              source={require('../../assets/avatar2.jpg')}
+              size={40}
+          />
         </View>
 
       </View>
-
+      {/* Header Container Ends */}
       
       <View>
         <Text style = {styles.boldText}>Good Morning Josiah</Text>
@@ -103,11 +113,11 @@ export default class Home extends React.Component {
           <View style = {{flexDirection:'row'}}>
             {/* onclick Copy Starts */}
             <TouchableOpacity /*onPress={this.copyToClipboard(this.state.linkUrl)*/ style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,}}>
-              <Text>{this.state.linkUrl}</Text>
+              <Text style = {{fontSize:12, color:"#979797"}}>{this.state.linkUrl}</Text>
             </TouchableOpacity>
             
             <View style = {{padding:3,color:'#0C9344'}}>
-              <Text>copy</Text>
+              <FontAwesome name="content-copy" size = {20} color = {"#0C9344"}/>
             </View>
 
             {/* onclick Copy Ends */}
@@ -281,6 +291,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding:20,
+    paddingTop:10,
   },
   headerContainer:{
     marginTop:40,

@@ -84,7 +84,7 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="Manage Payment"
-                            // onPress={() => {props.navigation.navigate('BookmarkScreen')}}
+                            onPress={() => {props.navigation.navigate('MemberPayment')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

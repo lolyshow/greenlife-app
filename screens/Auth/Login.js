@@ -1,5 +1,5 @@
 import React, { useState, useEffect,Component } from "react";
-import { View, Text, StyleSheet,ImageBackground,Dimensions,Image,TextInput,Alert, } from "react-native";
+import { View, Text, StyleSheet,ImageBackground,Dimensions,Image,TextInput,Alert,ScrollView } from "react-native";
 import logo from "../../assets/logo2.png";
 import unsplash from "../../assets/unsplash.png";
 import { store } from "../../redux/store";
@@ -137,11 +137,8 @@ class Login extends Component {
 
   render(){
     return (
-      <View
-          source={unsplash}
-          style={styles.centered}
-        >
-
+      <View source={unsplash} style={styles.centered}>
+        <ScrollView>
           <View style = {{marginTop:50,justifyContent:"center",alignItems:'center'}}>
               <Image source = {logo} />
 
@@ -207,7 +204,7 @@ class Login extends Component {
               </View>
           </View>
 
-        
+        </ScrollView>
         
       </View>
     );

@@ -5,6 +5,7 @@ import ButtonComponent from "../../components/ButtonComponent";
 import InputBox from "../../components/InputBox";
 import BackBtn from "../../components/BackBtn";
 import SelectBox from "../../components/SelectBox";
+import HeaderComponent from "../../components/HeaderComponent";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 
 
@@ -23,21 +24,8 @@ const AddNewMemberPayment = ({ navigation,props }) => {
 
   return (
     <View style={styles.container}>
-        {/* header Starts */}
-      <View style = {styles.headerContainer}>
-        <View>
-          
-          <BackBtn 
-            onPress = {Back}
-          />
-        </View>
-        
-        <View style = {{marginLeft:100}}>
-          <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
-          <Text style = {{textAlign:'center'}}>202012340008</Text>
-        </View>
-
-      </View>
+      {/* header Starts */}
+        <HeaderComponent onPress = {Back} memberId = {"10000203445"}/>
       {/* Header Container Ends */}
 
 

@@ -9,6 +9,8 @@ import Home from "../MainScreens/Home";
 import MemberPayment from "../MainScreens/AddNewMemberPayment";
 import AddMember from "../MainScreens/AddMember";
 import CommissionReport from "../MainScreens/CommissionReport";
+import Withdrawal from "../MainScreens/Withdrawal";
+import SubmitWithdrawRequest from "../MainScreens/SubmitWithdrawRequest";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -103,6 +105,8 @@ function BottomTabNavigator() {
       <Stack.Screen name="MemberPayment" component={MemberPayment} />
       <Stack.Screen name = "AddMember" component = {AddMember}/>
       <Stack.Screen name = "CommissionReport" component = {CommissionReport}/>
+      <Stack.Screen name = "Withdrawal" component = {Withdrawal}/>
+      <Stack.Screen name = "SubmitWithdrawRequest" component = {SubmitWithdrawRequest} />
     </Stack.Navigator>
   );
 }

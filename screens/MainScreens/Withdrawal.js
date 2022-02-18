@@ -11,7 +11,7 @@ import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 
 
 
-const CommissionReport = ({ navigation,props }) => {
+const Withdrawal = ({ navigation,props }) => {
 
     const [searchPhrase, setSearchPhrase] = useState("");
     const [clicked, setClicked] = useState(false);
@@ -36,8 +36,23 @@ const CommissionReport = ({ navigation,props }) => {
   return (
     <View style={styles.container}>
         {/* header Starts */}
-            <HeaderComponent onPress = {Back} memberId = {"10000203445"}/>
-        {/* Header Container Ends */}
+      {/* <View style = {styles.headerContainer}>
+        <View>
+          
+          <BackBtn 
+            onPress = {Back}
+          />
+        </View>
+        
+        <View style = {{marginLeft:100}}>
+          <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
+          <Text style = {{textAlign:'center'}}>202012340008</Text>
+        </View>
+
+      </View> */}
+
+      <HeaderComponent onPress = {Back} memberId = {"10000203445"}/>
+      {/* Header Container Ends */}
 
 
 
@@ -46,7 +61,7 @@ const CommissionReport = ({ navigation,props }) => {
         <View style = {styles.BodyContainer}>
             <View style ={styles.BodyHeader}>
 
-                <Text style = {{fontWeight:'bold', fontSize:20}}>My Commission Report</Text>
+                <Text style = {{fontWeight:'bold', fontSize:20}}>My Withdrawal Report</Text>
             </View>
 
             <View >
@@ -73,12 +88,12 @@ const CommissionReport = ({ navigation,props }) => {
 
                 <View>
 
-                    <Text style = {{fontWeight:'bold', fontSize:15,marginTop:40,marginBottom:40}}> Commission Summary Report</Text>
+                    <Text style = {{fontWeight:'bold', fontSize:20,marginTop:40,marginBottom:40}}>Withdrawal Report</Text>
                 </View>
 
                 <View style = {[styles.Card2,{justifyContent:'center'}]}>
 
-                    <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>No Commission Yet</Text>
+                    <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>No Withdrawal Yet</Text>
                     
                 </View>
                
@@ -172,4 +187,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CommissionReport;
+export default Withdrawal;

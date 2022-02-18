@@ -111,6 +111,31 @@ export default function DrawerContent(props){
 
                         <DrawerItem 
                             icon={({color, size}) => (
+                                <MaterialIcons 
+                                name="payments" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Withdrawal"
+                            onPress={() => {props.navigation.navigate('Withdrawal')}}
+                        />
+
+
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <MaterialIcons 
+                                name="payments" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Withdrawal Request"
+                            onPress={() => {props.navigation.navigate('SubmitWithdrawRequest')}}
+                        />
+
+                        <DrawerItem 
+                            icon={({color, size}) => (
                                 <Feather 
                                 name="shopping-bag" 
                                 color={color}

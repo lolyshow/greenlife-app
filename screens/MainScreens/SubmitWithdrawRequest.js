@@ -1,32 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, Button, Text, StyleSheet,ScrollView } from "react-native";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
 import ButtonComponent from "../../components/ButtonComponent";
 import InputBox from "../../components/InputBox";
 import BackBtn from "../../components/BackBtn";
 import SelectBox from "../../components/SelectBox";
-import SearchBar from "../../components/SearchBar";
 import HeaderComponent from "../../components/HeaderComponent";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 
 
 
-const AddMember = ({ navigation,props }) => {
-
-    const [searchPhrase, setSearchPhrase] = useState("");
-    const [clicked, setClicked] = useState(false);
+const SubmitWithdrawRequest = ({ navigation,props }) => {
 
     const Back = () =>{
         navigation.goBack()
     }
 
-    const setSearchPhraseFunc = (text) =>{
-        setSearchPhrase(text)
-    }
-
-    const setClickedFunc = (action) =>{
-        setClicked(action)
-    }
     const Items = [
         { label: 'Activation', value: 'activation' },
         { label: 'Baseball', value: 'baseball' },
@@ -35,9 +24,9 @@ const AddMember = ({ navigation,props }) => {
 
   return (
     <View style={styles.container}>
-      {/* header Starts */}
-        <HeaderComponent onPress = {Back} memberId = {"10000203445"}/>
-      {/* Header Container Ends */}
+        {/* header Starts */}
+            <HeaderComponent onPress = {Back} memberId = {"10000203445"}/>
+        {/* Header Container Ends */}
 
 
 
@@ -46,62 +35,54 @@ const AddMember = ({ navigation,props }) => {
         <View style = {styles.BodyContainer}>
             <View style ={styles.BodyHeader}>
 
-                <Text style = {{fontWeight:'bold', fontSize:20}}>Add New Member</Text>
+                <Text style = {{fontWeight:'bold'}}>Submit Withdrawal Request</Text>
             </View>
 
-            <View >
+            <View style ={{marginTop:20}}>
 
-                <SearchBar
-                searchPhrase={searchPhrase}
-                setSearchPhrase={(text) => setSearchPhraseFunc(text)}
-                clicked={clicked}
-                searchPlaceHolder={"Search Member ID here"}
-                setClicked={(clicked) => setClickedFunc(clicked)}
-                />
-            </View>   
-
-            <View >
-
-                <Text style = {{fontWeight:'bold', fontSize:15,marginTop:10,marginBottom:20}}>Registration Fee: =N=70,000.00</Text>
-            </View>                          
+                <Text>Account Balance:=N=70,000.0</Text>
+            </View>
 
             <ScrollView style ={styles.ContentBody}>
 
 
-                <View style = {{paddingTop:30}}>
+            <View style = {{paddingTop:30}}>
                     <InputBox
                     // keyboardType="numeric"
                     onChangeText={(pinNo) => console.log('')}
-                    inputValue={"Enter First Name"}
+                    // inputValue={"Member ID"}
                     borderWidth={1}
-                    inputLabel = {"First Name"}
-                    placeholder={"Member ID"}
+                    // inputLabel = {"Member ID"}
+                    placeholder={"Enter Amount to Withdraw"}
                     textColor="black"
                     background="#FFFFFF"
                     />
                 </View>
 
+
                 <View style = {{paddingTop:30}}>
-                    <InputBox
-                    // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    inputValue={"Enter Last Name"}
-                    borderWidth={1}
-                    inputLabel = {"Last Name"}
-                    placeholder={"Member ID"}
-                    textColor="black"
-                    background="#FFFFFF"
+                    <SelectBox
+                        value={"val"}
+                        onValueChange={(phoneVerificationType) =>
+                            console.log("logged")
+                        }
+                        placeholder={"Select Bank"}
+                        items={Items}
+                        inputLabel = {"Select Bank:"}
                     />
                 </View>
+
+
                 
+
                 <View style = {{paddingTop:30}}>
                     <InputBox
                     // keyboardType="numeric"
                     onChangeText={(pinNo) => console.log('')}
-                    inputValue={"Enter Email"}
+                    // inputValue={"Member ID"}
                     borderWidth={1}
-                    inputLabel = {"Email"}
-                    placeholder={"Member ID"}
+                    // inputLabel = {"Member ID"}
+                    placeholder={"Enter Account Number"}
                     textColor="black"
                     background="#FFFFFF"
                     />
@@ -112,39 +93,44 @@ const AddMember = ({ navigation,props }) => {
                     <InputBox
                     // keyboardType="numeric"
                     onChangeText={(pinNo) => console.log('')}
-                    inputValue={"Enter Phone"}
+                    // inputValue={"Enter Amount Paid"}
                     borderWidth={1}
-                    inputLabel = {"Phone"}
-                    placeholder={"Member ID"}
+                    // inputLabel = {"Enter Amount"}
+                    placeholder={"Enter Account Name"}
                     textColor="black"
                     background="#FFFFFF"
                     />
                 </View>
+
 
 
                 
             </ScrollView>
-            
+
+            <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                
+                <View style={{justifyContent:'center',marginTop:20}}>
+                    <ButtonComponent
+                        textinput="Add Member Payment"
+                        buttonWidth={250}
+                        onPress={() => this.submitForm()}
+                        // size ={"sm"}
+                        boldText = {"bold"}
+                        backgroundColor = {"#1976D2"}
+                        borderRadius = {16}
+                        textColor={"#FFFFFF"}
+                        borderWidth = {1}
+                        borderColors = {"#FFFFFF"}
+
+                    />
+                    
+                </View>
+            </View>
         </View>
       {/* CardBody Ends */}
 
         <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-            <View style={{justifyContent:'center',marginTop:20}}>
-                <ButtonComponent
-                    textinput="Add Member"
-                    buttonWidth={250}
-                    onPress={() => this.submitForm()}
-                    // size ={"sm"}
-                    boldText = {"bold"}
-                    backgroundColor = {"#0C9344"}
-                    borderRadius = {16}
-                    textColor={"#FFFFFF"}
-                    borderWidth = {1}
-                    borderColors = {"#FFFFFF"}
-
-                />
-                
-            </View>
+            
         </View>
     </View>
   );
@@ -158,7 +144,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    flex: 0.9,
+    flex: 0.95,
     padding:20,
   },
   headerContainer:{
@@ -179,4 +165,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AddMember;
+export default SubmitWithdrawRequest;

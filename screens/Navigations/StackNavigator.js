@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Provider, useSelector } from "react-redux";
 import { store } from "../../redux/store";
 import Home from "../MainScreens/Home";
-import About from "../MainScreens/About";
+import Shop from "../MainScreens/Shop";
 import Member from "../MainScreens/Member";
 import Account from "../MainScreens/Account";
 import Payment from "../MainScreens/Payment";
@@ -34,7 +34,21 @@ const MainStackNavigator = () => {
     
     >
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="Member" component={Member} />
+      <Stack.Screen name="Account" component={Account} />
+    </Stack.Navigator>
+  );
+}
+
+
+const ShopStackNavigator = () => {
+  return (
+    <Stack.Navigator
+        screenOptions={screenOptionStyle}
+    
+    >
+      <Stack.Screen name="Shop" component={Shop} />
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="Member" component={Member} />
       <Stack.Screen name="Account" component={Account} />
@@ -51,4 +65,4 @@ const PaymentStackNavigator = () => {
   );
 }
 
-export { MainStackNavigator,PaymentStackNavigator };
+export { MainStackNavigator,PaymentStackNavigator,ShopStackNavigator };

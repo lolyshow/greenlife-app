@@ -3,7 +3,7 @@ import { View, Text,Platform } from 'react-native';
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
-import { MainStackNavigator, ContactStackNavigator } from "./StackNavigator";
+import { MainStackNavigator, ContactStackNavigator,ShopStackNavigator } from "./StackNavigator";
 import { NavigationContainer } from '@react-navigation/native';
 import Home from "../MainScreens/Home";
 import MemberPayment from "../MainScreens/AddNewMemberPayment";
@@ -68,12 +68,20 @@ const HomeTabs = () => {
     
     >
       <Tab.Screen name="Home" options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
+      <Tab.Screen name="Shop" options={{/*tabBarStyle:{display:'none'},*/ /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
       <Tab.Screen name="Profile" options={{tabBarStyle:{display:'none'}, showLabel: false, headerLeft: null, tabBarVisible: false, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
       {/* <Tab.Screen name="Contact" component={ContactStackNavigator} /> */}
     </Tab.Navigator>
   );
 };
 
+const HomeStack = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="Contact" component={Payment} />
+    </Stack.Navigator>
+  );
+}
 
 function BottomTabNavigator() {
   return (

@@ -36,21 +36,7 @@ const Withdrawal = ({ navigation,props }) => {
   return (
     <View style={styles.container}>
         {/* header Starts */}
-      {/* <View style = {styles.headerContainer}>
-        <View>
-          
-          <BackBtn 
-            onPress = {Back}
-          />
-        </View>
-        
-        <View style = {{marginLeft:100}}>
-          <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
-          <Text style = {{textAlign:'center'}}>202012340008</Text>
-        </View>
-
-      </View> */}
-
+    
       <HeaderComponent onPress = {Back} memberId = {"10000203445"}/>
       {/* Header Container Ends */}
 
@@ -58,7 +44,7 @@ const Withdrawal = ({ navigation,props }) => {
 
       {/* Body Starts */}
 
-        <View style = {styles.BodyContainer}>
+        <ScrollView style = {styles.BodyContainer}>
             <View style ={styles.BodyHeader}>
 
                 <Text style = {{fontWeight:'bold', fontSize:20}}>My Withdrawal Report</Text>
@@ -103,27 +89,10 @@ const Withdrawal = ({ navigation,props }) => {
 
             
             
-        </View>
+        </ScrollView>
       {/* CardBody Ends */}
 
-        {/* <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-            <View style={{justifyContent:'center',marginTop:20}}>
-                <ButtonComponent
-                    textinput="Add Member"
-                    buttonWidth={250}
-                    onPress={() => this.submitForm()}
-                    // size ={"sm"}
-                    boldText = {"bold"}
-                    backgroundColor = {"#0C9344"}
-                    borderRadius = {16}
-                    textColor={"#FFFFFF"}
-                    borderWidth = {1}
-                    borderColors = {"#FFFFFF"}
-
-                />
-                
-            </View>
-        </View> */}
+        
     </View>
   );
 };
@@ -136,7 +105,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    flex: 0.85,
+    flex: 1,
     padding:20,
   },
   headerContainer:{
@@ -176,7 +145,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     padding:20,
     height:180,
-    marginTop:10,
+    // marginTop:10,
     backgroundColor:"white",
     shadowColor: '#171717',
     borderWidth:1,

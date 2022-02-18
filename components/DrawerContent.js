@@ -62,7 +62,7 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="Dashboard"
-                            // onPress={() => {props.navigation.navigate('Home')}}
+                            onPress={() => {props.navigation.navigate('HomeStack')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -73,7 +73,7 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="My Profile"
-                            onPress={() => {props.navigation.navigate('Prof')}}
+                            onPress={() => {props.navigation.navigate('HomeStack', { screen: 'Account' })}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -84,7 +84,12 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="Manage Payment"
-                            onPress={() => {props.navigation.navigate('MemberPayment')}}
+                            onPress={() => {props.navigation.navigate('HomeStack', 
+                            { 
+                            screen: 'HomeTab',params: {
+                                screen: 'MemberPayment',}, 
+                            })
+                            }}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -95,7 +100,12 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="Manage Member"
-                            onPress={() => {props.navigation.navigate('AddMember')}}
+                            onPress={() => {props.navigation.navigate('HomeStack', 
+                            { 
+                            screen: 'HomeTab',params: {
+                                screen: 'AddNewMember',}, 
+                            })
+                            }}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -144,7 +154,12 @@ export default function DrawerContent(props){
                             )}
                             labelStyle={{fontWeight:'bold'}}
                             label="shop"
-                            // onPress={() => {props.navigation.navigate('SupportScreen')}}
+                            onPress={() => {props.navigation.navigate('HomeStack', 
+                            { 
+                            screen: 'ShopTab',params: {
+                                screen: 'Shop',}, 
+                            })
+                            }}
                         />
                     </Drawer.Section>
                     <Drawer.Section style={styles.bottomDrawerSection}>

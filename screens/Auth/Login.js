@@ -178,7 +178,7 @@ class Login extends Component {
                     placeholder="**"
                   />
                   <View style = {{flexDirection:'row-reverse'}}>
-                    <Text style={{color:"#0C9344"}} onPress={() => {props.navigation.navigate("ForgotPassword");}}>Forgot Password</Text>
+                    <Text style={{color:"#0C9344"}} onPress={() => {this.props.navigation.navigate("ForgotPassword");}}>Forgot Password</Text>
                   </View>
                   
               </View>
@@ -199,7 +199,7 @@ class Login extends Component {
 
               <View style={{ marginTop:20}}>
                   <Text>New User
-                      <Text style={{ marginTop:20,color:"#0C9344"}} onPress={() => {props.navigation.navigate("SignUp");}}> Sign up Here</Text>
+                      <Text style={{ marginTop:20,color:"#0C9344"}} onPress={() => {this.props.navigation.navigate("SignUp");}}> Sign up Here</Text>
                   </Text>
               </View>
           </View>

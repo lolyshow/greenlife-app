@@ -5,9 +5,10 @@ import { store } from "../../redux/store";
 import Home from "../MainScreens/Home";
 import Shop from "../MainScreens/Shop";
 import AddStock from "../MainScreens/AddStock";
-import Member from "../MainScreens/Member";
+import MemberPayment from "../MainScreens/AddNewMemberPayment";
+import AddNewMember from "../MainScreens/AddMember";
 import Account from "../MainScreens/Account";
-import Payment from "../MainScreens/Payment";
+import Payment from "../MainScreens/AddNewMemberPayment";
 const Stack = createStackNavigator();
 const screenOptionStyle = {
   headerStyle: {
@@ -35,8 +36,8 @@ const MainStackNavigator = () => {
     
     >
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Payment" component={Payment} />
-      <Stack.Screen name="Member" component={Member} />
+      <Stack.Screen name="MemberPayment" component={Payment} />
+      <Stack.Screen name="AddNewMember" component={AddNewMember} />
       <Stack.Screen name="Account" component={Account} />
     </Stack.Navigator>
   );
@@ -51,19 +52,33 @@ const ShopStackNavigator = () => {
     >
       <Stack.Screen name="Shop" component={Shop} />
       <Stack.Screen name="AddStock" component={AddStock} />
-      <Stack.Screen name="Member" component={Member} />
-      <Stack.Screen name="Account" component={Account} />
+      {/* <Stack.Screen name="Member" component={Member} /> */}
+      {/* <Stack.Screen name="Account" component={Account} /> */}
     </Stack.Navigator>
   );
 }
 
+const AccountStackNavigator = () => {
+  return (
+    <Stack.Navigator
+        screenOptions={screenOptionStyle}
+    
+    >
+      <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="Shop" component={Shop} />
+      <Stack.Screen name="AddStock" component={AddStock} />
+      <Stack.Screen name="Member" component={MemberPayment} />
+     
+    </Stack.Navigator>
+  );
+}
 
 const PaymentStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Contact" component={Payment} />
+      <Stack.Screen name="Payment" component={Payment} />
     </Stack.Navigator>
   );
 }
 
-export { MainStackNavigator,PaymentStackNavigator,ShopStackNavigator };
+export { MainStackNavigator,PaymentStackNavigator,ShopStackNavigator,AccountStackNavigator };

@@ -3,7 +3,7 @@ import { View, Text,Platform } from 'react-native';
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
-import { MainStackNavigator, ContactStackNavigator,ShopStackNavigator } from "./StackNavigator";
+import { MainStackNavigator, PaymentStackNavigator,ShopStackNavigator,AccountStackNavigator } from "./StackNavigator";
 import { NavigationContainer } from '@react-navigation/native';
 import Home from "../MainScreens/Home";
 import MemberPayment from "../MainScreens/AddNewMemberPayment";
@@ -35,16 +35,18 @@ const screenOptionStyle = {
           // }),
 };
 
-const HomeTabs = () => {
+
+
+const AccountTabs = () => {
   return (
     <Tab.Navigator
     screenOptions={({ route })=>({
       tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "Home") {
+          if (route.name === "HomeTab") {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "Shop") {
+          } else if (route.name === "ShopTab") {
             iconName = focused ? "md-basket" : "md-basket-outline";
           } else if (route.name === "Withdrawal") {
             iconName = focused ? "ios-wallet-sharp" : "ios-wallet-outline";
@@ -67,21 +69,61 @@ const HomeTabs = () => {
 
     
     >
-      <Tab.Screen name="Home" options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
-      <Tab.Screen name="Shop" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
-      <Tab.Screen name="Withdrawal" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
       <Tab.Screen name="Account" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
+      <Tab.Screen name="HomeTab" options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
+      <Tab.Screen name="ShopTab" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
+      <Tab.Screen name="Withdrawal" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
+      
     </Tab.Navigator>
   );
 };
 
-const HomeStack = () => {
+
+
+
+
+
+
+const HomeTabs = () => {
   return (
-    <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Contact" component={Payment} />
-    </Stack.Navigator>
+    <Tab.Navigator
+    screenOptions={({ route })=>({
+      tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === "HomeTab") {
+            iconName = focused ? "home" : "home-outline";
+          } else if (route.name === "ShopTab") {
+            iconName = focused ? "md-basket" : "md-basket-outline";
+          } else if (route.name === "Withdrawal") {
+            iconName = focused ? "ios-wallet-sharp" : "ios-wallet-outline";
+          } else if (route.name === "Account") {
+            iconName = focused ? "person" : "person-outline";
+          } else if (route.name === "Settings") {
+            iconName = focused ? "settings" : "settings-outline";
+          } else if (route.name === "POS") {
+            iconName = focused ? "calculator" : "calculator-outline";
+          }
+          return <Icon name={iconName} size={size} color={color} />;
+        }
+    })}
+    >
+      <Tab.Screen name="HomeTab" options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
+      {/* <Stack.Screen name="MemberPayment" options={{ headerShown: false }} component={MemberPayment} /> */}
+      <Tab.Screen name="ShopTab" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
+      <Tab.Screen name="Withdrawal" options={{ headerShown: false }} component={Withdrawal} />
+      <Tab.Screen name="Account" options={{ headerShown: false }} component={AccountStackNavigator} />
+      {/* <Tab.Screen name="MemberPayment" options={{ headerShown: false }} component={AccountStackNavigator} /> */}
+      
+      {/*  */}
+      {/* <Tab.Screen name="Payment" options={{ headerShown: false }} component={PaymentStackNavigator} /> */}
+
+      
+
+      {/* Withdrawal */}
+    </Tab.Navigator>
   );
-}
+};
 
 function BottomTabNavigator() {
   return (
@@ -108,9 +150,10 @@ function BottomTabNavigator() {
         }}
     
     >
-      <Stack.Screen name="Home" component={HomeTabs} />
-      <Stack.Screen name="Prof" component={Home} />
-      <Stack.Screen name="MemberPayment" component={MemberPayment} />
+      <Stack.Screen name="HomeStack" component={HomeTabs} />
+      <Stack.Screen name="Prof" component={HomeTabs} />
+      <Stack.Screen name="MemberPayment" options={{ headerShown: false }} component={MemberPayment} />
+      <Stack.Screen name="ShopStack" component={ShopStackNavigator} />
       <Stack.Screen name = "AddMember" component = {AddMember}/>
       <Stack.Screen name = "CommissionReport" component = {CommissionReport}/>
       <Stack.Screen name = "Withdrawal" component = {Withdrawal}/>

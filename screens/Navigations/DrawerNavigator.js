@@ -32,7 +32,7 @@ const DrawerNavigator = () => {
      screenOptions={screenOptionStyle}
      drawerContent = {props=> <DrawerContent {...props}/>}
     >
-      <Drawer.Screen name="Home" component={TabNavigator} />
+      <Drawer.Screen name="GotoNav" component={TabNavigator} />
       
       {/* <Drawer.Screen name="Contact" component={ContactStackNavigator} /> */}
     </Drawer.Navigator>

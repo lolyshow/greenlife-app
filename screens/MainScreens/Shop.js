@@ -29,6 +29,11 @@ const Shop = ({ navigation,props }) => {
     const setClickedFunc = (action) =>{
         setClicked(action)
     }
+
+    const AddStock =() =>{
+        navigation.navigate('AddStock');
+    }
+
     const Items = [
         { label: 'Activation', value: 'activation' },
         { label: 'Baseball', value: 'baseball' },
@@ -101,7 +106,7 @@ const Shop = ({ navigation,props }) => {
                         <ButtonComponent
                             textinput="Click here to add stock"
                             buttonWidth={250}
-                            onPress={() => this.submitForm()}
+                            onPress={() => {AddStock()}}
                             // size ={"sm"}
                             boldText = {"bold"}
                             backgroundColor = {"#0C9344"}

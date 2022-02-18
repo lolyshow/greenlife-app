@@ -118,4 +118,4 @@
             res = res ^ ar[i]; 
             console.log("outAfter",res," ar", ar[i]);
         }
-        console.log( res); 
+        console.log( res);  

@@ -44,10 +44,10 @@ const HomeTabs = () => {
 
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "History") {
-            iconName = focused ? "timer" : "timer-outline";
-          } else if (route.name === "Notification") {
-            iconName = focused ? "notifications" : "notifications-outline";
+          } else if (route.name === "Shop") {
+            iconName = focused ? "md-basket" : "md-basket-outline";
+          } else if (route.name === "Withdrawal") {
+            iconName = focused ? "ios-wallet-sharp" : "ios-wallet-outline";
           } else if (route.name === "Account") {
             iconName = focused ? "person" : "person-outline";
           } else if (route.name === "Settings") {
@@ -68,9 +68,9 @@ const HomeTabs = () => {
     
     >
       <Tab.Screen name="Home" options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
-      <Tab.Screen name="Shop" options={{/*tabBarStyle:{display:'none'},*/ /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
-      <Tab.Screen name="Profile" options={{tabBarStyle:{display:'none'}, showLabel: false, headerLeft: null, tabBarVisible: false, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
-      {/* <Tab.Screen name="Contact" component={ContactStackNavigator} /> */}
+      <Tab.Screen name="Shop" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
+      <Tab.Screen name="Withdrawal" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
+      <Tab.Screen name="Account" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
     </Tab.Navigator>
   );
 };

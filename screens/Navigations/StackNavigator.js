@@ -4,6 +4,7 @@ import { Provider, useSelector } from "react-redux";
 import { store } from "../../redux/store";
 import Home from "../MainScreens/Home";
 import Shop from "../MainScreens/Shop";
+import AddStock from "../MainScreens/AddStock";
 import Member from "../MainScreens/Member";
 import Account from "../MainScreens/Account";
 import Payment from "../MainScreens/Payment";
@@ -49,7 +50,7 @@ const ShopStackNavigator = () => {
     
     >
       <Stack.Screen name="Shop" component={Shop} />
-      <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="AddStock" component={AddStock} />
       <Stack.Screen name="Member" component={Member} />
       <Stack.Screen name="Account" component={Account} />
     </Stack.Navigator>

@@ -32,8 +32,8 @@ export default function DrawerContent(props){
                                 size={80}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>Josiah Orie</Title>
-                                <Caption style={{color:'black'}}>200000000000000</Caption>
+                                <Title style={styles.title}>{global.user.name?global.user.name:""}</Title>
+                                <Caption style={{color:'black'}}>{global.user.memberid?global.user.memberid:"202012340005"}</Caption>
                                 <ButtonComponent
                                     textinput="Edit Profile"
                                     buttonWidth={100}

@@ -2,6 +2,7 @@ import React, { useState, useEffect,Component } from "react";
 import { View, Text, StyleSheet,ImageBackground,Dimensions,Image,TextInput,Alert,ScrollView } from "react-native";
 import logo from "../../assets/logo2.png";
 import unsplash from "../../assets/unsplash.png";
+import Helper from "../../Helpers/Helper";
 import { store } from "../../redux/store";
 const screenWidth = Math.round(Dimensions.get("window").width);
 
@@ -34,11 +35,11 @@ class Login extends Component {
     try {
       let { email, password } = this.state;
 
-      // let { validationStatus, errorMessage } = this.validateForm();
+      let { validationStatus, errorMessage } = this.validateForm();
 
-      // if (!validationStatus) {
-      //   return Alert.alert("Message", errorMessage);
-      // }
+      if (!validationStatus) {
+        return Alert.alert("Message", errorMessage);
+      }
 
       return this.signIn(email, password);
     } catch (error) {
@@ -96,33 +97,31 @@ class Login extends Component {
 
 
   signIn = async (email, password) => {
-    console.log("OutsideTryLogin")
     try {
 
       console.log("insideTryLogin")
-      // this.setState({ processing: true });
+      this.setState({ processing: true });
 
-      // let { message, error, user, response } = await Helper.logInApi(
-      //   email,
-      //   password
-      // ).then((result) => result);
+      let payload = "action=Member_login&memberid="+email+"&password="+password+"&api=";
+      console.log("payload", payload);
+      let { message, error, user, response } = await Helper.logInApi(
+        payload
+      ).then((result) => result);
 
-      // this.setState({ processing: false });
+      this.setState({ processing: false });
 
-      // if (!error) {
-        // this.setState({ email: "", password: "" });
-
-        
-
-        
-
-        // return this.props.navigation.navigate("Home");
-        return this.loginStatusAction(true);
-      // } else {
-      //   Alert.alert("Login", message);
-      // }
+      if (!error) {
+        this.setState({ email: "", password: "" });
+        store.dispatch({
+          type: "IS_SIGNED_IN",
+          payload: true,
+        });
+        return this.props.navigation.navigate("GotoHomeStack");
+      } else {
+        Alert.alert("Login", message);
+      }
     } catch (error) {
-      // this.setState({ processing: false });
+      this.setState({ processing: false });
 
       Alert.alert("Error", error.toString());
     }
@@ -192,6 +191,8 @@ class Login extends Component {
                   <GreenButton
                       text="Login"
                       buttonWidth={250}
+                      disabled={this.state.processing}
+                      processing={this.state.processing}
                       onPress={() => this.submitForm()}
                   />
               </View>

@@ -214,64 +214,54 @@ const Helper = {
     return data;
   },
 
-  logInApi: async (username, password, acceptTerms = false) => {
+  logInApi: async (payloads) => {
     let LoginData = {
-      email: username,
-      password: password,
-      acceptTerms: acceptTerms,
-      appVersion: `${Config.isPos ? "POS" : Platform.OS.toUpperCase()} ${
-        Config.appVersion
-      }`,
+      email: "username",
+      password: "password",
+    };
+    let email = "username";
+    let password = "password";
+    // const { uniqueId, brand, model } = NativeModules.RNDeviceInfo;
+
+    const headerPayload = {
+      username: "username",
+      password: "password",
+      token: "token",
     };
 
-    const { uniqueId, brand, model } = NativeModules.RNDeviceInfo;
 
-    const deviceInfo = {
-      uniqueId: uniqueId,
-      brand: brand,
-      model: model,
-    };
+    let url = Config.base_url+"MemberControllerServlet?"+payloads;
 
-    console.log(deviceInfo);
-
-    let url = Config.base_url + "/app/login";
-
+    console.log("thisIsUrl",url.toString());
     let result = {};
-
+    
     await axios
-      .post(url, LoginData, { headers: deviceInfo })
+      .post(url, LoginData, { headers: headerPayload })
       .then(function(response) {
-        let { status, message } = response.data;
+        console.log("thisisMyResponse",response.data)
+        let { loginStatus } = response.data;
 
-        if (status != "200") {
+        if (loginStatus != true) {
           result = {
-            message: message.toString(),
+            message: "error",
             error: true,
             user: null,
             response: null,
           };
         } else {
-          Helper.saveLoginDetails(username, password);
-          global.username = username;
+          Helper.saveLoginDetails(email, password);
+          global.username = email;
           global.password = password;
-          global.user = response.data.user;
-          global.wallet = response.data.user.wallet;
+          global.user = response.data;
 
-          global.primaryDevice = Helper.getPropValue(
-            response.data,
-            "auth.primary_device"
-          );
-          global.authToken = Helper.getPropValue(
-            response.data,
-            "auth.access_token"
-          );
-          global.authTokenExpiry = Helper.getPropValue(
-            response.data,
-            "auth.expires_in"
-          );
+          // global.authToken = Helper.getPropValue(
+          //   response.data,
+          //   "auth.access_token"
+          // );
+          
 
           result = {
-            message: message.toString(),
+            message: "message",
             error: false,
             user: response.data.user,
             response: response.data,
@@ -289,6 +279,53 @@ const Helper = {
 
     return result;
   },
+
+  getRequest: async(payloads)=>{
+
+    let urls = Config.base_url+payloads;
+    console.log("myPayloadAnds",urls);
+    let result = {};
+    var config = {
+      method: 'get',
+      url: urls,
+      headers: { 
+        'Cookie': 'JSESSIONID=539E0A68F2BC33FC52FF1A9A3DA11657'
+      }
+    };
+
+    await axios(config)
+    .then(function (response) {
+      console.log("myResponse",response);
+      let { memberid } = response.data;
+        if (!memberid) {
+          result = {
+            message: "There seems to be an Error",
+            error: true,
+            response: null,
+          };
+        } else {
+          
+          result = {
+            message: "Success",
+            error: false,
+            response: response.data,
+          };
+        }
+
+        
+    })
+    .catch(function (error) {
+      result = {
+        message: error.toString(),
+        error: true,
+        response: null,
+      };
+      console.log(error);
+    });
+    return result;
+  },
+
+
 
   saveLoginDetails: async (username, password) => {
     try {

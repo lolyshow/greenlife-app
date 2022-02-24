@@ -15,7 +15,7 @@ headerType && headerType == "home"?
 
     <View>
         <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
-        <Text style = {{textAlign:'center'}}>202012340008</Text>
+        <Text style = {{textAlign:'center'}}>{global.user.memberid?global.user.memberid:"............"}</Text>
     </View>
 
     <View>
@@ -37,7 +37,7 @@ headerType && headerType == "home"?
 
     <View style = {{marginLeft:100}}>
         <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
-        <Text style = {{textAlign:'center'}}>{memberId}</Text>
+        <Text style = {{textAlign:'center'}}>{global.user.memberid?global.user.memberid:"................"}</Text>
     </View>
 
 </View>

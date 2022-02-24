@@ -1,18 +1,25 @@
 import React from "react";
-import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Button, StyleSheet, TouchableOpacity, Text,ActivityIndicator } from "react-native";
 
-const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText }) => (
+const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText,processing }) => (
     
     
     <TouchableOpacity
       onPress={onPress}
+      disabled={processing}
       style={{width:buttonWidth?buttonWidth:100,backgroundColor:backgroundColor,borderRadius:borderRadius,height:40,justifyContent:'center',borderWidth:1,borderColor:borderColors,}}
     >
 
       {console.log("thisIsTitlefd",boldText)}
+      {processing ? (
+        <Text style={styles.ButtonText}>
+          Processing <ActivityIndicator size="small" color="#ffffff" />
+        </Text>
+      ):(
       <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'normal', fontSize: 12,}]}>
         {textinput}
       </Text>
+      )}
     </TouchableOpacity>
   );
 
@@ -31,7 +38,14 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
       // fontWeight: "bold",
       alignSelf: "center",
       textTransform: "uppercase"
-    }
+    },
+    ButtonText: {
+      fontSize: 16,
+      fontWeight: "500",
+      fontStyle: "normal",
+      color: "#ffffff",
+      textAlign:'center'
+    },
   });
 
   export default ButtonComponent;

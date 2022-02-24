@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs  from 'qs';
 import { Platform, NativeModules } from "react-native";
 import Config from "./Config";
 import Storage from "./Storage";
@@ -280,24 +281,27 @@ const Helper = {
     return result;
   },
 
-  getRequest: async(payloads)=>{
-
-    let urls = Config.base_url+payloads;
+  getRequest: async(linkUrl,method = "get",dataPayload={})=>{
+    
+    
+    var data = qs.stringify(dataPayload);
+    let urls = Config.base_url+linkUrl;
     console.log("myPayloadAnds",urls);
     let result = {};
     var config = {
-      method: 'get',
+      method: method,
       url: urls,
       headers: { 
         'Cookie': 'JSESSIONID=539E0A68F2BC33FC52FF1A9A3DA11657'
-      }
+      },
+      data : data
     };
 
     await axios(config)
     .then(function (response) {
       console.log("myResponse",response);
-      let { memberid } = response.data;
-        if (!memberid) {
+      let data = response.data;
+        if (!data) {
           result = {
             message: "There seems to be an Error",
             error: true,

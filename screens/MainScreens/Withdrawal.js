@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Text, StyleSheet,ScrollView } from "react-native";
+import { View, Button, Text, StyleSheet,ScrollView,Alert } from "react-native";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
 import ButtonComponent from "../../components/ButtonComponent";
 import InputBox from "../../components/InputBox";
@@ -8,13 +8,48 @@ import SelectBox from "../../components/SelectBox";
 import SearchBar from "../../components/SearchBar";
 import HeaderComponent from "../../components/HeaderComponent";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
-
+import Helper from "../../Helpers/Helper";
 
 
 const Withdrawal = ({ navigation,props }) => {
 
     const [searchPhrase, setSearchPhrase] = useState("");
     const [clicked, setClicked] = useState(false);
+    const [processing, setProcessing] = useState(false);
+    const [WithdrawDetailsResponse, setWithdrawDetailsResponse] = useState({});
+    useEffect(() => {
+      fetchWithdrawalReport()
+    },[]);
+
+    const fetchWithdrawalReport =async()=>{
+      try {
+  
+        console.log("insideTryLogin")
+        setProcessing(true);
+        
+        let payload = "backoffice/withdrawals.jsp?memberid="+global.user.memberid+"&api";
+        console.log("payloadShop", payload);
+        await Helper.getRequest(payload)
+        .then((result) =>{ 
+          // console.log()
+          let { message, error, response } = result;
+         
+          setProcessing(false);
+          if (!error) {
+            setWithdrawDetailsResponse(result.response);
+            
+          } else {
+            Alert.alert("Withdrawal", message);
+          }
+  
+        });
+  
+        
+      } catch (error) {
+        setProcessing(false);
+        Alert.alert("Error", error.toString());
+      }
+    }
 
     const Back = () =>{
         navigation.goBack()
@@ -24,6 +59,7 @@ const Withdrawal = ({ navigation,props }) => {
         setSearchPhrase(text)
     }
 
+
     const setClickedFunc = (action) =>{
         setClicked(action)
     }
@@ -32,7 +68,7 @@ const Withdrawal = ({ navigation,props }) => {
         { label: 'Baseball', value: 'baseball' },
         { label: 'Hockey', value: 'hockey' },
     ];
-
+  const {fullname,msg,portal,withdrawals,wallet_balance} = WithdrawDetailsResponse;
   return (
     <View style={styles.container}>
         {/* header Starts */}
@@ -53,7 +89,7 @@ const Withdrawal = ({ navigation,props }) => {
             <View >
                 <View style = {styles.Card}>
                     <Text>Wallet Balance</Text>
-                    <Text style = {{margin:20,fontSize:25,fontWeight:'bold'}}>=N=0.00</Text>
+                    <Text style = {{margin:20,fontSize:25,fontWeight:'bold'}}>=N={processing?"..........":wallet_balance?wallet_balance:"0.00"}</Text>
                     <View>
                         <ButtonComponent
                             textinput="Withdraw"

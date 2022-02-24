@@ -37,7 +37,6 @@ export default function SelectBox({
               onValueChange={onValueChange}
               disabled={disabled}
               style={{
-                
                 inputAndroid: [styles.inputAndroid, inputAndroid, applyWidth, inputBackGround],
                 inputIOS: [styles.inputIOS, inputIOS, applyWidth, inputBackGround],
                 iconContainer:

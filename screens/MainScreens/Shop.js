@@ -10,11 +10,19 @@ import HeaderComponent from "../../components/HeaderComponent";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 import Feather from "react-native-vector-icons/Feather";
 import ShopImage from "../../assets/shop.png";
+import { getCountriesApiServices } from "../../services/getCountries";
+import Helper from "../../Helpers/Helper";
 
 const Shop = ({ navigation,props }) => {
 
     const [searchPhrase, setSearchPhrase] = useState("");
     const [clicked, setClicked] = useState(false);
+    const [processing, setProcessing] = useState(false);
+    const [ShopDetailsResponse, setShopDetailsResponse] = useState({});
+
+    useEffect(() => {
+      fetchShopDetails()
+    },[]);
 
     const Back = () =>{
         navigation.goBack()
@@ -30,8 +38,44 @@ const Shop = ({ navigation,props }) => {
         setClicked(action)
     }
 
+
+    const fetchShopDetails =async()=>{
+      try {
+  
+        console.log("insideTryLogin")
+        setProcessing(true);
+        
+        let payload = "backoffice/shop_details.jsp?memberid="+global.user.memberid+"&api";
+        console.log("payloadShop", payload);
+        await Helper.getRequest(payload)
+        .then((result) =>{ 
+          let { message, error, response } = result;
+         
+          setProcessing(false);
+          if (!error) {
+            setShopDetailsResponse(result.response);
+            
+          } else {
+            Alert.alert("Shop", message);
+          }
+  
+        });
+  
+        
+      } catch (error) {
+        setProcessing(false);
+        Alert.alert("Error", error.toString());
+      }
+    }
+
     const AddStock =() =>{
         navigation.navigate('AddStock');
+        getCountriesApiServices().then((res)=>{
+          console.log("ress")
+        })
+        .catch((err)=>{
+
+        })
     }
 
     const Items = [
@@ -39,8 +83,9 @@ const Shop = ({ navigation,props }) => {
         { label: 'Baseball', value: 'baseball' },
         { label: 'Hockey', value: 'hockey' },
     ];
-
+  const {fullname,memberid,msg,shop_lga,shop_street,shopid,shopname} = ShopDetailsResponse;
   return (
+     
     <View style={styles.container}>
         {/* header Starts */}
     
@@ -55,7 +100,7 @@ const Shop = ({ navigation,props }) => {
 
             <View>
                 <View style = {styles.Card}>
-                    <Text style = {{fontWeight:'bold', fontSize:20}}>Hello, Orio Josiah</Text>
+                    <Text style = {{fontWeight:'bold', fontSize:20}}>Hello, {processing?"........":fullname?fullname:"......"}</Text>
                     <Text style = {{}}>Welcome to your e-shop summary dashboard.</Text>
 
                     <Text style = {{marginTop:10,}}>GTPS provides a market-place platform designed to enable the meeting point between business owners, eg service providers, retailers and prospective clients or buyers.
@@ -82,16 +127,16 @@ const Shop = ({ navigation,props }) => {
                     <ScrollView>
                         <View style = {{marginBottom:20}}>
                             <Text style = {{marginBottom:8,}}>Shop Number</Text>
-                            <Text style = {styles.BoldText}>GTPS0054</Text>
+                            <Text style = {styles.BoldText}>{shopid?shopid:"......."}</Text>
                         </View>
                         <View style = {{marginBottom:25}}>
                             <Text style = {{marginBottom:8,}}>Shop Number</Text>
-                            <Text style = {styles.BoldText}>Adebayo street</Text>
+                            <Text style = {styles.BoldText}>{shop_street?shop_street:"......."}</Text>
                         </View>
 
                         <View style = {{marginBottom:25}}>
                             <Text style = {{marginBottom:8,}}>Shop Street</Text>
-                            <Text style = {styles.BoldText}>Adebayo street, Kosofe local govt, Lagos</Text>
+                            <Text style = {styles.BoldText}>{shop_lga?shop_lga:"........"}</Text>
                         </View>
                     </ScrollView>
                     
@@ -106,7 +151,7 @@ const Shop = ({ navigation,props }) => {
                         <ButtonComponent
                             textinput="Click here to add stock"
                             buttonWidth={250}
-                            onPress={() => {AddStock()}}
+                            onPress={AddStock}
                             // size ={"sm"}
                             boldText = {"bold"}
                             backgroundColor = {"#0C9344"}

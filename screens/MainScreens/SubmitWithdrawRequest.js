@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Button, Text, StyleSheet,ScrollView } from "react-native";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
 import ButtonComponent from "../../components/ButtonComponent";
@@ -46,10 +46,10 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
             <ScrollView style ={styles.ContentBody}>
 
 
-            <View style = {{paddingTop:30}}>
+                <View style = {{paddingTop:30}}>
                     <InputBox
                     // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
+                    onChangeText={(value) => console.log('')}
                     // inputValue={"Member ID"}
                     borderWidth={1}
                     // inputLabel = {"Member ID"}
@@ -107,16 +107,16 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
                 
             </ScrollView>
 
-            <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+            <View style = {{justifyContent:'center',alignContent:'center',alignItems:'center'}}>
                 
-                <View style={{justifyContent:'center',marginTop:20}}>
+                <View style={{justifyContent:'center'}}>
                     <ButtonComponent
-                        textinput="Add Member Payment"
+                        textinput="Submit Withdrawal Request"
                         buttonWidth={250}
                         onPress={() => this.submitForm()}
                         // size ={"sm"}
                         boldText = {"bold"}
-                        backgroundColor = {"#1976D2"}
+                        backgroundColor = {"#0C9344"}
                         borderRadius = {16}
                         textColor={"#FFFFFF"}
                         borderWidth = {1}

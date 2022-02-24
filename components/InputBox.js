@@ -50,7 +50,9 @@ export default function InputBox({
   placeholderTextColor,
   background,
   inputValue,
+  caretHidden = false,
   keyboardType = "default",
+  onPress,
   borderWidth,
   editable = true,
   multiline = false,
@@ -79,6 +81,8 @@ export default function InputBox({
               editable={editable}
               multiline={multiline}
               maxLength={maxLength}
+              onFocus ={onPress}
+              caretHidden = {caretHidden}
               placeholderTextColor={placeholderTextColor}
               style={[
                 styles.line155,

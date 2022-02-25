@@ -37,7 +37,7 @@ export default function DrawerContent(props){
                                 <ButtonComponent
                                     textinput="Edit Profile"
                                     buttonWidth={100}
-                                    onPress={() => this.submitForm()}
+                                    onPress={() => console.log("You Cliked me")}
                                     size ={"sm"}
                                     backgroundColor = {"#0C9344"}
                                     borderRadius = {8}
@@ -73,7 +73,7 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="My Profile"
-                            onPress={() => {props.navigation.navigate('HomeStack', { screen: 'Account' })}}
+                            onPress={() => {props.navigation.navigate('AccountStackWithBottom')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

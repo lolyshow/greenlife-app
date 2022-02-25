@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text,ActivityIndicator } from "react-native";
 
-const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText,processing }) => (
+const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText,processing,btnHeight=40 }) => (
     
     
     <TouchableOpacity
       onPress={onPress}
       disabled={processing}
-      style={{width:buttonWidth?buttonWidth:100,backgroundColor:backgroundColor,borderRadius:borderRadius,height:40,justifyContent:'center',borderWidth:1,borderColor:borderColors,}}
+      style={{width:buttonWidth?buttonWidth:100,backgroundColor:backgroundColor,borderRadius:borderRadius,height:btnHeight,justifyContent:'center',borderWidth:1,borderColor:borderColors,}}
     >
 
       {console.log("thisIsTitlefd",boldText)}

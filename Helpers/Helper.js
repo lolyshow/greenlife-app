@@ -292,6 +292,7 @@ const Helper = {
       method: method,
       url: urls,
       headers: { 
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Cookie': 'JSESSIONID=539E0A68F2BC33FC52FF1A9A3DA11657'
       },
       data : data

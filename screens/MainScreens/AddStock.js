@@ -1,16 +1,38 @@
-import React from "react";
-import { View, Button, Text, StyleSheet,ScrollView } from "react-native";
-import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
+import React, { useState, useEffect } from "react";
+import { View, Button, Text, StyleSheet,ScrollView,Alert } from "react-native";
 import ButtonComponent from "../../components/ButtonComponent";
 import InputBox from "../../components/InputBox";
 import BackBtn from "../../components/BackBtn";
 import SelectBox from "../../components/SelectBox";
-import HeaderComponent from "../../components/HeaderComponent";
-import FontAwesome from 'react-native-vector-icons/MaterialIcons';
+import Helper from "../../Helpers/Helper";
 
+    
 
+const AddStock = ({ navigation,route }) => {
 
-const AddStock = ({ navigation,props }) => {
+    const [processing, setProcessing] = useState(false);
+    const [DetailsResponse, setDetailsResponse] = useState({});
+    const [shopID, setShopID] = useState("");
+    const [category, setCategory] = useState("");
+    const [productName, setProductName] = useState("");
+    const [description, setDescription] = useState("");
+    const [quantity, setQunatity] = useState("");
+    const [discount, setDiscount] = useState("");
+    const [isNegotiable, setIsNegotiable] = useState("");
+    const [amount, setAmount] = useState(0);
+
+    const resetForm = () =>{
+        setCategory("");
+        setProductName("");
+        setDescription("");
+        setQunatity("");
+
+        setDiscount("");
+        setIsNegotiable("");
+        setAmount("");
+    }
+
+    
 
     const Back = () =>{
         navigation.goBack()
@@ -22,43 +44,101 @@ const AddStock = ({ navigation,props }) => {
         { label: 'Hockey', value: 'hockey' },
     ];
 
+    const Categories = [
+        { label: 'Harbal', value: 'Harbal' },
+        { label: 'Electronics', value: 'Electronics' },
+        { label: 'Smart Phones', value: 'Smart Phones' },
+        { label: 'HouseHold Products', value: 'HouseHold Products' },
+        { label: 'Services', value: 'Services' },
+        { label: 'Turkey Shirt, Turkey Gowns, Turkey Tops, Suits, Etc', value: 'Others' },
+        { label: 'Women Bag', value: 'Women Bag' },
+        { label: 'Ladies Turkey Wears', value: 'Ladies Turkey Wears' },
+        { label: 'Smart Phones', value: 'Smart Phones' },
+    ];
+
+    const Negotiable = [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+    ]
+
+
+    const submitForm = async()=>{
+        console.log("insideSubmitFormmAddStock")
+        if(amount>0){
+          console.log("insideSubmitFormmAddStock")
+            if(amount!=0 && category!="" && productName!="" && quantity!="" && Negotiable!=""){
+                let payload = {
+                    textShopID: route.params.ShopID,
+                    comboCategory: category,
+                    textCategory:2,
+                    comboChoice: "choose",
+                    comboGLProducts: "",
+                    textProductName: productName,
+                    textDescription: global.user.memberid,
+                    textUnitCost: amount,
+                    textDiscount: 0,
+                    textQuantity: quantity,
+                    comboNegotiation: isNegotiable,
+                    textFunction: "new",
+                    textID: "",
+                    textMemberID: global.user.memberid,
+                    textPage: "shop_details"
+                   
+                }
+                console.log(payload);
+                // return;
+                try {
+  
+                    // console.log("insideTryLogin")
+                    setProcessing(true);
+                    
+                    let linkUrl = "AdminTaskControllerServlet?action=AddNewStock&api";
+                    console.log("payloadShop", payload);
+                    await Helper.getRequest(linkUrl,"post",payload)
+                    .then((result) =>{ 
+                    let { message, error, response } = result;
+                    // console.log("myResalResponse",result.response)
+                    setProcessing(false);
+                    if (!error) {
+                        setDetailsResponse(result.response);
+                        resetForm();
+                        Alert.alert("Withdrawal", result.response.msg);
+                    } else {
+                        Alert.alert("Withdrawal", message);
+                    }
+            
+                    });
+                    
+                } catch (error) {
+                    setProcessing(false);
+                    Alert.alert("Error", error.toString());
+                }
+            }else{
+                Alert.alert("Payment", "Empty Fields are required");
+            }
+        }else{
+            Alert.alert("Payment", "Please Enter A Valid Amount");
+        }
+    }
+    const {msg} = DetailsResponse;
+    
+    
   return (
     <View style={styles.container}>
-        {/* header Starts */}
-            {/* <HeaderComponent onPress = {Back} memberId = {"10000203445"}/> */}
-        {/* Header Container Ends */}
-
-
-
+        
       {/* Body Starts */}
 
         <View style = {styles.BodyContainer}>
+            <View >
 
-            
+                <View>
+                    <BackBtn 
+                        onPress = {Back}
+                    />
+                </View>
 
-        <View >
-
-            <View>
-                <BackBtn 
-                    onPress = {Back}
-                />
             </View>
 
-            
-
-        </View>
-
-
-
-            {/* <View style ={styles.BodyHeader}>
-
-                <Text style = {{fontWeight:'bold'}}>Submit Withdrawal Request</Text>
-            </View> */}
-
-            {/* <View style ={{marginTop:20}}>
-
-                <Text style = {{fontWeight:'bold'}}>Submit Withdrawal Request</Text>
-            </View> */}
 
             <ScrollView style ={styles.ContentBody}>
 
@@ -66,8 +146,8 @@ const AddStock = ({ navigation,props }) => {
                 <View style = {{paddingTop:30}}>
                     <InputBox
                     // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    // inputValue={"Member ID"}
+                    onChangeText={(value) => console.log('')}
+                    inputValue={route.params.ShopID}
                     borderWidth={1}
                     inputLabel = {"Shop ID:"}
                     placeholder={"GTPS0054"}
@@ -79,13 +159,11 @@ const AddStock = ({ navigation,props }) => {
 
                 <View style = {{paddingTop:30}}>
                     <SelectBox
-                        value={"val"}
-                        onValueChange={(phoneVerificationType) =>
-                            console.log("logged")
-                        }
-                        placeholder={"Select Category"}
-                        items={Items}
-                        inputLabel = {"Select Category:"}
+                        value={category}
+                        onValueChange={(value) => setCategory(value)}
+                        placeholder={{ label: "Select Category:", value: null }}
+                        items={Categories}
+                        
                     />
                 </View>
 
@@ -94,11 +172,9 @@ const AddStock = ({ navigation,props }) => {
 
                 <View style = {{paddingTop:30}}>
                     <InputBox
-                    // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    // inputValue={"Member ID"}
+                    onChangeText={(value) => setProductName(value)}
+                    inputValue={productName}
                     borderWidth={1}
-                    // inputLabel = {"Member ID"}
                     placeholder={"Enter Product Name"}
                     textColor="black"
                     background="#FFFFFF"
@@ -108,10 +184,9 @@ const AddStock = ({ navigation,props }) => {
 
                 <View style = {{paddingTop:30}}>
                     <InputBox
-                    // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
+                    onChangeText={(value) => setDescription(value)}
+                    inputValue={description}
                     borderWidth={1}
-                    // inputLabel = {"Enter Amount"}
                     multiline = {true}
                     placeholder={"Enter Product Description"}
                     textColor="black"
@@ -122,9 +197,9 @@ const AddStock = ({ navigation,props }) => {
 
                 <View style = {{paddingTop:30}}>
                     <InputBox
-                    // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    // inputValue={"Member ID"}
+                    keyboardType="numeric"
+                    onChangeText={(value) =>{value>=0?setAmount(value):Alert.alert("Payment", "Please Enter a Valid Amount")}}
+                    inputValue={amount}
                     borderWidth={1}
                     inputLabel = {"Unit Cost [=N=]:"}
                     placeholder={"Enter Amount"}
@@ -137,10 +212,9 @@ const AddStock = ({ navigation,props }) => {
                 <View style = {{paddingTop:30}}>
                     <InputBox
                     // keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    // inputValue={"Member ID"}
+                    onChangeText={(value) => setQunatity(value)}
+                    inputValue={quantity}
                     borderWidth={1}
-                    inputLabel = {"Stock Quantity"}
                     placeholder={"Enter Quantity"}
                     textColor="black"
                     background="#FFFFFF"
@@ -152,11 +226,10 @@ const AddStock = ({ navigation,props }) => {
                 <View style = {{paddingTop:30}}>
                     <InputBox
                     keyboardType="numeric"
-                    onChangeText={(pinNo) => console.log('')}
-                    // inputValue={"Member ID"}
+                    onChangeText={(value) => setDiscount(value)}
+                    inputValue={discount}
                     borderWidth={1}
-                    inputLabel = {"% Discount"}
-                    placeholder={"0"}
+                    placeholder={"% Discount"}
                     textColor="black"
                     background="#FFFFFF"
                     />
@@ -165,13 +238,10 @@ const AddStock = ({ navigation,props }) => {
 
                 <View style = {{paddingTop:30}}>
                     <SelectBox
-                        value={"val"}
-                        onValueChange={(phoneVerificationType) =>
-                            console.log("logged")
-                        }
-                        placeholder={"Select Category"}
-                        items={Items}
-                        inputLabel = {"Negotiable:"}
+                        value={isNegotiable}
+                        onValueChange={(value)=>setIsNegotiable(value)}
+                        placeholder={{ label: "Select Negotiable", value: null }}
+                        items={Negotiable}
                     />
                 </View>
 
@@ -184,8 +254,8 @@ const AddStock = ({ navigation,props }) => {
                     <ButtonComponent
                         textinput="Add To Stock"
                         buttonWidth={250}
-                        onPress={() => this.submitForm()}
-                        // size ={"sm"}
+                        onPress={() => submitForm()}
+                        processing={processing}
                         boldText = {"bold"}
                         backgroundColor = {"#0C9344"}
                         borderRadius = {16}
@@ -201,8 +271,8 @@ const AddStock = ({ navigation,props }) => {
                     <ButtonComponent
                         textinput="Reset"
                         buttonWidth={250}
-                        onPress={() => this.submitForm()}
-                        // size ={"sm"}
+                        onPress={() => submitForm}
+                        processing={processing}
                         boldText = {"bold"}
                         backgroundColor = {"#1976D2"}
                         borderRadius = {16}

@@ -4,7 +4,7 @@ const APP_NAME = "Green-Life";
 const IOS_VERSION = "1.0";
 const ANDROID_VERSION = packageJson.version;
 const TOKEN_LENGTH = 4;
-
+const IS_POS_APP = false;
 const BASE_URL = "https://greenlifeapi.herokuapp.com/";
 const APP_URL = "https://greenlifeapi.herokuapp.com/";
 

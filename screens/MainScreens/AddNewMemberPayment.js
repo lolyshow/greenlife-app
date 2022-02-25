@@ -290,9 +290,9 @@ const AddNewMemberPayment = ({ navigation,props }) => {
                         textinput="Add Member Payment"
                         buttonWidth={250}
                         onPress={() => submitForm()}
-                        // size ={"sm"}
                         boldText = {"bold"}
                         backgroundColor = {"#0C9344"}
+                        processing = {processing}
                         borderRadius = {16}
                         textColor={"#FFFFFF"}
                         borderWidth = {1}

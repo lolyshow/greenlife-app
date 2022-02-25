@@ -4,12 +4,12 @@ import { View, Text,Platform } from 'react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
 import { MainStackNavigator, PaymentStackNavigator,ShopStackNavigator,AccountStackNavigator } from "./StackNavigator";
-import { NavigationContainer } from '@react-navigation/native';
-import Home from "../MainScreens/Home";
 import MemberPayment from "../MainScreens/AddNewMemberPayment";
 import AddMember from "../MainScreens/AddMember";
 import CommissionReport from "../MainScreens/CommissionReport";
 import Withdrawal from "../MainScreens/Withdrawal";
+import Account from "../MainScreens/Account";
+import MemberTeamPerformance from "../MainScreens/MemberTeamPerformance";
 import SubmitWithdrawRequest from "../MainScreens/SubmitWithdrawRequest";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator();
@@ -113,12 +113,7 @@ const HomeTabs = () => {
       <Tab.Screen name="ShopTab" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
       <Tab.Screen name="Withdrawal" options={{ headerShown: false }} component={Withdrawal} />
       <Tab.Screen name="Account" options={{ headerShown: false }} component={AccountStackNavigator} />
-      {/* <Tab.Screen name="MemberPayment" options={{ headerShown: false }} component={AccountStackNavigator} /> */}
-      
-      {/*  */}
-      {/* <Tab.Screen name="Payment" options={{ headerShown: false }} component={PaymentStackNavigator} /> */}
-
-      
+      <Tab.Screen name="Member" options={{ headerShown: false }} component={MemberTeamPerformance} />
 
       {/* Withdrawal */}
     </Tab.Navigator>
@@ -156,6 +151,7 @@ function BottomTabNavigator() {
       <Stack.Screen name="ShopStack" component={ShopStackNavigator} />
       <Stack.Screen name = "AddMember" component = {AddMember}/>
       <Stack.Screen name = "CommissionReport" component = {CommissionReport}/>
+      <Stack.Screen name = "AccountStackWithBottom" component = {Account}/>
       <Stack.Screen name = "Withdrawal" component = {Withdrawal}/>
       <Stack.Screen name = "SubmitWithdrawRequest" component = {SubmitWithdrawRequest} />
     </Stack.Navigator>

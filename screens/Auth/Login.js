@@ -169,7 +169,7 @@ class Login extends Component {
               <Text style = {{fontSize:15, fontWeight:"bold"}}>Password</Text>
               <View style={styles.inputWrapper}>
                   <InputBox
-                    keyboardType="numeric"
+                    // keyboardType="numeric"
                     onChangeText={(password) => this.setPassword(password)}
                     inputValue={this.state.password}
                     borderWidth={1}

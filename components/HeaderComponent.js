@@ -35,9 +35,13 @@ headerType && headerType == "home"?
         />
     </View>
 
-    <View style = {{marginLeft:100}}>
+    <View style = {{}}>
         <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
         <Text style = {{textAlign:'center'}}>{global.user.memberid?global.user.memberid:"................"}</Text>
+    </View>
+
+    <View style = {{width:40,}}>
+            
     </View>
 
 </View>
@@ -51,13 +55,13 @@ const styles = StyleSheet.create({
       padding:20,
     },
     headerContainer:{
-      marginTop:40,
+      marginTop:Platform.OS == "android"?10:40,
       marginBottom:20,
       flexDirection:'row',
+      justifyContent:'space-between'
     },
   headerContainer2:{
-    marginTop:40,
-    marginBottom:20,
+    marginTop:Platform.OS == "android"?10:40,    marginBottom:20,
     justifyContent:'space-between',
     flexDirection:'row',
   },

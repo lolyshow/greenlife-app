@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Platform } from "react";
 
 import {
   SafeAreaView,
@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
-    padding:80,
+    paddingLeft:80,
+    paddingRight:80,
   },
 
   logoWrapper: {
@@ -263,7 +264,7 @@ export default class Start extends Component {
         </View>
 
 
-        <View style={styles.buttonWrapper}>
+        <View style={[styles.buttonWrapper,{}]}>
           <View>
             <GreenButton
               text="Next"

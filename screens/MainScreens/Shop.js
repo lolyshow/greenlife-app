@@ -69,13 +69,16 @@ const Shop = ({ navigation,props }) => {
     }
 
     const AddStock =() =>{
-        navigation.navigate('AddStock');
-        getCountriesApiServices().then((res)=>{
-          console.log("ress")
-        })
-        .catch((err)=>{
+        navigation.navigate({
+        name:'AddStock',
+        params: { ShopID: ShopDetailsResponse.shopid },
+        });
+        // getCountriesApiServices().then((res)=>{
+        //   console.log("ress")
+        // })
+        // .catch((err)=>{
 
-        })
+        // })
     }
 
     const Items = [

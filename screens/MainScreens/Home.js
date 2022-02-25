@@ -1,12 +1,9 @@
 
 import React from "react";
-import { View, Button, Text, StyleSheet,ScrollView,TouchableOpacity,Switch,Alert } from "react-native";
-import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple} from 'react-native-paper';
+import { View, Text, StyleSheet,ScrollView,TouchableOpacity,Switch,Alert, Platform } from "react-native";
+import {Avatar} from 'react-native-paper';
 import SearchBar from "../../components/SearchBar";
 import Clipboard from '@react-native-community/clipboard';
-import { color } from "react-native-reanimated";
-import GreenButton from "../../components/GreenButton";
-import WhiteButton from "../../components/WhiteButton";
 import ButtonComponent from "../../components/ButtonComponent";
 import ToggleDrawerBtn from "../../components/ToggleDrawerBtn";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
@@ -215,10 +212,10 @@ export default class Home extends React.Component {
         <View>
           <View style = {{flexDirection:'row', margin:10,marginTop:15,marginLeft:0}}> 
             <Switch
-              trackColor={{ false: "#FFFFFF", true: "" }}
+              trackColor={{ false: "#f0f0f0", true: "" }}
               thumbColor={this.state.isEnabled ? "#c0c0c0" : "#c0c0c0"}
               ios_backgroundColor="#FFFFFF"
-              borderColor = "#cecbcb"
+              borderColor = "#adadad"
               borderWidth = {1}
               onValueChange={this.toggleSwitch}
               value={this.state.isEnabled}
@@ -372,10 +369,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding:20,
-    paddingTop:10,
+    paddingTop:0,
+    // marginTop:Platform.OS = "android"? 
+    backgroundColor:Platform.OS == "android"?"#f8f8f8":null
   },
   headerContainer:{
-    marginTop:40,
+    marginTop:Platform.OS == "android"?10:40,
     marginBottom:20,
     justifyContent:'space-between',
     flexDirection:'row',
@@ -394,7 +393,7 @@ const styles = StyleSheet.create({
   },
   textCenter:{fontSize:12,textAlign:'center'},
   totalReferal:{width:100, height:50,borderColor:"#0C9344",borderWidth:1,borderRadius:3,justifyContent:'center',marginTop:10,},
-  upperScrollView:{shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',shadowOpacity: 0.9,},
+  upperScrollView:{shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',shadowOpacity: 0.9,elevation:1},
   innerScrollView:{flex:1, padding:10,paddingBottom:50, alignItems:'center', margin:10, borderRadius:20, backgroundColor:'#0C9344',width:260,height:150,marginTop:20, marginRight:20,shadowOffset: {width: 10, height: 10},
     shadowColor: '#d9dbda',
     shadowOpacity: 0.9,}

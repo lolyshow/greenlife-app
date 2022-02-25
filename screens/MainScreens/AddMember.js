@@ -213,7 +213,6 @@ const AddMember = ({ navigation,props }) => {
                       textinput="Add Member"
                       buttonWidth={250}
                       onPress={() => submitForm()}
-                      // size ={"sm"}
                       processing = {processing}
                       boldText = {"bold"}
                       backgroundColor = {"#0C9344"}

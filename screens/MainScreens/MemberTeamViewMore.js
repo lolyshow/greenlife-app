@@ -4,11 +4,11 @@ import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} f
 import ButtonComponent from "../../components/ButtonComponent";
 import Space from "../../components/Space/Space";
 import HeaderComponent from "../../components/HeaderComponent";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-date-picker'
 import Helper from "../../Helpers/Helper";
 
-const Account = ({ navigation,props }) => {
+const AddNewMemberPayment = ({ navigation,props }) => {
 
     const Back = () =>{
         navigation.goBack()
@@ -32,6 +32,40 @@ const Account = ({ navigation,props }) => {
     const [selectedDate, setDate] = useState(new Date())
     const [formatedDate, setFormatedDate] = useState("")
     const [open, setOpen] = useState(false)
+
+
+    
+
+    const Purpose = [
+        { label: 'ACTIVATION', value: 'ACTIVATION' },
+        { label: 'TOP-UP', value: 'TOP-UP' },
+    ];
+
+    const setSelectedDate=(date)=>{
+        formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+        console.log("formatedDate",formattedDate);
+        setFormatedDate(formattedDate);
+    }
+
+    const PaymentType = [
+        { label: 'Bank Transfer', value: 'Bank Transfer' },
+        { label: 'Internet Transfer', value: 'Internet Transfer' },
+        { label: 'Mobile Transfer', value: 'Mobile Transfer' },
+        { label: 'USSD Transfer', value: 'USSD Transfer' },
+    ];
+
+    const Banks = [
+        { label: 'GTB', value: 'Gtb' },
+        { label: 'ZENITH', value: 'Zenith' },
+        { label: 'UBA', value: 'UBA' },
+    ];
+
+    const resetForm = () =>{
+        setFirstname("");
+        setLastname("");
+        setEmail("");
+        setPhone("");
+    }
 
 
     const submitForm = async()=>{
@@ -85,14 +119,49 @@ const Account = ({ navigation,props }) => {
             Alert.alert("Payment", "Please Enter A Valid Amount");
         }
     }
-
+    const toggleDate=()=>{
+        console.log("toggleDate");
+        setOpen(true)
+    }
     console.log("myDateGoesHere",selectedDate);
 
+    const getSelectedValue =()=>{
+        return PaymentType;
+    }
 
 
-  const {msg} = DetailsResponse;
+
+    const TableContent =(memberID,Name,Status)=>{
+        return (
+            <View style={{flexDirection:'row',}}>
+                            
+                <View style = {{width:100}}><Text>{memberID}</Text></View>
+                <View style = {{width:100,marginLeft:20}}><Text style = {{textAlign:'center'}}>{Name}</Text></View>
+                <View style = {{width:100,marginLeft:40}}><Text style = {{textAlign:'center'}}>{Status}</Text></View>
+                
+                <View style = {{width:100,marginLeft:20,justifyContent:"center"}}>
+
+                    <ButtonComponent
+                        textinput="View"
+                        buttonWidth={50}
+                        onPress={() => submitForm()}
+                        boldText = {"bold"}
+                        processing = {processing}
+                        backgroundColor = {null}
+                        borderRadius = {10}
+                        btnHeight = {30}
+                        textColor={"#0C9344"}
+                        borderWidth = {1}
+                        borderColors = {"#0C9344"}
+
+                    />
+                </View>
+            </View>
+        );
+    }
+
+    const {msg} = DetailsResponse;
   return (
-    
     <View style={styles.container}>
       {/* header Starts */}
         <HeaderComponent onPress = {Back} memberId = {"10000203445"}/>
@@ -101,106 +170,47 @@ const Account = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-        <ScrollView>
-          <View style = {{marginTop:20,marginBottom:20}}>
-            <View style = {{flexDirection:'row',justifyContent:'center'}}>
-                <View style = {{justifyContent:'center'}}>
-                  <Avatar.Image 
-                      source={{
-                          uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
-                      }}
-                      size={100}
-                  />
-                  <Text style = {{textAlign:'center',fontWeight:'bold',fontSize:20}}>Josiah Orie</Text>
+        <View>
+
+            <View style = {{marginTop:20,marginBottom:20}}>
+                <View style = {{flexDirection:'row'}}>
+                    <View style = {{width:150,}}><Text style = {{color:'#0C9344',fontWeight:'bold'}}>Member ID:</Text></View>
+                    <View style = {{width:120,height:30,justifyContent:'center'}}><Text style = {{color:'#0C9344',textAlign:'center'}}>51 Downlines</Text></View>
                 </View>
-            </View>
-          </View>
+
+                <View style = {{flexDirection:'row'}}>
+                    <View style = {{width:150,}}><Text style = {{color:'#0C9344',}}>Total B-Side</Text></View>
+                    <View style = {{width:120,}}><Text style = {{color:'#0C9344',textAlign:'center'}}>47 Downlines</Text></View>
+                </View>
 
 
-          <View style = {{}}>
-            <View><Text style = {{fontSize:12, color:"#979797"}}>Personal Information</Text></View>
-
-            <View>
-              <View>
-                <TouchableOpacity
-                  // onPress={}
-                  disabled={processing}
-                  style={{}}
-                >
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "user" size={20}/>
-                      <Text style = {{marginLeft:20}}>My Information</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
-                </TouchableOpacity>
-
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "credit-card-alt" size={20}/>
-                      <Text style = {{marginLeft:20}}>My Wallet</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
+                <View style = {{flexDirection:'row'}}>
+                    <View style = {{width:150,}}><Text style = {{color:'#0C9344',}}>Total B-Side</Text></View>
+                    <View style = {{width:120,}}><Text style = {{color:'#0C9344',textAlign:'center'}}>47 Downlines</Text></View>
+                </View>
 
 
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "credit-card-alt" size={20}/>
-                      <Text style = {{marginLeft:20}}>My Commission</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
-                  
-
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "question-circle" size={20}/>
-                      <Text style = {{marginLeft:20}}>How it Works</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
+                <View style = {{flexDirection:'row'}}>
+                    <View style = {{width:150,}}><Text style = {{color:'#0C9344',}}>Total B-Side</Text></View>
+                    <View style = {{width:120,}}><Text style = {{color:'#0C9344',textAlign:'center'}}>47 Downlines</Text></View>
+                </View>
 
 
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "exclamation-circle" size={20}/>
-                      <Text style = {{marginLeft:20}}>About</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
-
-                  
-                
-              </View>
+                <View style = {{flexDirection:'row'}}>
+                    <View style = {{width:150,}}><Text style = {{color:'#0C9344',}}>Total B-Side</Text></View>
+                    <View style = {{width:120,}}><Text style = {{color:'#0C9344',textAlign:'center'}}>47 Downlines</Text></View>
+                </View>
 
 
-              
-            </View>
-          </View>
+                <View style = {{flexDirection:'row'}}>
+                    <View style = {{width:150,}}><Text style = {{color:'#0C9344',}}>Total B-Side</Text></View>
+                    <View style = {{width:120,}}><Text style = {{color:'#0C9344',textAlign:'center'}}>47 Downlines</Text></View>
+                </View>
             
-        </ScrollView>
+            </View> 
+
+            
+        </View>
     </View>
   );
 };
@@ -247,4 +257,4 @@ const styles = StyleSheet.create({
 }
 });
 
-export default Account;
+export default AddNewMemberPayment;

@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 // import { MainStackNavigator, PaymentStackNavigator,ShopStackNavigator,AccountStackNavigator } from "./StackNavigator";
 import MemberPayment from "../../MainScreens/AddNewMemberPayment";
 import AddMember from "../../MainScreens/AddMember";
-import CommissionReport from "../../MainScreens/CommissionReport";
+import ViewMore from "../../MainScreens/ViewMore";
 import Withdrawal from "../../MainScreens/Withdrawal";
 import WithdrawalRequest from "../../MainScreens/SubmitWithdrawRequest";
 
@@ -69,6 +69,7 @@ function WithdrawalStart() {
     >
       <Stack.Screen name="WithdrawalTap" component={Withdrawal} />
       <Stack.Screen name="WithDrawalStackStart" component={WithdrawalRequest} />
+      <Stack.Screen name="ViewMore" component={ViewMore} />
       <Stack.Screen name="WithdrawRequest" component={WithdrawalRequest} />
       <Stack.Screen name="MemberPayment" options={{ headerShown: false }} component={MemberPayment} />
       

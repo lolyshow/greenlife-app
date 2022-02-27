@@ -21,6 +21,15 @@ const Withdrawal = ({ navigation,props }) => {
       fetchWithdrawalReport()
     },[]);
 
+    const viewMore =(data)=>{
+
+      navigation.navigate({
+         
+        name:'ViewMore',
+        params: { routeData:data},
+        });
+    }
+
     const fetchWithdrawalReport =async()=>{
       try {
   
@@ -73,19 +82,30 @@ const Withdrawal = ({ navigation,props }) => {
         setClicked(action)
     }
 
-    const TableContent =(sn,memberID,name,amount,status,bank,date)=>{
+    const TableContent =(sn,memberID,name,amount,status,bank,date,ref,data)=>{
       return (
           <View style={{flexDirection:'row',marginTop:10}} key = {sn}>
-              <View style = {{width:20,marginRight:20,marginLeft:10}}><Text>{sn}</Text></View>          
-              <View style = {{width:100,marginRight:20,marginLeft:10}}><Text>{memberID}</Text></View>
-              <View style = {{width:100,marginRight:20,marginLeft:10}}><Text style = {{textAlign:'center'}}>{name}</Text></View>
-              <View style = {{width:100,marginRight:10,}}><Text style = {{textAlign:'center'}}>{amount}</Text></View>
+              <View style = {{width:20,marginLeft:10}}><Text>{sn}</Text></View>          
+              <View style = {{width:70,}}><Text>{ref}</Text></View>
+              <View style = {{width:80,marginLeft:10}}><Text style = {{textAlign:'center'}}>{amount}</Text></View>
               
+              <View style = {{width:100,marginLeft:10,marginBottom:10,justifyContent:"center"}}>
 
-              <View style = {{width:100}}><Text style = {{textAlign:'center'}}>{status}</Text></View>
-              <View style = {{width:100,marginRight:30}}><Text style = {{textAlign:'center'}}>{bank}</Text></View>
-              <View style = {{width:100,}}><Text style = {{textAlign:'center'}}>{date}</Text></View>
-              
+                <ButtonComponent
+                    textinput="View More"
+                    buttonWidth={80}
+                    onPress={() => viewMore(data)}
+                    boldText = {"bold"}
+                    processing = {processing}
+                    backgroundColor = {null}
+                    borderRadius = {10}
+                    btnHeight = {30}
+                    textColor={"#0C9344"}
+                    borderWidth = {1}
+                    borderColors = {"#0C9344"}
+
+                />
+              </View>
           </View>
       );
   }
@@ -153,19 +173,16 @@ const Withdrawal = ({ navigation,props }) => {
                         <ScrollView horizontal={true}>
                             <View  style = {{}}>
                                 <View  style={{flexDirection:'row',backgroundColor:'#0C9344'}}>
-                                    <Text style ={[styles.HeadingText,{width:20,marginRight:30}]}>#</Text>
-                                    <Text style ={styles.HeadingText}>MemberID</Text>
-                                    <Text style = {styles.HeadingText}>Full Name</Text>
-                                    <Text style = {styles.HeadingText}>Commission ($)</Text>
-                                    <Text style = {styles.HeadingText}>Status</Text>
-                                    <Text style = {styles.HeadingText}>Bank</Text>
-                                    <View><Text style = {styles.HeadingText}>Date</Text></View>
+                                    <Text style ={[styles.HeadingText,{width:10}]}>#</Text>
+                                    <Text style = {styles.HeadingText}>Reference</Text>
+                                    <Text style = {styles.HeadingText}>Amount($)</Text>
+                                    <Text style = {styles.HeadingText}>View More</Text>
                                 </View>
                                 <Space top = {10}/>
                                 
                                 {/* [{"acctname": "jackma", "acctno": "1234567890", "amount": "2", "bank": "GTB", "date": "2022-02-24 13:23:10.0", "fname": "Orie Josiah", "id": "179", "memid": "202012340008", "naira": "800.00", "status": "pending", "trans": "GT-2022022413239"}] */}
                                 
-                                {withdrawals.map((data)=>TableContent(count+1,data.memid,data.fname,data.amount,data.status,data.bank,data.date))}
+                                {withdrawals.map((data)=>TableContent(count+1,data.memid,data.fname,data.amount,data.status,data.bank,data.date,data.trans,data))}
                                 
                                 
                             </View>
@@ -260,9 +277,9 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   HeadingText:{
-      margin:10,
+      margin:5,
       // marginRight:45,
-      width:100,
+      width:80,
       fontSize:15, 
       fontWeight:'bold',
       color:"#FFFFFF"

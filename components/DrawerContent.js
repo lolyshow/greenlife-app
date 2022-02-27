@@ -16,7 +16,17 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from "react-native-vector-icons/Feather";
 import ButtonComponent from "./ButtonComponent";
+import { store } from "../redux/store";
 export default function DrawerContent(props){
+
+    const logout=()=>{
+        store.dispatch({
+            type: "IS_SIGNED_IN",
+            payload: false,
+          });
+          console.log("loginOutAlready")
+        //   props.navigation.navigate("Start");
+    }
 
     const paperTheme = useTheme();
     return (
@@ -246,7 +256,7 @@ export default function DrawerContent(props){
                             )}
                             label="Sign Out"
                             labelStyle={{fontWeight:'bold'}}
-                            onPress={() => {signOut()}}
+                            onPress={() => {logout()}}
                         />
                     </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">

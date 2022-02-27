@@ -7,6 +7,7 @@ import { MainStackNavigator, PaymentStackNavigator,ShopStackNavigator,AccountSta
 import MemberPayment from "../MainScreens/AddNewMemberPayment";
 import AddMember from "../MainScreens/AddMember";
 import CommissionReport from "../MainScreens/CommissionReport";
+import WithdrawalStart from "./WithdrawalStack/WithdrawalStart";
 import Withdrawal from "../MainScreens/Withdrawal";
 import Account from "../MainScreens/Account";
 import MemberTeamPerformance from "../MainScreens/MemberTeamPerformance";
@@ -109,11 +110,11 @@ const HomeTabs = () => {
     })}
     >
       <Tab.Screen name="HomeTab" options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }} component={MainStackNavigator} />
-      {/* <Stack.Screen name="MemberPayment" options={{ headerShown: false }} component={MemberPayment} /> */}
       <Tab.Screen name="ShopTab" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
-      <Tab.Screen name="Withdrawal" options={{ headerShown: false }} component={Withdrawal} />
+      <Tab.Screen name="Withdrawal" options={{ headerShown: false }} component={WithdrawalStart} />
       <Tab.Screen name="Account" options={{ headerShown: false }} component={AccountStackNavigator} />
       <Tab.Screen name="Member" options={{ headerShown: false }} component={MemberTeamPerformance} />
+      {/* <Tab.Screen name="EditProfile" options={{ headerShown: false }} component={AccountStackNavigator} /> */}
 
       {/* Withdrawal */}
     </Tab.Navigator>

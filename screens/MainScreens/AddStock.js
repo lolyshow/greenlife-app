@@ -140,10 +140,10 @@ const AddStock = ({ navigation,route }) => {
             </View>
 
 
-            <ScrollView style ={styles.ContentBody}>
+            <ScrollView style ={[styles.ContentBody,{marginBottom:30}]}>
 
 
-                <View style = {{paddingTop:30}}>
+                <View style = {{marginTop:30}}>
                     <InputBox
                     // keyboardType="numeric"
                     onChangeText={(value) => console.log('')}
@@ -157,7 +157,7 @@ const AddStock = ({ navigation,route }) => {
                 </View>
 
 
-                <View style = {{paddingTop:30}}>
+                <View style = {{marginTop:30}}>
                     <SelectBox
                         value={category}
                         onValueChange={(value) => setCategory(value)}
@@ -170,7 +170,7 @@ const AddStock = ({ navigation,route }) => {
 
                 
 
-                <View style = {{paddingTop:30}}>
+                <View style = {{marginTop:30}}>
                     <InputBox
                     onChangeText={(value) => setProductName(value)}
                     inputValue={productName}
@@ -182,7 +182,7 @@ const AddStock = ({ navigation,route }) => {
                 </View>
 
 
-                <View style = {{paddingTop:30}}>
+                <View style = {{marginTop:30}}>
                     <InputBox
                     onChangeText={(value) => setDescription(value)}
                     inputValue={description}
@@ -195,7 +195,7 @@ const AddStock = ({ navigation,route }) => {
                 </View>
 
 
-                <View style = {{paddingTop:30}}>
+                <View style = {{marginTop:30}}>
                     <InputBox
                     keyboardType="numeric"
                     onChangeText={(value) =>{value>=0?setAmount(value):Alert.alert("Payment", "Please Enter a Valid Amount")}}
@@ -209,7 +209,7 @@ const AddStock = ({ navigation,route }) => {
                 </View>
 
 
-                <View style = {{paddingTop:30}}>
+                <View style = {{marginTop:30}}>
                     <InputBox
                     // keyboardType="numeric"
                     onChangeText={(value) => setQunatity(value)}
@@ -223,7 +223,7 @@ const AddStock = ({ navigation,route }) => {
 
 
 
-                <View style = {{paddingTop:30}}>
+                <View style = {{marginTop:30}}>
                     <InputBox
                     keyboardType="numeric"
                     onChangeText={(value) => setDiscount(value)}
@@ -236,7 +236,7 @@ const AddStock = ({ navigation,route }) => {
                 </View>
 
 
-                <View style = {{paddingTop:30}}>
+                <View style = {{marginTop:30}}>
                     <SelectBox
                         value={isNegotiable}
                         onValueChange={(value)=>setIsNegotiable(value)}
@@ -245,51 +245,52 @@ const AddStock = ({ navigation,route }) => {
                     />
                 </View>
 
+                <View style = {{marginTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                
+                    <View style={{justifyContent:'center',marginTop:20}}>
+                        <ButtonComponent
+                            textinput="Add To Stock"
+                            buttonWidth={250}
+                            onPress={() => submitForm()}
+                            processing={processing}
+                            boldText = {"bold"}
+                            backgroundColor = {"#0C9344"}
+                            borderRadius = {16}
+                            textColor={"#FFFFFF"}
+                            borderWidth = {1}
+                            borderColors = {"#FFFFFF"}
+
+                        />
+                        
+                    </View>
+
+                    <View style={{justifyContent:'center',marginTop:20}}>
+                        <ButtonComponent
+                            textinput="Reset"
+                            buttonWidth={250}
+                            onPress={() => submitForm}
+                            processing={processing}
+                            boldText = {"bold"}
+                            backgroundColor = {"#1976D2"}
+                            borderRadius = {16}
+                            textColor={"#FFFFFF"}
+                            borderWidth = {1}
+                            borderColors = {"#FFFFFF"}
+
+                        />
+                        
+                    </View>
+                </View>
                 
             </ScrollView>
 
-            <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-                
-                <View style={{justifyContent:'center',marginTop:20}}>
-                    <ButtonComponent
-                        textinput="Add To Stock"
-                        buttonWidth={250}
-                        onPress={() => submitForm()}
-                        processing={processing}
-                        boldText = {"bold"}
-                        backgroundColor = {"#0C9344"}
-                        borderRadius = {16}
-                        textColor={"#FFFFFF"}
-                        borderWidth = {1}
-                        borderColors = {"#FFFFFF"}
-
-                    />
-                    
-                </View>
-
-                <View style={{justifyContent:'center',marginTop:20}}>
-                    <ButtonComponent
-                        textinput="Reset"
-                        buttonWidth={250}
-                        onPress={() => submitForm}
-                        processing={processing}
-                        boldText = {"bold"}
-                        backgroundColor = {"#1976D2"}
-                        borderRadius = {16}
-                        textColor={"#FFFFFF"}
-                        borderWidth = {1}
-                        borderColors = {"#FFFFFF"}
-
-                    />
-                    
-                </View>
-            </View>
+            
         </View>
       {/* CardBody Ends */}
 
-        <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+        {/* <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
             
-        </View>
+        </View> */}
     </View>
   );
 };
@@ -302,9 +303,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    flex: 0.95,
-    padding:20,
-    paddingTop:50,
+    flex: 1,
+    paddingLeft:20,
+    marginTop:20,
+    paddingRight:20,
   },
   headerContainer:{
     marginTop:40,

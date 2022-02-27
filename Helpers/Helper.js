@@ -228,6 +228,7 @@ const Helper = {
       username: "username",
       password: "password",
       token: "token",
+      
     };
 
 
@@ -239,7 +240,7 @@ const Helper = {
     await axios
       .post(url, LoginData, { headers: headerPayload })
       .then(function(response) {
-        console.log("thisisMyResponse",response.data)
+        console.log("thisisMyResponse",response)
         let { loginStatus } = response.data;
 
         if (loginStatus != true) {
@@ -254,7 +255,8 @@ const Helper = {
           global.username = email;
           global.password = password;
           global.user = response.data;
-
+          global.header = response.headers;
+          console.log("MyHeaderIsRightHere123",response.headers);
           // global.authToken = Helper.getPropValue(
           //   response.data,
           //   "auth.access_token"
@@ -293,7 +295,7 @@ const Helper = {
       url: urls,
       headers: { 
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Cookie': 'JSESSIONID=539E0A68F2BC33FC52FF1A9A3DA11657'
+        // 'Cookie': 'JSESSIONID=539E0A68F2BC33FC52FF1A9A3DA11657'
       },
       data : data
     };

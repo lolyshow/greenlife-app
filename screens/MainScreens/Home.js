@@ -35,6 +35,9 @@ export default class Home extends React.Component {
     this.fetchHomepage();
   }
 
+   submitForm =()=>{
+    this.props.navigation.navigate("WithdrawalRequestF")
+  }
 
    fetchHomepage =async()=>{
     try {
@@ -137,6 +140,9 @@ export default class Home extends React.Component {
 
 
   render(){
+
+
+    console.log("MyHeaderGLobal",global.header)
     console.log("mydataLogsHere",this.state.dashboard);
     const {first,referral,total_withdraw,total_withdraw_naira,total_stocks,total_views,referral_shop,shopname,shopid,balance} = this.state.dashboard;
     // const {dashboard} = this.state.dashboard;
@@ -212,11 +218,12 @@ export default class Home extends React.Component {
         <View>
           <View style = {{flexDirection:'row', margin:10,marginTop:15,marginLeft:0}}> 
             <Switch
-              trackColor={{ false: "#f0f0f0", true: "" }}
+              trackColor={{ false: "#f0f0f0", true: "green" }}
               thumbColor={this.state.isEnabled ? "#c0c0c0" : "#c0c0c0"}
               ios_backgroundColor="#FFFFFF"
-              borderColor = "#adadad"
-              borderWidth = {1}
+              borderColor= '#6fa6d3'
+              borderWidth = {2}
+              // style={[this.state.isEnabled ?styles.switchEnableBorder:styles.switchDisableBorder]}
               onValueChange={this.toggleSwitch}
               value={this.state.isEnabled}
             />
@@ -335,7 +342,7 @@ export default class Home extends React.Component {
               <View style = {{margin:10}}>
                 <ButtonComponent
                   buttonWidth={100}
-                  textinput="Withdrawal"
+                  textinput="View Stock"
                   onPress={() => this.submitForm()}
                   size ={"sm"}
                   backgroundColor = {"#1976D2"}
@@ -377,7 +384,7 @@ const styles = StyleSheet.create({
     marginTop:Platform.OS == "android"?10:40,
     marginBottom:20,
     justifyContent:'space-between',
-    flexDirection:'row',
+    flexDirection:'row',elevation:2
   },
   boldText:{
     fontSize:15,
@@ -391,10 +398,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: "10%",
   },
+  switchEnableBorder: {
+    borderColor: '#6fa6d3',
+    borderWidth: 1},
+    
+    switchDisableBorder: {
+    borderColor: '#f2f2f2',
+    borderWidth: 1,  },
   textCenter:{fontSize:12,textAlign:'center'},
   totalReferal:{width:100, height:50,borderColor:"#0C9344",borderWidth:1,borderRadius:3,justifyContent:'center',marginTop:10,},
-  upperScrollView:{shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',shadowOpacity: 0.9,elevation:1},
+  upperScrollView:{shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',shadowOpacity: 0.9,elevation:2,},
   innerScrollView:{flex:1, padding:10,paddingBottom:50, alignItems:'center', margin:10, borderRadius:20, backgroundColor:'#0C9344',width:260,height:150,marginTop:20, marginRight:20,shadowOffset: {width: 10, height: 10},
-    shadowColor: '#d9dbda',
+    shadowColor: '#d9dbda',elevation:2,borderColor:'black',
     shadowOpacity: 0.9,}
 });

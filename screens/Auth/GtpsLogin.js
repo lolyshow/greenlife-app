@@ -9,6 +9,7 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 import GreenButton from "../../components/GreenButton";
 import WhiteButton from "../../components/WhiteButton";
 import InputBox from "../../components/InputBox";
+import { ScrollView } from "react-native-gesture-handler";
 export default function NextScreen(props) {
 
   const [pinNo, setPinNo] = useState("");
@@ -20,7 +21,7 @@ export default function NextScreen(props) {
         source={unsplash}
         style={styles.centered}
       >
-
+      <ScrollView>
         <View style = {{marginTop:50,justifyContent:"center",alignItems:'center'}}>
             <Image source = {logo} />
 
@@ -85,7 +86,7 @@ export default function NextScreen(props) {
                 </Text>
             </View>
         </View>
-
+      </ScrollView>
        
       
     </View>

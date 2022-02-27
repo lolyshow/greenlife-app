@@ -1,13 +1,14 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Provider, useSelector } from "react-redux";
-import { store } from "../../redux/store";
 import Home from "../MainScreens/Home";
 import Shop from "../MainScreens/Shop";
 import AddStock from "../MainScreens/AddStock";
 import MemberPayment from "../MainScreens/AddNewMemberPayment";
 import AddNewMember from "../MainScreens/AddMember";
 import Account from "../MainScreens/Account";
+import EditProfile from "../MainScreens/EditProfile";
+import Wallet from "../MainScreens/Withdrawal";
+import WithdrawRequest from "../MainScreens/SubmitWithdrawRequest";
 import Payment from "../MainScreens/AddNewMemberPayment";
 const Stack = createStackNavigator();
 const screenOptionStyle = {
@@ -36,6 +37,7 @@ const MainStackNavigator = () => {
     
     >
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="WithdrawalRequestF" component={WithdrawRequest} />
       <Stack.Screen name="MemberPayment" component={Payment} />
       <Stack.Screen name="AddNewMember" component={AddNewMember} />
       <Stack.Screen name="Account" component={Account} />
@@ -52,8 +54,7 @@ const ShopStackNavigator = () => {
     >
       <Stack.Screen name="Shop" component={Shop} />
       <Stack.Screen name="AddStock" component={AddStock} />
-      {/* <Stack.Screen name="Member" component={Member} /> */}
-      {/* <Stack.Screen name="Account" component={Account} /> */}
+      
     </Stack.Navigator>
   );
 }
@@ -64,8 +65,10 @@ const AccountStackNavigator = () => {
         screenOptions={screenOptionStyle}
     
     >
-      <Stack.Screen name="Account" component={Account} />
-      <Stack.Screen name="Shop" component={Shop} />
+      <Stack.Screen name="AccountStack" component={Account} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="Wallet" component={Wallet} />
+      <Stack.Screen name="TabNagivateToWithrawal" component={Shop} />
       <Stack.Screen name="AddStock" component={AddStock} />
       <Stack.Screen name="Member" component={MemberPayment} />
      

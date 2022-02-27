@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Text, StyleSheet,ScrollView,Alert } from "react-native";
+import { View, Button,ActivityIndicator, Text, StyleSheet,ScrollView,Alert } from "react-native";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
 import ButtonComponent from "../../components/ButtonComponent";
 import InputBox from "../../components/InputBox";
@@ -9,7 +9,7 @@ import SearchBar from "../../components/SearchBar";
 import HeaderComponent from "../../components/HeaderComponent";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 import Helper from "../../Helpers/Helper";
-
+import Space from "../../components/Space/Space";
 
 const Withdrawal = ({ navigation,props }) => {
 
@@ -55,6 +55,15 @@ const Withdrawal = ({ navigation,props }) => {
         navigation.goBack()
     }
 
+    const submitForm =()=>{navigation.navigate('HomeStack', 
+    { 
+    screen: 'Withdrawal',
+    params: {
+        screen: 'WithdrawRequest',
+    }, 
+    })
+    }
+
     const setSearchPhraseFunc = (text) =>{
         setSearchPhrase(text)
     }
@@ -63,6 +72,25 @@ const Withdrawal = ({ navigation,props }) => {
     const setClickedFunc = (action) =>{
         setClicked(action)
     }
+
+    const TableContent =(sn,memberID,name,amount,status,type,date)=>{
+      return (
+          <View style={{flexDirection:'row',marginTop:10}}>
+              <View style = {{width:20,marginRight:20,marginLeft:10}}><Text>{sn}</Text></View>          
+              <View style = {{width:100,marginRight:20,marginLeft:10}}><Text>{memberID}</Text></View>
+              <View style = {{width:100,marginRight:20,marginLeft:10}}><Text style = {{textAlign:'center'}}>{name}</Text></View>
+              <View style = {{width:100,marginRight:10,}}><Text style = {{textAlign:'center'}}>{amount}</Text></View>
+              
+
+              <View style = {{width:100}}><Text style = {{textAlign:'center'}}>{status}</Text></View>
+              <View style = {{width:100,marginRight:30}}><Text style = {{textAlign:'center'}}>{type}</Text></View>
+              <View style = {{width:100,}}><Text style = {{textAlign:'center'}}>{date}</Text></View>
+              
+          </View>
+      );
+  }
+
+
     const Items = [
         { label: 'Activation', value: 'activation' },
         { label: 'Baseball', value: 'baseball' },
@@ -79,55 +107,78 @@ const Withdrawal = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
+      <ScrollView>
+        <View style = {styles.BodyContainer}>
+          <View >
+              <View style ={[styles.BodyHeader,{marginTop:20}]}>
 
-        <ScrollView style = {styles.BodyContainer}>
-            <View style ={styles.BodyHeader}>
+                  <Text style = {{fontWeight:'bold', fontSize:20}}>My Withdrawal Report</Text>
+              </View>
 
-                <Text style = {{fontWeight:'bold', fontSize:20}}>My Withdrawal Report</Text>
-            </View>
+              <View >
+                  <View style = {styles.Card}>
+                      <Text>Wallet Balance</Text>
+                      <Text style = {{fontSize:25,fontWeight:'bold'}}>=N={processing?"loading...":wallet_balance?wallet_balance:"0.00"}</Text>
+                      <View>
+                          <ButtonComponent
+                              textinput="Withdraw"
+                              buttonWidth={100}
+                              onPress={() => submitForm()}
+                              // size ={"sm"}
+                              boldText = {"bold"}
+                              backgroundColor = {"#0C9344"}
+                              borderRadius = {10}
+                              textColor={"#FFFFFF"}
+                              borderWidth = {1}
+                              borderColors = {"#FFFFFF"}
 
-            <View >
-                <View style = {styles.Card}>
-                    <Text>Wallet Balance</Text>
-                    <Text style = {{margin:20,fontSize:25,fontWeight:'bold'}}>=N={processing?"..........":wallet_balance?wallet_balance:"0.00"}</Text>
-                    <View>
-                        <ButtonComponent
-                            textinput="Withdraw"
-                            buttonWidth={100}
-                            onPress={() => this.submitForm()}
-                            // size ={"sm"}
-                            boldText = {"bold"}
-                            backgroundColor = {"#0C9344"}
-                            borderRadius = {10}
-                            textColor={"#FFFFFF"}
-                            borderWidth = {1}
-                            borderColors = {"#FFFFFF"}
+                          />
 
-                        />
+                      </View>
+                  </View>
 
+                  <View>
+
+                      <Text style = {{fontWeight:'bold', fontSize:20,marginBottom:10}}>Withdrawal Report</Text>
+                  </View>
+
+                  {/* <View style = {[styles.Card2,{justifyContent:'center'}]}> */}
+
+                      {/* <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>No Withdrawal Yet</Text> */}
+                      {processing?<View style = {{marginBottom:20}}><ActivityIndicator size="large" color="#00ff00" /></View>:
+                      <View>
+                        <ScrollView horizontal={true}>
+                            <View  style = {{}}>
+                                <View  style={{flexDirection:'row',backgroundColor:'#0C9344'}}>
+                                    <Text style ={[styles.HeadingText,{width:20,marginRight:30}]}>#</Text>
+                                    <Text style ={styles.HeadingText}>MemberID</Text>
+                                    <Text style = {styles.HeadingText}>Full Name</Text>
+                                    <Text style = {styles.HeadingText}>Commission ($)</Text>
+                                    <Text style = {styles.HeadingText}>Status</Text>
+                                    <Text style = {styles.HeadingText}>type</Text>
+                                    <View><Text style = {styles.HeadingText}>Date</Text></View>
+                                </View>
+                                <Space top = {10}/>
+                                
+                                {TableContent("1","10000203445","Phillip Olalere","10","Credited to wallet","Member","01-01,2022")}
+                                
+                                
+                            </View>
+                        </ScrollView>
                     </View>
-                </View>
+                    }
+                  {/* </View> */}
 
-                <View>
 
-                    <Text style = {{fontWeight:'bold', fontSize:20,marginTop:40,marginBottom:40}}>Withdrawal Report</Text>
-                </View>
+                  
+                
+              </View>   
 
-                <View style = {[styles.Card2,{justifyContent:'center'}]}>
-
-                    <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>No Withdrawal Yet</Text>
-                    
-                </View>
-               
-            </View>   
-
-                                   
-
-            
-            
-        </ScrollView>
+              
+          </View>
+        </View>
       {/* CardBody Ends */}
-
+      </ScrollView>
         
     </View>
   );
@@ -142,7 +193,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding:20,
+    paddingLeft:10,
+    paddingRight:10,
+    // marginBottom:10,
   },
   headerContainer:{
     marginTop:40,
@@ -153,8 +206,10 @@ const styles = StyleSheet.create({
   BodyContainer:{
     flex:1,
     borderRadius:20,
-    padding:20,
-    backgroundColor:"white",
+    paddingLeft:20,
+    paddingRight:20,
+    // margin:20,
+    backgroundColor:"#FFFFFF",
     shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,
@@ -163,9 +218,9 @@ const styles = StyleSheet.create({
 
     Card:{
     // flex:1,
-    borderRadius:10,
+    // borderRadius:10,
     padding:20,
-    height:200,
+    height:150,
     marginTop:10,
     backgroundColor:"white",
     shadowColor: '#171717',
@@ -179,9 +234,9 @@ const styles = StyleSheet.create({
   Card2:{
     // flex:1,
     borderRadius:10,
-    padding:20,
+    // padding:20,
     height:180,
-    // marginTop:10,
+    marginBottom:10,
     backgroundColor:"white",
     shadowColor: '#171717',
     borderWidth:1,
@@ -189,6 +244,14 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     alignContent:'center',
     alignItems:'center'
+  },
+  HeadingText:{
+      margin:10,
+      // marginRight:45,
+      width:100,
+      fontSize:15, 
+      fontWeight:'bold',
+      color:"#FFFFFF"
   },
 });
 

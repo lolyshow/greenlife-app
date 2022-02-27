@@ -237,8 +237,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    flex: 0.95,
-    padding:20,
+    flex: 1,
+    paddingLeft:20,
+    paddingRight:20,
   },
   headerContainer:{
     marginTop:40,

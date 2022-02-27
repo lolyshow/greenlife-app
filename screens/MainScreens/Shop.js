@@ -127,17 +127,17 @@ const Shop = ({ navigation,props }) => {
                         />
                     </View>
 
-                    <ScrollView>
+                    <ScrollView style = {{}}>
                         <View style = {{marginBottom:20}}>
                             <Text style = {{marginBottom:8,}}>Shop Number</Text>
                             <Text style = {styles.BoldText}>{shopid?shopid:"......."}</Text>
                         </View>
-                        <View style = {{marginBottom:25}}>
+                        <View style = {{marginBottom:20}}>
                             <Text style = {{marginBottom:8,}}>Shop Number</Text>
                             <Text style = {styles.BoldText}>{shop_street?shop_street:"......."}</Text>
                         </View>
 
-                        <View style = {{marginBottom:25}}>
+                        <View style = {{marginBottom:20}}>
                             <Text style = {{marginBottom:8,}}>Shop Street</Text>
                             <Text style = {styles.BoldText}>{shop_lga?shop_lga:"........"}</Text>
                         </View>

@@ -20,7 +20,7 @@ export default function NextScreen(props) {
         source={unsplash}
         style={styles.centered}
       >
-
+      <ScrollView>
         <View style = {{marginTop:50,justifyContent:"center",alignItems:'center'}}>
             <Image source = {logo} />
 
@@ -31,7 +31,7 @@ export default function NextScreen(props) {
             <Text style = {{fontSize:12, color:"#979797"}}>Sign up In to become a member</Text>
         </View>
 
-        <ScrollView style={{padding:20,paddingLeft:10}}>
+        <View style={{padding:20,paddingLeft:10}}>
 
             <View style={{padding:20}}>
                 <Text style = {{fontSize:15, fontWeight:"bold"}}>First Name</Text>
@@ -143,8 +143,8 @@ export default function NextScreen(props) {
                 </View>
             </View>
 
-        </ScrollView>
-      
+        </View>
+      </ScrollView>
     </View>
   );
 }

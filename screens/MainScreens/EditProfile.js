@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { View, Button, Text, StyleSheet,ScrollView,TouchableWithoutFeedback,TouchableOpacity, Alert } from "react-native";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
-import Space from "../../components/Space/Space";
 import HeaderComponent from "../../components/HeaderComponent";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Helper from "../../Helpers/Helper";
+import InputBox from "../../components/InputBox";
+import ButtonComponent from "../../components/ButtonComponent";
 
-const Account = ({ navigation,props }) => {
+const EditProfile = ({ navigation,props }) => {
 
     const Back = () =>{
         navigation.goBack()
@@ -118,93 +118,70 @@ const Account = ({ navigation,props }) => {
           <View style = {{}}>
             <View><Text style = {{fontSize:12, color:"#979797"}}>Personal Information</Text></View>
 
-            <View>
-              <View>
-                <TouchableOpacity
-                  onPress={()=>navigation.navigate("EditProfile")}
-                  // disabled={processing}
-                  style={{}}
-                >
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
+            
+            <View style = {{}}>
+                <InputBox
+                // keyboardType="numeric"
+                onChangeText={(value) => console.log('')}
+                // inputValue={navigation.params.ShopID}
+                borderWidth={1}
+                // inputLabel = {"Shop ID:"}
+                placeholder={"GTPS0054"}
+                textColor="black"
+                background="#FFFFFF"
+                />
+            </View>
 
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "user" size={20}/>
-                      <Text style = {{marginLeft:20}}>My Information</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
 
-                  </View>
-                </TouchableOpacity>
-                
-
-                <TouchableOpacity
-                  onPress={()=>navigation.navigate("Wallet")}
-                  // disabled={processing}
-                  style={{}}
-                >
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "credit-card-alt" size={20}/>
-                      <Text style = {{marginLeft:20}}>My Wallet</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
-                </TouchableOpacity>
+            <View style = {{}}>
+                <InputBox
+                // keyboardType="numeric"
+                onChangeText={(value) => console.log('')}
+                // inputValue={navigation.params.ShopID}
+                borderWidth={1}
+                // inputLabel = {"Shop ID:"}
+                placeholder={"GTPS0054"}
+                textColor="black"
+                background="#FFFFFF"
+                />
+            </View>
 
 
 
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "credit-card-alt" size={20}/>
-                      <Text style = {{marginLeft:20}}>My Commission</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
-                  
-
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "question-circle" size={20}/>
-                      <Text style = {{marginLeft:20}}>How it Works</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
-
-
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "exclamation-circle" size={20}/>
-                      <Text style = {{marginLeft:20}}>About</Text>
-                    </View>
-                    <View style={{flexDirection:'row', marginTop:30}}>
-                      <FontAwesome name = "angle-right" size={20}/>
-                    </View>
-
-                  </View>
-
-                  
-                
-              </View>
-
-
-              
+            <View style = {{marginBottom:30}}>
+                <InputBox
+                // keyboardType="numeric"
+                onChangeText={(value) => console.log('')}
+                // inputValue={navigation.params.ShopID}
+                borderWidth={1}
+                // inputLabel = {"Shop ID:"}
+                placeholder={"GTPS0054"}
+                textColor="black"
+                background="#FFFFFF"
+                />
             </View>
           </View>
+
+
+          <View style = {{marginTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                
+            <View style={{justifyContent:'center',marginBottom:20}}>
+                <ButtonComponent
+                    textinput="Save"
+                    buttonWidth={250}
+                    onPress={() => submitForm()}
+                    processing={processing}
+                    boldText = {"bold"}
+                    backgroundColor = {"#0C9344"}
+                    borderRadius = {16}
+                    textColor={"#FFFFFF"}
+                    borderWidth = {1}
+                    borderColors = {"#FFFFFF"}
+
+                />
+                
+            </View>
+        </View>
             
         </ScrollView>
     </View>
@@ -253,4 +230,4 @@ const styles = StyleSheet.create({
 }
 });
 
-export default Account;
+export default EditProfile;

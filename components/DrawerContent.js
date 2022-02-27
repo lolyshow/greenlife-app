@@ -120,11 +120,7 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="All Payment Report"
-                            onPress={() => {props.navigation.navigate('HomeStack', 
-                            { 
-                            screen: 'HomeTab',params: {
-                                screen: 'AddNewMember',}, 
-                            })
+                            onPress={() => {props.navigation.navigate('PaymentReport')
                             }}
                         />
                     </Drawer.Section>

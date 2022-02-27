@@ -11,14 +11,14 @@ import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 import Helper from "../../Helpers/Helper";
 import Space from "../../components/Space/Space";
 
-const Withdrawal = ({ navigation,props }) => {
+const PaymentReport = ({ navigation,props }) => {
 
     const [searchPhrase, setSearchPhrase] = useState("");
     const [clicked, setClicked] = useState(false);
     const [processing, setProcessing] = useState(false);
-    const [WithdrawDetailsResponse, setWithdrawDetailsResponse] = useState({});
+    const [DetailsResponse, setDetailsResponse] = useState({});
     useEffect(() => {
-      fetchWithdrawalReport()
+        fetchPaymentReport()
     },[]);
 
     const viewMore =(data)=>{
@@ -30,13 +30,13 @@ const Withdrawal = ({ navigation,props }) => {
         });
     }
 
-    const fetchWithdrawalReport =async()=>{
+    const fetchPaymentReport =async()=>{
       try {
   
         console.log("insideTryLogin")
         setProcessing(true);
         
-        let payload = "backoffice/withdrawals.jsp?memberid="+global.user.memberid+"&api";
+        let payload = "backoffice/payments_report.jsp?memberid="+global.user.memberid+"&api";
         console.log("payloadShop", payload);
         await Helper.getRequest(payload)
         .then((result) =>{ 
@@ -45,7 +45,7 @@ const Withdrawal = ({ navigation,props }) => {
          
           setProcessing(false);
           if (!error) {
-            setWithdrawDetailsResponse(response);
+            setDetailsResponse(response);
             
           } else {
             Alert.alert("Withdrawal", message);
@@ -64,32 +64,24 @@ const Withdrawal = ({ navigation,props }) => {
         navigation.goBack()
     }
 
-    const submitForm =()=>{navigation.navigate('HomeStack', 
-    { 
-    screen: 'Withdrawal',
-    params: {
-        screen: 'WithdrawRequest',
-    }, 
-    })
-    }
+    
 
     const setSearchPhraseFunc = (text) =>{
         setSearchPhrase(text)
     }
 
 
-    const setClickedFunc = (action) =>{
-        setClicked(action)
-    }
+   
 
-    const TableContent =(sn,memberID,name,amount,status,bank,date,ref,data)=>{
+    const TableContent =(sn,memberID,amount,status,type,date,teller,bank,data)=>{
       return (
           <View style={{flexDirection:'row',marginTop:10}} key = {sn}>
               <View style = {{width:20,marginLeft:10}}><Text>{sn}</Text></View>          
-              <View style = {{width:70,}}><Text>{ref}</Text></View>
+              <View style = {{width:70,}}><Text >{teller}</Text></View>
+              <View style = {{width:70,}}><Text style={{textAlign:'center'}}>{bank}</Text></View>
               <View style = {{width:80,marginLeft:10}}><Text style = {{textAlign:'center'}}>{amount}</Text></View>
               
-              <View style = {{width:100,marginLeft:10,marginBottom:10,justifyContent:"center"}}>
+              <View style = {{width:100,marginLeft:30,marginBottom:10,justifyContent:"center"}}>
 
                 <ButtonComponent
                     textinput="View More"
@@ -116,9 +108,9 @@ const Withdrawal = ({ navigation,props }) => {
         { label: 'Baseball', value: 'baseball' },
         { label: 'Hockey', value: 'hockey' },
     ];
-  const {fullname,msg,portal,withdrawals,wallet_balance} = WithdrawDetailsResponse;
+  const {paymentList} = DetailsResponse;
   let count = 0;
-  console.log("thisIsmyWithdrwal",withdrawals);
+
   return (
     <View style={styles.container}>
         {/* header Starts */}
@@ -134,75 +126,46 @@ const Withdrawal = ({ navigation,props }) => {
           <View >
               <View style ={[styles.BodyHeader,{marginTop:20}]}>
 
-                  <Text style = {{fontWeight:'bold', fontSize:20}}>My Withdrawal Report</Text>
+                  <Text style = {{fontWeight:'bold', fontSize:20}}>My Payment Report</Text>
               </View>
 
-              <View >
-                  <View style = {styles.Card}>
-                      <Text>Wallet Balance</Text>
-                      <Text style = {{fontSize:25,fontWeight:'bold'}}>=N={processing?"loading...":wallet_balance?wallet_balance:"0.00"}</Text>
-                      <View>
-                          <ButtonComponent
-                              textinput="Withdraw"
-                              buttonWidth={100}
-                              onPress={() => submitForm()}
-                              // size ={"sm"}
-                              boldText = {"bold"}
-                              backgroundColor = {"#0C9344"}
-                              borderRadius = {10}
-                              textColor={"#FFFFFF"}
-                              borderWidth = {1}
-                              borderColors = {"#FFFFFF"}
-
-                          />
-
-                      </View>
-                  </View>
-
-                  <View>
-
-                      <Text style = {{fontWeight:'bold', fontSize:20,marginBottom:10}}>Withdrawal Report</Text>
-                  </View>
-
+              <View>
                   {/* <View style = {[styles.Card2,{justifyContent:'center'}]}> */}
 
                       {/* <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>No Withdrawal Yet</Text> */}
                       {processing?<View style = {{marginBottom:20}}><ActivityIndicator size="large" color="#00ff00" /></View>:
-                      withdrawals && withdrawals.length>0?
+                      paymentList && paymentList.length>0?
                       <View>
                         <ScrollView horizontal={true}>
                             <View  style = {{}}>
                                 <View  style={{flexDirection:'row',backgroundColor:'#0C9344'}}>
                                     <Text style ={[styles.HeadingText,{width:10}]}>#</Text>
-                                    <Text style = {styles.HeadingText}>Reference</Text>
-                                    <Text style = {styles.HeadingText}>Amount($)</Text>
+                                    <Text style = {styles.HeadingText}>Teller</Text>
+                                    <Text style = {styles.HeadingText}>Bank</Text>
+                                    <Text style = {styles.HeadingText}>Salary</Text>
                                     <Text style = {styles.HeadingText}>View More</Text>
                                 </View>
                                 <Space top = {10}/>
                                 
                                 {/* [{"acctname": "jackma", "acctno": "1234567890", "amount": "2", "bank": "GTB", "date": "2022-02-24 13:23:10.0", "fname": "Orie Josiah", "id": "179", "memid": "202012340008", "naira": "800.00", "status": "pending", "trans": "GT-2022022413239"}] */}
                                 
-                                {withdrawals.map((data)=>TableContent(count+=1,data.memid,data.fname,data.amount,data.status,data.bank,data.date,data.trans,data))}
+                                {paymentList.map((data)=>TableContent(count+=1,data.memid,data.amount,data.status,data.type,data.datepaid,data.teller,data.bank,data))}
                                 
                                 
                             </View>
                         </ScrollView>
                     </View>
-                    :<View style = {{flexDirection:'row'}}><Text>No Withdrawal Found</Text>
+                    :<View style = {{flexDirection:'row'}}><Text>No Payment Found</Text>
                       <TouchableOpacity
-                        onPress={()=>fetchWithdrawalReport}
+                        onPress={()=>fetchPaymentReport}
                         // disabled={processing}
                         style={{}}
                       >
-                        <FontAwesome name = "refresh" onPress = {fetchWithdrawalReport} size={20}/>
+                        <FontAwesome name = "refresh" onPress = {fetchPaymentReport} size={20}/>
                       </TouchableOpacity>
                     </View>
                     }
                   {/* </View> */}
-
-
-                  
-                
               </View>   
 
               
@@ -286,4 +249,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Withdrawal;
+export default PaymentReport;

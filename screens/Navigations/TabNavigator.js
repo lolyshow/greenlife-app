@@ -7,9 +7,11 @@ import { MainStackNavigator, PaymentStackNavigator,ShopStackNavigator,AccountSta
 import MemberPayment from "../MainScreens/AddNewMemberPayment";
 import AddMember from "../MainScreens/AddMember";
 import CommissionReport from "../MainScreens/CommissionReport";
+import ViewMore from "../MainScreens/ViewMore";
 import WithdrawalStart from "./WithdrawalStack/WithdrawalStart";
 import Withdrawal from "../MainScreens/Withdrawal";
 import Account from "../MainScreens/Account";
+import PaymentReport from "../MainScreens/PaymentReport";
 import MemberTeamPerformance from "../MainScreens/MemberTeamPerformance";
 import SubmitWithdrawRequest from "../MainScreens/SubmitWithdrawRequest";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -151,6 +153,9 @@ function BottomTabNavigator() {
       <Stack.Screen name="MemberPayment" options={{ headerShown: false }} component={MemberPayment} />
       <Stack.Screen name="ShopStack" component={ShopStackNavigator} />
       <Stack.Screen name = "AddMember" component = {AddMember}/>
+      <Stack.Screen name = "ViewMore" component = {ViewMore}/>
+      <Stack.Screen name = "PaymentReport" component = {PaymentReport}/>
+      
       <Stack.Screen name = "CommissionReport" component = {CommissionReport}/>
       <Stack.Screen name = "AccountStackWithBottom" component = {Account}/>
       <Stack.Screen name = "Withdrawal" component = {Withdrawal}/>

@@ -65,9 +65,12 @@ function AppContainer() {
 
         {!loginStatus ? (
           <>
+          {showSplash && (
             <Stack.Screen name="Splash" component={SplashScreen} />
+            )}
             <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
             <Stack.Screen name="NextScreen" component={NextScreen} />
+            
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

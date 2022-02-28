@@ -19,12 +19,24 @@ import ButtonComponent from "./ButtonComponent";
 import { store } from "../redux/store";
 export default function DrawerContent(props){
 
+    
+
+      console.log("loginOutAlready")
+
     const logout=()=>{
+
+        store.dispatch({
+            type: "SHOW_SPLASH_SCREEN",
+            payload: false,
+        });
+        
         store.dispatch({
             type: "IS_SIGNED_IN",
             payload: false,
           });
-          console.log("loginOutAlready")
+
+
+          
         //   props.navigation.navigate("Start");
     }
 
@@ -158,11 +170,7 @@ export default function DrawerContent(props){
                                 />
                             )}
                             label="Member's Geneology"
-                            onPress={() => {props.navigation.navigate('HomeStack', 
-                            { 
-                            screen: 'HomeTab',params: {
-                                screen: 'AddNewMember',}, 
-                            })
+                            onPress={() => {props.navigation.navigate('GenerologyList')
                             }}
                         />
                     </Drawer.Section>

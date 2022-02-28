@@ -1,6 +1,6 @@
 
 import React from "react";
-import { View, Text, StyleSheet,ScrollView,TouchableOpacity,Switch,Alert, Platform } from "react-native";
+import { View, Text, StyleSheet,ScrollView,TouchableOpacity,Switch,Alert, Platform,ActivityIndicator } from "react-native";
 import {Avatar} from 'react-native-paper';
 import SearchBar from "../../components/SearchBar";
 import Clipboard from '@react-native-community/clipboard';
@@ -28,6 +28,7 @@ export default class Home extends React.Component {
       linkUrl:"www.greelifetree.com-----------",
       referral:"",
       dashboard:{},
+      accBalance:0,
     };
   }
 
@@ -37,6 +38,10 @@ export default class Home extends React.Component {
 
    submitForm =()=>{
     this.props.navigation.navigate("WithdrawalRequestF")
+  }
+
+  gotoStocks =()=>{
+    this.props.navigation.navigate("Stocks")
   }
 
    fetchHomepage =async()=>{
@@ -56,7 +61,7 @@ export default class Home extends React.Component {
         if (!error) {
           console.log("myResponseInsideCall",response)
           this.setState({ dashboard : result.response });
-          
+          this.setState({accBalance:response.balance});
         } else {
           Alert.alert("Home", message);
         }
@@ -79,7 +84,8 @@ export default class Home extends React.Component {
   }
 
    copyToClipboard = (linkUrl) => {
-    Clipboard.setString("linkUrl");
+    Clipboard.setString(linkUrl);
+    Alert.alert("ClipBoard", "Copy To ClipBoard");
   };
 
   fetchCopiedText = async () => {
@@ -91,8 +97,12 @@ export default class Home extends React.Component {
    toggleSwitch = () => {
      if(this.state.isEnabled){
       this.setState(({isEnabled : false}))
+      let convert = this.state.accBalance/570;
+      this.setState({accBalance : convert})
      }else{
       this.setState(({isEnabled : true}))
+      let convert = this.state.accBalance *570;
+      this.setState({accBalance : convert})
      }
     }
     toggleNav = () =>{ console.log("navToggled");   this.props.navigation.openDrawer()}
@@ -144,6 +154,9 @@ export default class Home extends React.Component {
 
     console.log("MyHeaderGLobal",global.header)
     console.log("mydataLogsHere",this.state.dashboard);
+    console.log("isItEnabled",this.state.isEnabled)
+    console.log("THisIsMyStateBalance",this.state.accBalance)
+    let {accBalance,isEnabled} = this.state;
     const {first,referral,total_withdraw,total_withdraw_naira,total_stocks,total_views,referral_shop,shopname,shopid,balance} = this.state.dashboard;
     // const {dashboard} = this.state.dashboard;
   return (
@@ -188,7 +201,10 @@ export default class Home extends React.Component {
           setClicked={(clicked) => this.setClicked(clicked)}
         />
       </View>
+      {this.state.processing?<View>
 
+        <ActivityIndicator size="large" color="#0C9344" />
+      </View>:
       <ScrollView style = {styles.innerContainer}>
         <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
           <View style = {{justifyContent:'center'}}>
@@ -198,13 +214,13 @@ export default class Home extends React.Component {
           <View style = {{flexDirection:'row'}}>
             {/* onclick Copy Starts */}
             
-              <TouchableOpacity onPress={this.copyToClipboard(this.state.linkUrl)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
+              <TouchableOpacity onPress={()=>this.copyToClipboard(referral)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
                 <ScrollView horizontal={true}>
                   <Text style = {{fontSize:12, color:"#979797"}}>{referral?referral:"......"}</Text>
                 </ScrollView>
               </TouchableOpacity>
             
-            <TouchableOpacity onPress={this.copyToClipboard(this.state.linkUrl)} >
+            <TouchableOpacity onPress={()=>this.copyToClipboard(referral)} >
               <View style = {{padding:3,color:'#0C9344'}}>
                 <FontAwesome name="content-copy" size = {20} color = {"#0C9344"}/>
               </View>
@@ -239,7 +255,7 @@ export default class Home extends React.Component {
           <ScrollView style = {styles.upperScrollView} horizontal={true} showsHorizontalScrollIndicator={false} bouncesZoom={true} showsVerticalScrollIndicator={true}>
             <View style = {styles.innerScrollView}>
               <Text style = {{color:'#FFFFFF',fontSize:18, margin:10,fontWeight:'bold'}}>E-Wallet</Text>
-              <Text style = {{color:'#FFFFFF',fontSize:25,fontWeight:'bold'}}>{balance?balance:'0.00'}</Text>
+              <Text style = {{color:'#FFFFFF',fontSize:25,fontWeight:'bold'}}>{balance? isEnabled? '\u20A6'+accBalance:'$'+accBalance:'0.00'}</Text>
 
               <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:10}}>
 
@@ -311,12 +327,12 @@ export default class Home extends React.Component {
 
               <View style = {{flexDirection:'row'}}>
                 {/* onclick Copy Starts */}
-                <TouchableOpacity onPress={this.copyToClipboard(this.state.linkUrl)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
+                <TouchableOpacity onPress={()=>this.copyToClipboard(referral_shop)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
                   <ScrollView horizontal={true}>
-                    <Text style = {{fontSize:12, color:"#979797"}}>{this.state.linkUrl}</Text>
+                    <Text style = {{fontSize:12, color:"#979797"}}>{referral_shop}</Text>
                   </ScrollView>
                 </TouchableOpacity>
-                <TouchableOpacity /*onPress={this.copyToClipboard(this.state.linkUrl)*/ >
+                <TouchableOpacity onPress={()=>this.copyToClipboard(referral_shop)} >
                   <View style = {{padding:3,color:'#0C9344'}}>
                     <FontAwesome name="content-copy" size = {20} color = {"#0C9344"}/>
                   </View>
@@ -343,7 +359,7 @@ export default class Home extends React.Component {
                 <ButtonComponent
                   buttonWidth={100}
                   textinput="View Stock"
-                  onPress={() => this.submitForm()}
+                  onPress={() => this.gotoStocks()}
                   size ={"sm"}
                   backgroundColor = {"#1976D2"}
                   borderRadius = {2}
@@ -363,6 +379,7 @@ export default class Home extends React.Component {
         </ScrollView>
 
       </ScrollView>
+      }
     </View>
   )
   }

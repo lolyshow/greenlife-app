@@ -7,6 +7,7 @@ import MemberPayment from "../MainScreens/AddNewMemberPayment";
 import AddNewMember from "../MainScreens/AddMember";
 import Account from "../MainScreens/Account";
 import EditProfile from "../MainScreens/EditProfile";
+import Stocks from "../MainScreens/Stocks";
 import Wallet from "../MainScreens/Withdrawal";
 import WithdrawRequest from "../MainScreens/SubmitWithdrawRequest";
 import Payment from "../MainScreens/AddNewMemberPayment";
@@ -41,6 +42,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name="MemberPayment" component={Payment} />
       <Stack.Screen name="AddNewMember" component={AddNewMember} />
       <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="Stocks" component={Stocks} />
+      
     </Stack.Navigator>
   );
 }

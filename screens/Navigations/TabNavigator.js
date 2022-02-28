@@ -11,8 +11,10 @@ import ViewMore from "../MainScreens/ViewMore";
 import WithdrawalStart from "./WithdrawalStack/WithdrawalStart";
 import Withdrawal from "../MainScreens/Withdrawal";
 import Account from "../MainScreens/Account";
+import GenerologyList from "../MainScreens/GenerologyList";
+
 import PaymentReport from "../MainScreens/PaymentReport";
-import MemberTeamPerformance from "../MainScreens/MemberTeamPerformance";
+// import MemberTeamPerformance from "../MainScreens/GenerologyList";
 import SubmitWithdrawRequest from "../MainScreens/SubmitWithdrawRequest";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator();
@@ -115,7 +117,7 @@ const HomeTabs = () => {
       <Tab.Screen name="ShopTab" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
       <Tab.Screen name="Withdrawal" options={{ headerShown: false }} component={WithdrawalStart} />
       <Tab.Screen name="Account" options={{ headerShown: false }} component={AccountStackNavigator} />
-      <Tab.Screen name="Member" options={{ headerShown: false }} component={MemberTeamPerformance} />
+      {/* <Tab.Screen name="Member" options={{ headerShown: false }} component={MemberTeamPerformance} /> */}
       {/* <Tab.Screen name="EditProfile" options={{ headerShown: false }} component={AccountStackNavigator} /> */}
 
       {/* Withdrawal */}
@@ -155,7 +157,8 @@ function BottomTabNavigator() {
       <Stack.Screen name = "AddMember" component = {AddMember}/>
       <Stack.Screen name = "ViewMore" component = {ViewMore}/>
       <Stack.Screen name = "PaymentReport" component = {PaymentReport}/>
-      
+      <Stack.Screen name = "GenerologyList" component = {GenerologyList}/>
+
       <Stack.Screen name = "CommissionReport" component = {CommissionReport}/>
       <Stack.Screen name = "AccountStackWithBottom" component = {Account}/>
       <Stack.Screen name = "Withdrawal" component = {Withdrawal}/>

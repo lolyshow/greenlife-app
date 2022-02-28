@@ -20,11 +20,9 @@ const AddNewMemberPayment = ({ navigation,props }) => {
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
-    const [isEmail, setIsEmail] = useState(true);
     const [processing, setProcessing] = useState(false);
     const [DetailsResponse, setDetailsResponse] = useState({});
     const [bank, setBank] = useState("");
-    const [activation, setActivation] = useState("");
     const [purpose, setPurpose] = useState("");
     const [paymentType, setPaymentType] = useState("");
     const [memberid, setmemberid] = useState("");
@@ -211,7 +209,7 @@ const AddNewMemberPayment = ({ navigation,props }) => {
 
                     <View style = {{paddingTop:30}}>
                         <InputBox
-                        // keyboardType="numeric"
+                        keyboardType="numeric"
                         onChangeText={(value) => {value>=0?setAmount(value):Alert.alert("Payment", "Please Enter a Valid Amount")}}
                         inputValue={amount}
                         borderWidth={1}

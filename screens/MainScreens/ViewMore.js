@@ -72,6 +72,7 @@ const ViewMore = ({ navigation,props,route }) => {
     const {msg} = DetailsResponse;
     console.log("thisIsMyROuteDatajjj", route.params.routeData)
     const {routeData} = route.params;
+    let count = 0;
   return (
     <View style={styles.container}>
       {/* header Starts */}
@@ -86,10 +87,16 @@ const ViewMore = ({ navigation,props,route }) => {
             <View style = {{marginTop:20,marginBottom:20}}>
                 {Object.entries(routeData).map((data,index)=>{
                     console.log("data112345678910",data);
-                    return(<View style = {{flexDirection:'row',justifyContent:'space-between'}}>
-                        <View style = {{}}><Text style = {{color:'#0C9344',fontWeight:'bold'}}>{data[0].toUpperCase()}:</Text></View>
+                    let title = data[0].toUpperCase();
+                    if(title == "FNAME"){title ="FULL NAME"}else if(title == "MEMID"){title = "MEMBER ID"}
+                    else if(title== "ACCTNO"){title = "ACCOUNT NAME"}
+
+                    if(title !="ID"){
+                    return(<View style = {{flexDirection:'row',justifyContent:'space-between'}} key = {count+=1}>
+                        <View style = {{}}><Text style = {{color:'#0C9344',fontWeight:'bold'}}>{title}:</Text></View>
                         <View style = {{}}><Text style = {{color:'#0C9344',textAlign:'center'}}>{data[1]}</Text></View>
                     </View>)
+                    }
                 }
                 )}
 

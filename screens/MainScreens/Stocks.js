@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Text, StyleSheet,ScrollView,Image,ActivityIndicator } from "react-native";
+import { View, Button, Text, StyleSheet,ScrollView,Image,ActivityIndicator,TouchableOpacity } from "react-native";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
 import ButtonComponent from "../../components/ButtonComponent";
 import InputBox from "../../components/InputBox";
@@ -100,7 +100,7 @@ const Stocks = ({ navigation,props }) => {
 
       {/* Body Starts */}
 
-        <ScrollView style = {styles.BodyContainer}>
+        <ScrollView style = {styles.BodyContainer} showsHorizontalScrollIndicator={false}>
 
             <View>
                 
@@ -113,10 +113,16 @@ const Stocks = ({ navigation,props }) => {
                 return(<View style = {[styles.Card2,{flexDirection:'row',}]} key = {count+=1}>
                     
                     <View style = {{marginRight:10,paddingLeft:10,justifyContent:'center'}}>
-                        <Image
-                            source = {ShopImage}
-                            size = {200}
-                        />
+                        <TouchableOpacity
+                            onPress={()=>console.log("")}
+                            // disabled={processing}
+                            style={{}}
+                        >
+                            <Image
+                                source = {ShopImage}
+                                size = {200}
+                            />
+                        </TouchableOpacity>
                     </View>
 
                     <View style = {{}}>

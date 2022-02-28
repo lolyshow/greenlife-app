@@ -8,7 +8,7 @@ import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-date-picker'
 import Helper from "../../Helpers/Helper";
 
-const AddNewMemberPayment = ({ navigation,props }) => {
+const GenerologyList = ({ navigation,props }) => {
 
     const Back = () =>{
         navigation.goBack()
@@ -202,7 +202,7 @@ const AddNewMemberPayment = ({ navigation,props }) => {
 
 
             <View>
-                <ScrollView horizontal={true}>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <View  style = {{}}>
                         <View  style={{flexDirection:'row',backgroundColor:'#0C9344'}}>
                             <Text style ={styles.HeadingText}>MemberID</Text>
@@ -264,4 +264,4 @@ const styles = StyleSheet.create({
 }
 });
 
-export default AddNewMemberPayment;
+export default GenerologyList;

@@ -117,7 +117,7 @@ const AddMember = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-        <ScrollView style = {{}}>
+        <ScrollView showsHorizontalScrollIndicator={false} style = {{}}>
           <View style = {styles.BodyContainer}>
               <View style ={styles.BodyHeader}>
 
@@ -144,7 +144,7 @@ const AddMember = ({ navigation,props }) => {
                   }
               </View>                          
 
-              <ScrollView style ={styles.ContentBody}>
+              <ScrollView style ={styles.ContentBody} showsHorizontalScrollIndicator={false}>
 
 
                   <View style = {{paddingTop:30}}>

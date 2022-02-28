@@ -140,7 +140,7 @@ const AddNewMemberPayment = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-        <ScrollView>
+        <ScrollView showsHorizontalScrollIndicator={false}>
             <View style = {styles.BodyContainer}>
                 <View style ={styles.BodyHeader}>
 

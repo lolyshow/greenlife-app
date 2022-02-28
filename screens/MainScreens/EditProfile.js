@@ -99,7 +99,7 @@ const EditProfile = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-        <ScrollView>
+        <ScrollView showsHorizontalScrollIndicator={false}>
           <View style = {{marginTop:20,marginBottom:20}}>
             <View style = {{flexDirection:'row',justifyContent:'center'}}>
                 <View style = {{justifyContent:'center'}}>

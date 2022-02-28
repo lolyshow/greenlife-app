@@ -205,7 +205,7 @@ export default class Home extends React.Component {
 
         <ActivityIndicator size="large" color="#0C9344" />
       </View>:
-      <ScrollView style = {styles.innerContainer}>
+      <ScrollView style = {styles.innerContainer} showsHorizontalScrollIndicator={false}>
         <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
           <View style = {{justifyContent:'center'}}>
             <Text style = {styles.boldText}>Referral Panel</Text>
@@ -215,7 +215,7 @@ export default class Home extends React.Component {
             {/* onclick Copy Starts */}
             
               <TouchableOpacity onPress={()=>this.copyToClipboard(referral)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
-                <ScrollView horizontal={true}>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                   <Text style = {{fontSize:12, color:"#979797"}}>{referral?referral:"......"}</Text>
                 </ScrollView>
               </TouchableOpacity>
@@ -328,7 +328,7 @@ export default class Home extends React.Component {
               <View style = {{flexDirection:'row'}}>
                 {/* onclick Copy Starts */}
                 <TouchableOpacity onPress={()=>this.copyToClipboard(referral_shop)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
-                  <ScrollView horizontal={true}>
+                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <Text style = {{fontSize:12, color:"#979797"}}>{referral_shop}</Text>
                   </ScrollView>
                 </TouchableOpacity>

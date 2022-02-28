@@ -129,7 +129,7 @@ const CommissionReport = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-      <ScrollView>
+      <ScrollView showsHorizontalScrollIndicator={false}>
         <View style = {styles.BodyContainer}>
           <View >
               <View style ={[styles.BodyHeader,{marginTop:20}]}>
@@ -170,7 +170,7 @@ const CommissionReport = ({ navigation,props }) => {
                       {processing?<View style = {{marginBottom:20}}><ActivityIndicator size="large" color="#00ff00" /></View>:
                       commissions && commissions.length>0?
                       <View>
-                        <ScrollView horizontal={true}>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                             <View  style = {{}}>
                                 <View  style={{flexDirection:'row',backgroundColor:'#0C9344'}}>
                                     <Text style ={[styles.HeadingText,{width:10}]}>#</Text>

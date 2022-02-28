@@ -18,7 +18,6 @@ import {
 import commission from "../../assets/commission.png";
 
 import shop from "../../assets/shop1.png";
-import logo from "../../assets/logo2.jpg";
 
 import investment from "../../assets/Investment.png";
 

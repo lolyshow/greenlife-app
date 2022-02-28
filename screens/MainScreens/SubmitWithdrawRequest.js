@@ -111,7 +111,7 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-      <ScrollView>
+      <ScrollView showsHorizontalScrollIndicator={false}>
         <View style = {styles.BodyContainer}>
             <View style ={styles.BodyHeader}>
 
@@ -130,7 +130,7 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
               }
             </View>
 
-            <ScrollView style ={styles.ContentBody}>
+            <ScrollView style ={styles.ContentBody} showsHorizontalScrollIndicator={false}>
 
 
                 <View style = {{paddingTop:30}}>
@@ -219,7 +219,7 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
 
             
         </View>
-      {/* CardBody Ends */}
+        {/* CardBody Ends */}
 
         <View style = {{paddingTop:20,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
             

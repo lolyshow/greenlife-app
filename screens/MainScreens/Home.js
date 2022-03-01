@@ -205,7 +205,7 @@ export default class Home extends React.Component {
 
         <ActivityIndicator size="large" color="#0C9344" />
       </View>:
-      <ScrollView style = {styles.innerContainer} showsHorizontalScrollIndicator={false}>
+      <ScrollView style = {styles.innerContainer} showsVerticalScrollIndicator={false}>
         <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
           <View style = {{justifyContent:'center'}}>
             <Text style = {styles.boldText}>Referral Panel</Text>

@@ -111,7 +111,7 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style = {styles.BodyContainer}>
             <View style ={styles.BodyHeader}>
 
@@ -130,7 +130,7 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
               }
             </View>
 
-            <ScrollView style ={styles.ContentBody} showsHorizontalScrollIndicator={false}>
+            <ScrollView style ={styles.ContentBody} showsVerticalScrollIndicator={false}>
 
 
                 <View style = {{paddingTop:30}}>

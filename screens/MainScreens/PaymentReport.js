@@ -121,7 +121,7 @@ const PaymentReport = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style = {styles.BodyContainer}>
           <View >
               <View style ={[styles.BodyHeader,{marginTop:20}]}>

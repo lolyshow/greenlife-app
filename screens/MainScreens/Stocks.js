@@ -100,7 +100,7 @@ const Stocks = ({ navigation,props }) => {
 
       {/* Body Starts */}
 
-        <ScrollView style = {styles.BodyContainer} showsHorizontalScrollIndicator={false}>
+        <ScrollView style = {styles.BodyContainer} showsVerticalScrollIndicator={false}>
 
             <View>
                 

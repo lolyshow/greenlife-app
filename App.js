@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,useState} from 'react';
 import { View, Text,Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -16,6 +16,7 @@ import BottomTabNavigator from "./screens/Navigations/TabNavigator";
 import DrawerNavigator from "./screens/Navigations/DrawerNavigator";
 import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function HomeScreen() {
   return (
@@ -36,7 +37,23 @@ export default App = () => {
 const Stack = createNativeStackNavigator();
 
 function AppContainer() {
+
+  const [appReady,setAppReady] = useState(false)
+  const [storedCredentials,setStoredCredentials] = useState("")
   const { loginStatus, showSplash } = useSelector((state) => state.reducers);
+  const checkLoginCredential =()=>{
+    AsyncStorage
+    .getItem("userData")
+    .then((result)=>{
+      if(result !==null){
+      setStoredCredentials(result);
+      }else{
+        setStoredCredentials(null);
+      }
+    })
+    .catch(error=>{console.log("errorDetails",error)})
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator

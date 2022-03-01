@@ -140,7 +140,7 @@ const AddStock = ({ navigation,route }) => {
             </View>
 
 
-            <ScrollView style ={[styles.ContentBody,{marginBottom:30}]} showsHorizontalScrollIndicator={false}>
+            <ScrollView style ={[styles.ContentBody,{marginBottom:30}]} showsVerticalScrollIndicator={false}>
 
 
                 <View style = {{marginTop:30}}>

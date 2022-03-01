@@ -140,7 +140,7 @@ const AddNewMemberPayment = ({ navigation,props }) => {
 
 
       {/* Body Starts */}
-        <ScrollView showsHorizontalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <View style = {styles.BodyContainer}>
                 <View style ={styles.BodyHeader}>
 
@@ -154,7 +154,7 @@ const AddNewMemberPayment = ({ navigation,props }) => {
                   }
                 </View>
 
-                <ScrollView style ={styles.ContentBody}>
+                <ScrollView style ={styles.ContentBody} showsVerticalScrollIndicator={false}>
 
                     <View style = {{paddingTop:30}}>
                         <SelectBox

@@ -4,6 +4,7 @@ import logo from "../../assets/logo2.png";
 import unsplash from "../../assets/unsplash.png";
 import Helper from "../../Helpers/Helper";
 import { store } from "../../redux/store";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
@@ -30,6 +31,7 @@ class Login extends Component {
       deviceAccessLogId: "",
     };
   }
+  
   
   submitForm = async () => {
     try {
@@ -106,16 +108,25 @@ class Login extends Component {
       console.log("payload", payload);
       let { message, error, user, response } = await Helper.logInApi(
         payload
-      ).then((result) => result);
+      ).then((result) =>{  
+        await AsyncStorage.setItem("userData",JSON.stringify(result.data));
+      });
 
       this.setState({ processing: false });
 
       if (!error) {
         this.setState({ email: "", password: "" });
+
+       
+
         store.dispatch({
           type: "IS_SIGNED_IN",
           payload: true,
         });
+
+
+        
+        
         return this.props.navigation.navigate("GotoHomeStack");
       } else {
         Alert.alert("Login", message);

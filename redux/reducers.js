@@ -3,7 +3,8 @@ import {
     FETCH_NOTIFICATION,
     PROFILE_PIC,
     IS_SIGNED_IN,
-    SHOW_SPLASH_SCREEN
+    SHOW_SPLASH_SCREEN,
+    USER_DATA,
   } from "./actions";
   
   const initialState = {
@@ -23,6 +24,9 @@ import {
       case PROFILE_PIC:
         return { ...state, pic: action.payload };
   
+      case USER_DATA:
+        return { ...state, userData: action.payload };
+    
       case IS_SIGNED_IN:
         return { ...state, loginStatus: action.payload };
   

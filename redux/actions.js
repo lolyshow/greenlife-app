@@ -5,6 +5,7 @@ export const FETCH_BALANCE = "FETCH_BALANCE";
 export const FETCH_NOTIFICATION = "FETCH_NOTIFICATION";
 export const PROFILE_PIC = "PROFILE_PIC";
 export const IS_SIGNED_IN = "IS_SIGNED_IN";
+export const USER_DATA = "USER_DATA";
 export const SHOW_SPLASH_SCREEN = "SHOW_SPLASH_SCREEN";
 
 export const setProfilePicture = (pic) => {

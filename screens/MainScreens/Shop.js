@@ -99,7 +99,7 @@ const Shop = ({ navigation,props }) => {
 
       {/* Body Starts */}
 
-        <ScrollView style = {styles.BodyContainer} showsHorizontalScrollIndicator={false}>
+        <ScrollView style = {styles.BodyContainer} showsVerticalScrollIndicator={false}>
 
             <View>
                 <View style = {styles.Card}>
@@ -127,7 +127,7 @@ const Shop = ({ navigation,props }) => {
                         />
                     </View>
 
-                    <ScrollView style = {{}} showsHorizontalScrollIndicator={false}>
+                    <ScrollView style = {{}} showsVerticalScrollIndicator={false}>
                         <View style = {{marginBottom:20}}>
                             <Text style = {{marginBottom:8,}}>Shop Number</Text>
                             <Text style = {styles.BoldText}>{shopid?shopid:"......."}</Text>

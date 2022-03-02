@@ -24,7 +24,7 @@ export default function NextScreen(props) {
         <View style = {styles.body}>
             <View style={styles.buttonWrapper}>
                 <GreenButton
-                    text="Sign Up"
+                    text="Sign Up GTPS USER"
                     buttonWidth={250}
                     onPress={() => {props.navigation.navigate("SignUp");}}
                 />
@@ -34,14 +34,14 @@ export default function NextScreen(props) {
             <View style={{ marginTop:10}}>
                 <WhiteButton
                 bordered
-                text="Sign In"
+                text="Sign In GTPS USER"
                 buttonWidth={250}
                 onPress={() => props.navigation.navigate("Login")}
                 />
             </View>
 
             <View style={{ marginTop:10}}>
-                <Text style={{color:"white",fontWeight:'bold'}} onPress={()=> props.navigation.navigate("GtpsLogin")}>Sign in as GTPS User</Text>
+                <Text style={{color:"white",fontWeight:'bold'}} onPress={()=> props.navigation.navigate("GtpsLogin")}>Sign in as GTPS Member</Text>
             </View>
         </View>
 

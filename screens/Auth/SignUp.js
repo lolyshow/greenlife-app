@@ -12,7 +12,11 @@ import InputBox from "../../components/InputBox";
 export default function NextScreen(props) {
 
   const [pinNo, setPinNo] = useState("");
-  
+  const [memberID, setMemberID] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [referral, setReferral] = useState("");
 
 
   return (
@@ -38,8 +42,8 @@ export default function NextScreen(props) {
                 <View style={styles.inputWrapper}>
                     <InputBox
                     keyboardType="numeric"
-                    onChangeText={(pinNo) => setPinNo(pinNo)}
-                    inputValue={pinNo}
+                    onChangeText={(value) => setMemberID(value)}
+                    inputValue={memberID}
                     borderWidth={1}
                     // inputLabel="Number of PINS"
                     placeholder="Insert ID here"
@@ -52,9 +56,9 @@ export default function NextScreen(props) {
                 <Text style = {{fontSize:15, fontWeight:"bold"}}>Last Name</Text>
                 <View style={styles.inputWrapper}>
                     <InputBox
-                    keyboardType="numeric"
-                    onChangeText={(pinNo) => setPinNo(pinNo)}
-                    inputValue={pinNo}
+                    // keyboardType="numeric"
+                    onChangeText={(value) => setLastName(value)}
+                    inputValue={lastName}
                     borderWidth={1}
                     // inputLabel="Number of PINS"
                     placeholder=""
@@ -69,9 +73,9 @@ export default function NextScreen(props) {
                 <Text style = {{fontSize:15, fontWeight:"bold"}}>Email Address</Text>
                 <View style={styles.inputWrapper}>
                     <InputBox
-                    keyboardType="numeric"
-                    onChangeText={(pinNo) => setPinNo(pinNo)}
-                    inputValue={pinNo}
+                    // keyboardType="numeric"
+                    onChangeText={(value) => setEmail(value)}
+                    inputValue={email}
                     borderWidth={1}
                     // inputLabel="Number of PINS"
                     placeholder=""
@@ -85,9 +89,9 @@ export default function NextScreen(props) {
                 <Text style = {{fontSize:15, fontWeight:"bold"}}>Phone Number</Text>
                 <View style={styles.inputWrapper}>
                     <InputBox
-                    keyboardType="numeric"
-                    onChangeText={(pinNo) => setPinNo(pinNo)}
-                    inputValue={pinNo}
+                    // keyboardType="numeric"
+                    onChangeText={(value) => setPhone(value)}
+                    inputValue={phone}
                     borderWidth={1}
                     // inputLabel="Number of PINS"
                     placeholder=""
@@ -95,33 +99,15 @@ export default function NextScreen(props) {
                     
                 </View>
             </View>
-
-
-
-            <View style={{padding:20,paddingTop:10}}>
-                <Text style = {{fontSize:15, fontWeight:"bold"}}>Email Address</Text>
-                <View style={styles.inputWrapper}>
-                    <InputBox
-                    keyboardType="numeric"
-                    onChangeText={(pinNo) => setPinNo(pinNo)}
-                    inputValue={pinNo}
-                    borderWidth={1}
-                    // inputLabel="Number of PINS"
-                    placeholder=""
-                    />
-                    
-                </View>
-            </View>
-
 
 
             <View style={{padding:20,paddingTop:10}}>
                 <Text style = {{fontSize:15, fontWeight:"bold"}}>Referral/Sponsor ID</Text>
                 <View style={styles.inputWrapper}>
                     <InputBox
-                    keyboardType="numeric"
-                    onChangeText={(pinNo) => setPinNo(pinNo)}
-                    inputValue={pinNo}
+                    // keyboardType="numeric"
+                    onChangeText={(value) => setReferral(value)}
+                    inputValue={referral}
                     borderWidth={1}
                     // inputLabel="Number of PINS"
                     placeholder=""

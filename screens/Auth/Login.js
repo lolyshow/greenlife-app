@@ -33,21 +33,7 @@ class Login extends Component {
   }
   
   
-  submitForm = async () => {
-    try {
-      let { email, password } = this.state;
-
-      let { validationStatus, errorMessage } = this.validateForm();
-
-      if (!validationStatus) {
-        return Alert.alert("Message", errorMessage);
-      }
-
-      return this.signIn(email, password);
-    } catch (error) {
-      Alert.alert("Error", error.toString());
-    }
-  };
+ 
 
   
   setId = (email) =>{
@@ -103,30 +89,32 @@ class Login extends Component {
 
       console.log("insideTryLogin")
       this.setState({ processing: true });
-
+      let res = {};
       let payload = "action=Member_login&memberid="+email+"&password="+password+"&api=";
       console.log("payload", payload);
       let { message, error, user, response } = await Helper.logInApi(
         payload
-      ).then((result) =>{  
-        await AsyncStorage.setItem("userData",JSON.stringify(result.data));
-      });
+      ).then((result) => res = result);
 
       this.setState({ processing: false });
 
       if (!error) {
-        this.setState({ email: "", password: "" });
 
-       
+        let userLogin = {
+          memberid:this.state.email,
+          password:this.state.password,
+        }
+
+        await AsyncStorage.setItem("userLogin",JSON.stringify(userLogin));
+
+        await AsyncStorage.setItem("userData",JSON.stringify(response));
+        this.setState({ email: "", password: "" });
 
         store.dispatch({
           type: "IS_SIGNED_IN",
           payload: true,
         });
 
-
-        
-        
         return this.props.navigation.navigate("GotoHomeStack");
       } else {
         Alert.alert("Login", message);
@@ -169,7 +157,6 @@ class Login extends Component {
                     onChangeText={(id) => this.setId(id)}
                     inputValue={this.state.email}
                     borderWidth={1}
-                    // inputLabel="Number of PINS"
                     placeholder="Insert ID here"
                   />
               </View>
@@ -184,8 +171,8 @@ class Login extends Component {
                     onChangeText={(password) => this.setPassword(password)}
                     inputValue={this.state.password}
                     borderWidth={1}
-                    // inputLabel="Number of PINS"
-                    placeholder="**"
+                    secureTextEntry={true}
+                    placeholder="*******"
                   />
                   <View style = {{flexDirection:'row-reverse'}}>
                     <Text style={{color:"#0C9344"}} onPress={() => {this.props.navigation.navigate("ForgotPassword");}}>Forgot Password</Text>

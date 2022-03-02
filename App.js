@@ -84,7 +84,10 @@ function AppContainer() {
           <>
           {showSplash && (
             <Stack.Screen name="Splash" component={SplashScreen} />
-            )}
+          )}
+
+
+
             <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
             <Stack.Screen name="NextScreen" component={NextScreen} />
             
@@ -94,7 +97,7 @@ function AppContainer() {
             <Stack.Screen name="EmailVerify" component={EmailVerify} />
             <Stack.Screen name="GtpsLogin" component={GtpsLogin} />
           </>
-         ) : (
+        ) : (
           <>
             <Stack.Screen name="GotoHomeStack" component={DrawerNavigator}  options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }}/>
             {/* <Stack.Screen name="Profile" component={DrawerNavigator}  options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }}/> */}

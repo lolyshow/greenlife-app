@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from "react-native-vector-icons/Feather";
 import ButtonComponent from "./ButtonComponent";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { store } from "../redux/store";
 export default function DrawerContent(props){
 
@@ -23,13 +24,17 @@ export default function DrawerContent(props){
 
       console.log("loginOutAlready")
 
-    const logout=()=>{
+    const logout= async()=>{
+
+        await AsyncStorage.removeItem("userLogin");
+
+        await AsyncStorage.removeItem("userData");
 
         store.dispatch({
             type: "SHOW_SPLASH_SCREEN",
             payload: false,
         });
-        
+        global.user =null;
         store.dispatch({
             type: "IS_SIGNED_IN",
             payload: false,

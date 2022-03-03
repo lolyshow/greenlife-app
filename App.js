@@ -10,7 +10,7 @@ import Login from "./screens/Auth/Login";
 import ForgotPassword from "./screens/Auth/ForgotPassword";
 import EmailVerify from "./screens/Auth/EmailVerify";
 import GtpsLogin from "./screens/Auth/GtpsLogin";
-
+import StoreStack from "./screens/Navigations/StoreNavigation/StoreStack";
 import Home from "./screens/MainScreens/Home";
 import BottomTabNavigator from "./screens/Navigations/TabNavigator";
 import DrawerNavigator from "./screens/Navigations/DrawerNavigator";
@@ -37,22 +37,8 @@ export default App = () => {
 const Stack = createNativeStackNavigator();
 
 function AppContainer() {
-
-  const [appReady,setAppReady] = useState(false)
-  const [storedCredentials,setStoredCredentials] = useState("")
   const { loginStatus, showSplash } = useSelector((state) => state.reducers);
-  const checkLoginCredential =()=>{
-    AsyncStorage
-    .getItem("userData")
-    .then((result)=>{
-      if(result !==null){
-      setStoredCredentials(result);
-      }else{
-        setStoredCredentials(null);
-      }
-    })
-    .catch(error=>{console.log("errorDetails",error)})
-  }
+  
 
   return (
     <NavigationContainer>
@@ -90,7 +76,7 @@ function AppContainer() {
 
             <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
             <Stack.Screen name="NextScreen" component={NextScreen} />
-            
+            <Stack.Screen name="StoreStack" component={StoreStack} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

@@ -7,6 +7,22 @@ export const PROFILE_PIC = "PROFILE_PIC";
 export const IS_SIGNED_IN = "IS_SIGNED_IN";
 export const USER_DATA = "USER_DATA";
 export const SHOW_SPLASH_SCREEN = "SHOW_SPLASH_SCREEN";
+export const GTPS_USER_DATA = "GTPS_USER_DATA";
+
+
+
+export const setGTPSuserDATA = (data) => {
+  try {
+    return async (dispatch) => {
+      dispatch({
+        type: GTPS_USER_DATA,
+        payload: data,
+      });
+    };
+  } catch (error) {
+    // Add custom logic to handle errors
+  }
+};
 
 export const setProfilePicture = (pic) => {
   try {

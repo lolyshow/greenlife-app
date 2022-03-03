@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet,ImageBackground,Dimensions,Image } from "react-native";
+import { View, Text, StyleSheet,ImageBackground,Dimensions,Image,TouchableOpacity } from "react-native";
 import logo from "../../assets/logo.png";
 import unsplash from "../../assets/unsplash.png";
 const screenWidth = Math.round(Dimensions.get("window").width);
@@ -8,6 +8,10 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 
 import GreenButton from "../../components/GreenButton";
 import WhiteButton from "../../components/WhiteButton";
+import Feather from 'react-native-vector-icons/Feather';
+import Entypo from "react-native-vector-icons/Entypo";
+
+// import { TouchableOpacity } from "react-native-gesture-handler";
 export default function NextScreen(props) {
 
     
@@ -24,7 +28,7 @@ export default function NextScreen(props) {
         <View style = {styles.body}>
             <View style={styles.buttonWrapper}>
                 <GreenButton
-                    text="Sign Up GTPS USER"
+                    text="Sign Up GTPS User"
                     buttonWidth={250}
                     onPress={() => {props.navigation.navigate("SignUp");}}
                 />
@@ -34,15 +38,36 @@ export default function NextScreen(props) {
             <View style={{ marginTop:10}}>
                 <WhiteButton
                 bordered
-                text="Sign In GTPS USER"
+                text="Sign In GTPS User"
                 buttonWidth={250}
                 onPress={() => props.navigation.navigate("Login")}
                 />
             </View>
 
-            <View style={{ marginTop:10}}>
-                <Text style={{color:"white",fontWeight:'bold'}} onPress={()=> props.navigation.navigate("GtpsLogin")}>Sign in as GTPS Member</Text>
-            </View>
+            {/* <View style={{ marginTop:10}}>
+                <Text style={{color:"white",fontWeight:'bold'}} onPress={()=> props.navigation.navigate("GtpsLogin")}>Sign in as GTPS User</Text>
+            </View> */}
+
+            <TouchableOpacity onPress={()=> props.navigation.navigate("Login")}>
+              <View style={{ marginTop:10,flexDirection:'row'}}>
+                  <Entypo name = "login" color={"#FFFF"} size={30} style={{margin:5}}/>
+                  <Text style={{color:"white",fontWeight:'bold',margin:10}} onPress={()=> props.navigation.navigate("Login")}>Sign In GTPS Member</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=> props.navigation.navigate("StoreStack")}>
+              <View style={{ marginTop:10,flexDirection:'row'}}>
+                  <Feather name = "user-plus" color={"#FFFF"} size={30} style={{margin:5}}/>
+                  <Text style={{color:"white",fontWeight:'bold',margin:10}} onPress={()=> props.navigation.navigate("SignUp")}>Sign Up GTPS Member</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=> props.navigation.navigate("StoreStack")}>
+              <View style={{ marginTop:10,flexDirection:'row'}}>
+                  <Feather name = "shopping-bag" color={"#FFFF"} size={30} style={{margin:5}}/>
+                  <Text style={{color:"white",fontWeight:'bold',margin:10}} onPress={()=> props.navigation.navigate("StoreStack")}>Continue as Guest</Text>
+              </View>
+            </TouchableOpacity>
         </View>
 
        

@@ -5,6 +5,7 @@ import {
     IS_SIGNED_IN,
     SHOW_SPLASH_SCREEN,
     USER_DATA,
+    GTPS_USER_DATA
   } from "./actions";
   
   const initialState = {
@@ -12,7 +13,8 @@ import {
     notification: {},
     pic: null,
     loginStatus: false,
-    showSplash:true
+    showSplash:true,
+    gtpsUserData:null,
   };
   
   function reducers(state = initialState, action) {
@@ -27,6 +29,9 @@ import {
       case USER_DATA:
         return { ...state, userData: action.payload };
     
+      case GTPS_USER_DATA:
+        return { ...state, gtpsUserData: action.payload };
+
       case IS_SIGNED_IN:
         return { ...state, loginStatus: action.payload };
   

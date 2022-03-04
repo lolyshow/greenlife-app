@@ -60,7 +60,9 @@ export default class Stores extends Component {
 
   
   submitForm =()=>{
+    console.log("myEmailIsKukuHere", global.gtpsUserData.email)
     {global.gtpsUserData !=undefined && global.gtpsUserData!=null?
+    
     this.props.navigation.navigate("Store"):
     this.props.navigation.navigate("Register");
     

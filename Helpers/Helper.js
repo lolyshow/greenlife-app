@@ -215,6 +215,75 @@ const Helper = {
     return data;
   },
 
+
+  userLogInApi: async (payloads) => {
+    let LoginData = {
+      email: "username",
+      password: "password",
+    };
+    let email = "username";
+    let password = "password";
+    // const { uniqueId, brand, model } = NativeModules.RNDeviceInfo;
+
+    const headerPayload = {
+      username: "username",
+      password: "password",
+      token: "token",
+      
+    };
+
+
+    let url = Config.base_url+"MemberControllerServlet?"+payloads;
+
+    console.log("thisIsUrl",url.toString());
+    let result = {};
+    
+    await axios
+      .post(url, LoginData, { headers: headerPayload })
+      .then(function(response) {
+        console.log("thisisMyResponse",response)
+        let { loginStatus } = response.data;
+
+        if (loginStatus != true) {
+          result = {
+            message: "error",
+            error: true,
+            user: null,
+            response: null,
+          };
+        } else {
+          Helper.saveLoginDetails(email, password);
+          global.username = email;
+          global.password = password;
+          global.user = response.data;
+          global.header = response.headers;
+          console.log("MyHeaderIsRightHere123",response.headers);
+          // global.authToken = Helper.getPropValue(
+          //   response.data,
+          //   "auth.access_token"
+          // );
+          
+
+          result = {
+            message: "message",
+            error: false,
+            user: response.data.user,
+            response: response.data,
+          };
+        }
+      })
+      .catch(function(error) {
+        result = {
+          message: error.toString(),
+          error: true,
+          user: null,
+          response: null,
+        };
+      });
+
+    return result;
+  },
+
   logInApi: async (payloads) => {
     let LoginData = {
       email: "username",

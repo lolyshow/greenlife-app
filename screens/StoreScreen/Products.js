@@ -168,6 +168,8 @@ export default class Products extends Component {
             <View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
 
               <ActivityIndicator size="large" color="#0C9344" />
+              <Text style={{textAlign:'center'
+              }}>Loading, Please wait......</Text>
             </View>
 
           }

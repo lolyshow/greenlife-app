@@ -4,6 +4,7 @@ import Products from "../../StoreScreen/Products";
 import Stores from "../../StoreScreen/Stores";
 import { Provider, useSelector } from "react-redux";
 import Register from "../../StoreScreen/Register";
+import Login from "../../StoreScreen/Login";
 const Stack = createStackNavigator();
 const screenOptionStyle = {
   headerStyle: {
@@ -40,7 +41,7 @@ const StoreStack = () => {
       
         <>
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="SignIn" component={Register} />
+        <Stack.Screen name="SignIn" component={Login} />
         </>
       
       

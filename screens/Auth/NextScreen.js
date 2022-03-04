@@ -30,7 +30,9 @@ export default function NextScreen(props) {
                 <GreenButton
                     text="Sign Up GTPS User"
                     buttonWidth={250}
-                    onPress={() => {props.navigation.navigate("SignUp");}}
+                    onPress={() => {props.navigation.navigate("StoreStack",{
+                      screen:"Register"
+                    });}}
                 />
             </View>
 
@@ -40,7 +42,11 @@ export default function NextScreen(props) {
                 bordered
                 text="Sign In GTPS User"
                 buttonWidth={250}
-                onPress={() => props.navigation.navigate("Login")}
+                onPress={() => props.navigation.navigate("StoreStack",{
+                  screen: 'SignIn'
+                })}
+
+                
                 />
             </View>
 

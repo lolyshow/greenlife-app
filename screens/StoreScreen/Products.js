@@ -13,25 +13,26 @@ import ButtonComponent from "../../components/ButtonComponent";
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
-// import { store } from "../redux/store";
-
-// import logoWatermark from "../assets/logoWatermark.png";
-
-// import Logo from "../../assets/logo2.png";
-import Logo from "../../assets/chitomeal.png";
+import { FlatGrid } from "react-native-super-grid";
+import SearchBar from "../../components/SearchBar";
+import ProductCard from "../../components/ProductCard";
+import { FlatList } from "react-native-gesture-handler";
 // import { Consumer } from "react-native-paper/lib/typescript/core/settings";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
+    paddingBottom:40,
   },
   StatusBar: {
     color: "white",
   },
+  gridView: {
+    // margin: 10,
+    // flex: 1,
+  },
 });
 
-export default class Products extends Component {
+class Products extends React.Component {
 
   constructor(props) {
     super(props);
@@ -40,7 +41,10 @@ export default class Products extends Component {
       storedCredentials: "",
       appReady: false,
       detailsResponse:null,
-      processing:false
+      processing:false,
+      searchPhrase:"",
+      clicked:false,
+      searchString: "",
     };
   }
 
@@ -78,43 +82,60 @@ export default class Products extends Component {
   }
   
   submitForm =(memberid)=>{
-    {global.gtpsUserData !=undefined && global.gtpsUserData!=null?
-    this.props.navigation.navigate("Stores"):
-    this.props.navigation.navigate("Register");
+    // {global.gtpsUserData !=undefined && global.gtpsUserData!=null?
+    this.props.navigation.navigate("Stores")
+    // this.props.navigation.navigate("Register");
     
-    }
+    // }
+  }
+
+  setClicked =(clicked)=>{
+    this.setState({clicked});
+  }
+  setSearchPhrase = (searchPhrase) =>{
+    this.setState({searchPhrase})
   }
 
   productCard =(productname,desc,filepath,memshopid,id)=>{
     console.log("thisKey",id)
     return(
-      <View style = {{padding:20}} key={id}>
+      <View style = {{padding:20,}} key={id}>
                 
-        <View style={{shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10}}>
+        
+
+        <View style={{justifyContent:"center", shadowOffset: {width: 10, height: 10}, borderRadius:10, shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10,width:160}}>
+            <View style={{justifyContent:'space-between',flexDirection:'row'}}>
+              <Text style = {{fontSize:12,color:'#0C9344'}}>Stock Status:</Text>
+              <View style = {{borderRadius:10,backgroundColor:"#d9dbda",width:70}}>
+                <Text style = {{fontSize:12,textAlign:'center'}}>Available</Text>
+              </View>
+            </View>
             <TouchableOpacity onPress={()=>console.log("pressed!!!")} >
-                <View style ={{alignSelf:'center'}}>
+                <View style ={{alignSelf:'center',justifyContent:'center'}}>
                     <Image resizeMode="contain" style = {{width: 100, height: 100,}}  source={{uri:filepath}} />
                 </View>
             </TouchableOpacity>
-            <View>
-                <Text style={{fontSize:20,fontWeight:'bold',}}>{productname}</Text>
-                <Text>{desc}
-                    <Text style = {{backgroundColor:"#5cb85c",color:"#FFFFFF"}} onPress={()=>console.log("you pressed me!!")}>View Details</Text>
+            <View style={{justifyContent:'center'}}>
+                
+                
+                <Text numberOfLines={3} style={{fontSize:12}}>fhskdhshdklshdkshdlkshdkhslhsklhdlhsldskdlkhdkhlhsdklhdkls
+                {desc}
+                    <Text style = {{backgroundColor:"#5cb85c",color:"#FFFFFF", fontSize:12}} onPress={()=>console.log("you pressed me!!")}>View Details</Text>
                 </Text>
+                <Text style={{fontSize:15,fontWeight:'bold'}}>{productname}</Text>
+                <Text style={{fontSize:15,fontWeight:'bold'}}>{"\u20A6"}40000</Text>
             </View>
 
 
 
-            <View style = {{flexDirection:'row', justifyContent:'space-between'}}>
+            <View style = {{ justifyContent:"center"}}>
 
-              <View >
-                  {/* <Text>herer</Text> */}
-              </View>
+              
 
-                <View style={{paddingTop:20}}>
+                <View style={{paddingTop:20,alignItems:'center'}}>
                   <ButtonComponent
                   textinput="View Stores"
-                  buttonWidth={90}
+                  buttonWidth={120}
                   onPress={() => this.submitForm(memshopid)}
                   size ={"sm"}
                   backgroundColor = {"#337ab7"}
@@ -136,6 +157,83 @@ export default class Products extends Component {
       </View>
     );
   }
+  onpressText(data){
+    console.log("mdddt",data);
+  }
+
+  renderProductCard = () => {
+    
+    // ];
+    
+    let count = 0;
+    let {stocks} = this.state.detailsResponse;
+    
+    
+    return (
+      
+      <FlatGrid
+        itemDimension={120}
+        data={stocks}
+        style={styles.gridView}
+        renderItem={({ item }) => 
+          (<View style = {{paddingBottom:60,}} key={count+=1}>
+                
+                <View style={{justifyContent:"center", shadowOffset: {width: 10, height: 10}, borderRadius:10, shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10,width:160}}>
+                    {/* <View style={{justifyContent:'space-between',flexDirection:'row'}}>
+                      <Text style = {{fontSize:12,color:'#0C9344'}}>Stock Status:</Text>
+                      <View style = {{borderRadius:10,backgroundColor:"#d9dbda",width:70}}>
+                        <Text style = {{fontSize:12,textAlign:'center'}}>{item.status}</Text>
+                      </View>
+                    </View> */}
+                    <TouchableOpacity onPress={()=>console.log("pressed!!!")} >
+                        <View style ={{alignSelf:'center',justifyContent:'center'}}>
+                            <Image resizeMode="contain" style = {{width: 100, height: 100,}}  source={{uri:item.filepath}} />
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{justifyContent:'center'}}>
+                        
+                        
+                        <Text numberOfLines={3} style={{fontSize:12}}>
+                        {item.desc}
+                            <Text style = {{backgroundColor:"#5cb85c",color:"#FFFFFF", fontSize:12}} onPress={item.onpressText}>View Details</Text>
+                        </Text>
+                        <Text style={{fontSize:15,fontWeight:'bold'}}>{item.productname}</Text>
+                        <Text style={{fontSize:15,fontWeight:'bold'}}>{"\u20A6"}{item.cost}</Text>
+                    </View>
+        
+        
+        
+                    <View style = {{ justifyContent:"center"}}>
+        
+                      
+        
+                        <View style={{alignItems:'center'}}>
+                          <ButtonComponent
+                          textinput={"View Store"}
+                          buttonWidth={120}
+                          onPress={() => this.submitForm(item.memshopid)}
+                          size ={"sm"}
+                          backgroundColor = {"#337ab7"}
+                          borderRadius = {8}
+                          textColor={"#FFFFFF"}
+                          borderWidth = {1}
+                          borderColors = {"#FFFFFF"}
+        
+                        />
+                      </View>
+                    </View>
+        
+                    
+                </View>
+              </View>)
+         
+        }
+      />
+      
+    );
+  };
+
+  
   onSwipePerformed = (action) => {
     switch (action) {
       
@@ -151,31 +249,38 @@ export default class Products extends Component {
     return (
       
         <View style={styles.container}>
-                
-          <ScrollView>
-            
+
+            <View style = {{padding:20,paddingBottom:0}}>
+
+              <SearchBar
+                searchPhrase={this.state.searchPhrase}
+                setSearchPhrase={(text) => this.setSearchPhrase(text)}
+                clicked={this.state.clicked}
+                setClicked={(clicked) => this.setClicked(clicked)}
+                searchPlaceHolder = "Choose product to search for"
+              />
+            </View>    
+          <View>
           {detailsResponse!= null ?
             
-            (detailsResponse.stocks.map((data)=>{
-              console.log("mudataInloop",data)
-              
-              
-              return(this.productCard(data.productname,data.desc,data.filepath,data.memshopid,count+=1))
-            })
-              
+          
+            (<View style ={{}}>
+                {this.renderProductCard()}
+            </View>)
 
-            ):
-            <View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
+            :(<View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
 
               <ActivityIndicator size="large" color="#0C9344" />
               <Text style={{textAlign:'center'
               }}>Loading, Please wait......</Text>
-            </View>
+            </View>)
 
           }
             
-          </ScrollView>
+          </View>
         </View>
     );
   }
 }
+
+export default Products;

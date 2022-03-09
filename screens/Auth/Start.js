@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     paddingLeft:80,
     paddingRight:80,
+    paddingBottom:40,
   },
 
   logoWrapper: {
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
   },
 });
-
+const win = Dimensions.get('window');
 const DisplayAds = ({ Icon, text }) => {
   return (
     <View>
@@ -234,11 +235,12 @@ export default class Start extends Component {
 
     return (
       <View style={[styles.container]}>
-        <StatusBar barStyle="light-content" backgroundColor={"#17375e"} />
-        <View>
+        <StatusBar barStyle="light-content" backgroundColor={null} />
+        <View style = {{width:300}}>
           {/* <SwipeGestureComponents onSwipePerformed={this.onSwipePerformed}> */}
           <View style={styles.displayIconWrapper}>
-            <Image resizeMode="contain" source={Ads[currentAdsPosition].icon} />
+            <Image resizeMode="stretch" style={{width: win.width/2,height: win.width/2,resizeMode: "contain",alignSelf: "center",}}
+             source={Ads[currentAdsPosition].icon} />
           </View>
           <View style={styles.IconTextWrapper}>
             <Text style={styles.IconText}>{Ads[currentAdsPosition].title} </Text>
@@ -262,16 +264,40 @@ export default class Start extends Component {
           })}
         </View>
 
+        <View style={[styles.buttonWrapper,{}]}>
+          <View>
+            <GreenButton
+              text="Login as GTPS Member"
+              buttonWidth={300}
+              onPress={() => this.props.navigation.navigate("NextScreen")}
+              borderR ={1}
+              borderC = {"#0C9344"}
+              borderW={1}
+              backgroundCol = {"#FFFFFF"}
+              color={"#0C9344"}
+              textStyle={{color:"#0C9344"}}
+            />
+          </View>
+        </View>
+
 
         <View style={[styles.buttonWrapper,{}]}>
           <View>
             <GreenButton
-              text="Next"
-              buttonWidth={200}
+              text="Continue to store"
+              buttonWidth={300}
               onPress={() => this.props.navigation.navigate("NextScreen")}
+              borderR ={1}
+              borderC = {"green"}
+              borderW={1}
+              backgroundCol = {"#0C9344"}
+              color={"green"}
+              textStyle={{color:"#FFFFFF"}}
             />
           </View>
         </View>
+
+        
       </View>
     );
   }

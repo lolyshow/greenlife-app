@@ -39,7 +39,11 @@ export default function GreenButton({
   text,
   textStyle = {},
   processing= false,
-  buttonWidth
+  buttonWidth,
+  borderR,
+  backgroundCol,
+  borderC,
+  borderW,
 })
 
 
@@ -51,7 +55,11 @@ export default function GreenButton({
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={[styles.Button, applyWidth ]}
+      style={[styles.Button,
+      {borderRadius:borderR?borderR:20, 
+      backgroundColor:backgroundCol?backgroundCol:"#0C9344",
+      borderColor:borderC?borderC:null,borderWidth:borderW?borderW:null}
+      , applyWidth ]}
     >
       {processing ? (
         <Text style={styles.ButtonText}>

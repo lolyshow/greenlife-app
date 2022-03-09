@@ -100,24 +100,38 @@ export default class Stores extends Component {
                     </View>
 
                     <View><Text style = {{fontWeight:'bold',fontSize:20}}>Stores selling: Danshen Plus:</Text></View>
-                    <View style={{shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10}}>
+                    <View style={{shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10,width:160}}>
                         <TouchableOpacity onPress={()=>console.log("pressed!!!")} >
-                            <View style ={{alignSelf:'center'}}>
-                                <Image resizeMode="stretch"   source={Logo} />
+                            <View style ={{justifyContent:"center"}}>
+                                <Image resizeMode="stretch" size={20}   source={Logo} />
                             </View>
                         </TouchableOpacity>
                         <View>
-                            <Text style={{fontSize:20,fontWeight:'bold',}}>My Title</Text>
-                            <Text style={{fontSize:15,fontWeight:'bold',}}>Shop Name:Janet for life</Text>
-                            
-                            <Text>We at SCTI are professionals ready to handle your tech problems, Be it website creation, app creation on Windows or Android or database management, or even final project/assignment and whatever your n......
+                            <Text style={{fontSize:12}} numberOfLines={3}>We at SCTI are professionals ready to handle your tech problems, Be it website creation, app creation on Windows or Android or database management, or even final project/assignment and whatever your n......
                             
                             </Text>
+                            <Text style={{fontSize:20,fontWeight:'bold',}}>$50,000</Text>
+                            <Text style={{fontSize:15,fontWeight:'bold',}}>Elarger Med</Text>
+                            <View style ={{alignItems:'center',marginTop:20}}>
+                              <ButtonComponent
+                                textinput="View Store"
+                                buttonWidth={130}
+                                onPress={() => this.submitForm()}
+                                size ={"sm"}
+                                backgroundColor = {"#337ab7"}
+                                borderRadius = {8}
+                                textColor={"#FFFFFF"}
+                                borderWidth = {1}
+                                borderColors = {"#FFFFFF"}
+
+                                />
+                              </View>
+                            
                         </View>
 
 
 
-                        <View style = {{flexDirection:'row', justifyContent:'space-between'}}>
+                        {/* <View style = {{flexDirection:'row', justifyContent:'space-between'}}>
 
                             <View style={{paddingTop:20}}>
                                 <ButtonComponent
@@ -152,7 +166,7 @@ export default class Stores extends Component {
 
                             
 
-                        </View>
+                        </View> */}
 
                         
                     </View>

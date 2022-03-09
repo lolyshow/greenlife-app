@@ -10,7 +10,7 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
       style={{width:buttonWidth?buttonWidth:100,backgroundColor:backgroundColor,borderRadius:borderRadius,height:btnHeight,justifyContent:'center',borderWidth:1,borderColor:borderColors,}}
     >
 
-      {console.log("thisIsTitlefd",boldText)}
+      {/* {console.log("thisIsTitlefd",boldText)} */}
       {processing ? (
         <Text style={styles.ButtonText}>
           Processing <ActivityIndicator size="small" color="#ffffff" />

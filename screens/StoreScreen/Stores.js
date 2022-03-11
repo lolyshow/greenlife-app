@@ -6,10 +6,11 @@ import {
   Image,
   StatusBar,
   ImageBackground,
-  View,Alert,Text,TouchableOpacity,ScrollView,
+  View,Alert,Text,TouchableOpacity,ScrollView,ActivityIndicator
 } from "react-native";
 import Helper from "../../Helpers/Helper";
 import ButtonComponent from "../../components/ButtonComponent";
+import { FlatGrid } from "react-native-super-grid";
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
@@ -19,6 +20,7 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 
 // import Logo from "../../assets/logo2.png";
 import Logo from "../../assets/store.png";
+import StoreCard from "../../components/StoreCard";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -40,6 +42,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
   },
+  boxStyle: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 60,
+  }
 });
 
 export default class Stores extends Component {
@@ -50,13 +61,19 @@ export default class Stores extends Component {
       email: "",
       storedCredentials: "",
       appReady: false,
+      detailsResponse:null,
+      processing:false,
+      searchPhrase:"",
+      clicked:false,
+      searchString: "",
       
     };
   }
 
   componentDidMount() {
-
-}
+    this.fetchStoreDetails();
+    
+  }
 
   
   submitForm =()=>{
@@ -79,102 +96,123 @@ export default class Stores extends Component {
       }
     }
   };
-  render() {
+
+  fetchStoreDetails =async()=>{
+
+    const {email,password} = global.gtpsUserData;
+    try {
+      let body = {
+        "email": email,
+        "password": password,
+        "btn-submit": "Admin-Login",
+        "function":"client-login",
+        "textMemberID": ' 202012340008',
+        "param_type":"product",
+        "page":"view_stores",
+        "api":""
+      }
+
+      console.log("bodydyd",body)
+      this.setState({processing:true});
+      let {memberid} = this.props.route.params;
+      let payload = "view_stores.jsp?product="+memberid+"&api";
+      console.log("payloadProuctsCat", payload);
+      await Helper.Request(payload,"post",body)
+      .then((result) =>{ 
+        let { message, error, response } = result;
+      
+        this.setState({processing:false});
+        if (!error) {
+          this.setState({detailsResponse:result.response});
+          
+        } else {
+          Alert.alert("Shop", message);
+        }
+
+      });
+
+      
+    } catch (error) {
+      this.setState({processing:false});
+      Alert.alert("Error", error.toString());
+    }
+  }
+
+  onPressProduct(){
+
+  }
+
+
+  onPressCall(){
+
+  }
+
+  renderProductCard = () => {
+    
+    // ];
+    
+    let count = 0;
+    let {stores} = this.state.detailsResponse;
+    
+    
     return (
       
-        <View style={styles.container}>
-                
-            <ScrollView>
-                
-
-                <View style = {{padding:20}}>
-                    <View style = {styles.Card}>
-                        {/* <Text style = {{fontWeight:'bold', fontSize:20}}>Hello, {processing?"........":fullname?fullname:"......"}</Text> */}
-                        <Text style = {{}}>Welcome to GTPS Online Stores </Text>
-
-                        <Text style = {{marginTop:10,}}>We know our frustrating it is to need something but can't afford; and even more frustrating to have the means and not find exactly what you need. At GTPS, we need connect you to e-stores that will provide you with what you need..
-
-                        </Text>
-                        
-                        {/* <Text style = {{marginTop:10,}}>For easy implementation, we are piloting this service in Nigeria first.</Text> */}
-                    </View>
-
-                    <View><Text style = {{fontWeight:'bold',fontSize:20}}>Stores selling: Danshen Plus:</Text></View>
-                    <View style={{shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10,width:160}}>
-                        <TouchableOpacity onPress={()=>console.log("pressed!!!")} >
-                            <View style ={{justifyContent:"center"}}>
-                                <Image resizeMode="stretch" size={20}   source={Logo} />
-                            </View>
-                        </TouchableOpacity>
-                        <View>
-                            <Text style={{fontSize:12}} numberOfLines={3}>We at SCTI are professionals ready to handle your tech problems, Be it website creation, app creation on Windows or Android or database management, or even final project/assignment and whatever your n......
-                            
-                            </Text>
-                            <Text style={{fontSize:20,fontWeight:'bold',}}>$50,000</Text>
-                            <Text style={{fontSize:15,fontWeight:'bold',}}>Elarger Med</Text>
-                            <View style ={{alignItems:'center',marginTop:20}}>
-                              <ButtonComponent
-                                textinput="View Store"
-                                buttonWidth={130}
-                                onPress={() => this.submitForm()}
-                                size ={"sm"}
-                                backgroundColor = {"#337ab7"}
-                                borderRadius = {8}
-                                textColor={"#FFFFFF"}
-                                borderWidth = {1}
-                                borderColors = {"#FFFFFF"}
-
-                                />
-                              </View>
-                            
-                        </View>
+      <FlatGrid
+        itemDimension={150}
+        data={stores}
+        style={styles.gridView}
+        renderItem={({ item }) => 
+          (
+            <StoreCard filepath ={item.filepath} shopname={item.shopname} address={item.shop_location} phone={item.phone} onPressCall={this.onPressCall.bind(this,"0")} onPressProduct = {this.onPressProduct.bind(this,"1")} count = {count+=1}/>
+          )
+         
+        }
+      />
+      
+    );
+  };
 
 
+  render() {
+    let {detailsResponse} = this.state;
+    return (
+      
+      <View style={styles.container}>
+              
+        <View>
+            
 
-                        {/* <View style = {{flexDirection:'row', justifyContent:'space-between'}}>
+          <View style = {{padding:20}}>
+              {/* <View style = {styles.Card}>
+                  <Text style = {{}}>Welcome to GTPS Online Stores </Text>
 
-                            <View style={{paddingTop:20}}>
-                                <ButtonComponent
-                                    textinput="Click to Call"
-                                    buttonWidth={100}
-                                    onPress={() => this.submitForm()}
-                                    size ={"sm"}
-                                    backgroundColor = {"#337ab7"}
-                                    borderRadius = {8}
-                                    textColor={"#FFFFFF"}
-                                    borderWidth = {1}
-                                    borderColors = {"#FFFFFF"}
+                  <Text style = {{marginTop:10,}}>We know our frustrating it is to need something but can't afford; and even more frustrating to have the means and not find exactly what you need. At GTPS, we need connect you to e-stores that will provide you with what you need..
 
-                                    />
-                            </View>
+                  </Text>
+                  
+              </View>
 
-                            <View style={{paddingTop:20}}>
-                                <ButtonComponent
-                                textinput="View Stores"
-                                buttonWidth={100}
-                                onPress={() => this.submitForm()}
-                                size ={"sm"}
-                                backgroundColor = {"#5cb85c"}
-                                borderRadius = {8}
-                                textColor={"#FFFFFF"}
-                                borderWidth = {1}
-                                borderColors = {"#FFFFFF"}
+              <View><Text style = {{fontWeight:'bold',fontSize:20}}>Stores selling: Danshen Plus:</Text></View>
+               */}
+                  
+              {detailsResponse!= null ?
+            
+          
+                (<View style ={{}}>
+                    {this.renderProductCard()}
+                </View>)
 
-                                />
-                            </View>
+                :(<View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
 
+                  <ActivityIndicator size="large" color="#0C9344" />
+                  <Text style={{textAlign:'center'
+                  }}>Loading, Please wait......</Text>
+                </View>)
 
-                            
-
-                        </View> */}
-
-                        
-                    </View>
-                        
-                    
-                </View>
-            </ScrollView>
+              }
+          </View>
         </View>
+      </View>
     );
   }
 }

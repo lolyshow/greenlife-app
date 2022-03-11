@@ -1,14 +1,15 @@
 
 import React from "react";
-import { View, Text, StyleSheet,ScrollView,TouchableOpacity,Switch,Alert, Platform,ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet,ScrollView,StatusBar,TouchableOpacity,Switch,Alert, Platform,ActivityIndicator, Button } from "react-native";
 import {Avatar} from 'react-native-paper';
 import SearchBar from "../../components/SearchBar";
 import Clipboard from '@react-native-community/clipboard';
 import ButtonComponent from "../../components/ButtonComponent";
 import ToggleDrawerBtn from "../../components/ToggleDrawerBtn";
-import FontAwesome from 'react-native-vector-icons/MaterialIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Helper from "../../Helpers/Helper";
+import Share from 'react-native-share';
 export default class Home extends React.Component {
   // function Home(props){
 
@@ -25,16 +26,47 @@ export default class Home extends React.Component {
       searchString: "",
       copyToClipboard:"",
       isEnabled:false,
+      generologySummary:null,
       linkUrl:"www.greelifetree.com-----------",
       referral:"",
       dashboard:{},
       accBalance:0,
+      options : {
+        title:"Awesome Contents",
+        url:"https://awesome.contents.com/",
+        message:"Please check this out."
+      }
     };
   }
 
   componentDidMount() {
     this.fetchHomepage();
+    this.FetchGenerologySummary();
   }
+
+  
+  // shareData = ()=>{
+  //   const url = "https://awesome.contents.com/";
+  //   const title = "Awesome Contents";
+  //   const message = "Please check this out.";
+  //   return 
+  // }
+   
+
+   share = async (linkToShare) => {
+
+    let options = {
+      title:"Green Life App",
+      url:linkToShare,
+      message:"Please check this out."
+    }
+    try {
+      await Share.open(options);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
    submitForm =()=>{
     this.props.navigation.navigate("WithdrawalRequestF")
@@ -71,6 +103,30 @@ export default class Home extends React.Component {
       
     } catch (error) {
       this.setState({ processing: false });
+      Alert.alert("Error", error.toString());
+    }
+  }
+
+
+  FetchGenerologySummary = async()=>{
+    try {
+
+      console.log("insideTryLogin")
+      this.setState({ processing: true });
+      
+      let payload = "GeneologyStatusMemberServlet?action=all&memberid="+global.user.memberid+"&api";
+      await Helper.Request(payload)
+      .then((result) =>{ 
+        let { message, error, response } = result;
+        if (!error) {
+          this.setState({ generologySummary : result.response });
+        } else {
+          Alert.alert("Home", message);
+        }
+
+      });
+
+    } catch (error) {
       Alert.alert("Error", error.toString());
     }
   }
@@ -156,20 +212,20 @@ export default class Home extends React.Component {
     console.log("mydataLogsHere",this.state.dashboard);
     console.log("isItEnabled",this.state.isEnabled)
     console.log("THisIsMyStateBalance",this.state.accBalance)
-    let {accBalance,isEnabled} = this.state;
+    let {accBalance,isEnabled,generologySummary} = this.state;
     const {first,referral,total_withdraw,total_withdraw_naira,total_stocks,total_views,referral_shop,shopname,shopid,balance} = this.state.dashboard;
-    // const {dashboard} = this.state.dashboard;
-  return (
+    
+    return (
     <View style={styles.container}>
 
       {/* header Starts */}
       <View style = {styles.headerContainer}>
         <View>
-          {/* <Text onPress = {this.toggleNav}>LeftIcon</Text> */}
           <ToggleDrawerBtn 
             onPress = {this.toggleNav}
           />
         </View>
+        <StatusBar style="auto" />
         
         <View>
           <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
@@ -212,17 +268,17 @@ export default class Home extends React.Component {
           </View>
 
           <View style = {{flexDirection:'row'}}>
-            {/* onclick Copy Starts */}
             
-              <TouchableOpacity onPress={()=>this.copyToClipboard(referral)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
+              <TouchableOpacity onPress={()=>this.share(referral)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
+              
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                   <Text style = {{fontSize:12, color:"#979797"}}>{referral?referral:"......"}</Text>
                 </ScrollView>
               </TouchableOpacity>
             
-            <TouchableOpacity onPress={()=>this.copyToClipboard(referral)} >
+            <TouchableOpacity onPress={()=>this.share(referral)} >
               <View style = {{padding:3,color:'#0C9344'}}>
-                <FontAwesome name="content-copy" size = {20} color = {"#0C9344"}/>
+                <Feather name="share" size = {20} color = {"#0C9344"}/>
               </View>
             </TouchableOpacity>
 
@@ -301,15 +357,15 @@ export default class Home extends React.Component {
             <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',flexDirection:'row',padding:20,marginLeft:10}]}>
               <View style={{flex:1}}>
                 <Text style = {{color:'#0C9344',fontSize:20,fontWeight:'bold'}}>{"Total Referrals"}</Text>
-                <Text style = {{color:'#0C9344',fontSize:25,fontWeight:'bold'}}>{"52"}</Text>
+                <Text style = {{color:'#0C9344',fontSize:25,fontWeight:'bold'}}>{generologySummary?generologySummary.total:"..."}</Text>
               </View>
 
               <View style = {{margin:10}}>
                 
+                
+                {this.RefferalSmallCard("Total A-Side",generologySummary?generologySummary.side_a:"...")}
 
-                {this.RefferalSmallCard("Total A-Side","0")}
-
-                {this.RefferalSmallCard("Total B-Side","0")}
+                {this.RefferalSmallCard("Total B-Side",generologySummary?generologySummary.side_b:"...")}
                 
               </View>
 
@@ -327,14 +383,14 @@ export default class Home extends React.Component {
 
               <View style = {{flexDirection:'row'}}>
                 {/* onclick Copy Starts */}
-                <TouchableOpacity onPress={()=>this.copyToClipboard(referral_shop)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
+                <TouchableOpacity onPress={()=>this.share(referral_shop)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
                   <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <Text style = {{fontSize:12, color:"#979797"}}>{referral_shop}</Text>
                   </ScrollView>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>this.copyToClipboard(referral_shop)} >
+                <TouchableOpacity onPress={()=>this.share(referral_shop)} >
                   <View style = {{padding:3,color:'#0C9344'}}>
-                    <FontAwesome name="content-copy" size = {20} color = {"#0C9344"}/>
+                    <Feather name="share" size = {20} color = {"#0C9344"}/>
                   </View>
                 </TouchableOpacity>
                 {/* onclick Copy Ends */}

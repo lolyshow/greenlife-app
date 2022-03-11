@@ -352,6 +352,57 @@ const Helper = {
     return result;
   },
 
+  Request: async(linkUrl,method = "get",dataPayload={})=>{
+    
+    
+    var data = qs.stringify(dataPayload);
+    let urls = Config.base_url_live+linkUrl;
+
+    console.log("myPayloadAnds",urls);
+    let result = {};
+    var config = {
+      method: method,
+      url: urls,
+      headers: { 
+        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'Cookie': 'JSESSIONID=539E0A68F2BC33FC52FF1A9A3DA11657'
+      },
+      data : data
+    };
+
+    await axios(config)
+    .then(function (response) {
+      console.log("myResponse",response);
+      let data = response.data;
+        if (!data) {
+          result = {
+            message: "There seems to be an Error",
+            error: true,
+            response: null,
+          };
+        } else {
+          
+          result = {
+            message: "Success",
+            error: false,
+            response: response.data,
+          };
+        }
+
+        
+    })
+    .catch(function (error) {
+      result = {
+        message: error.toString(),
+        error: true,
+        response: null,
+      };
+      console.log(error);
+    });
+    return result;
+  },
+
+
   getRequest: async(linkUrl,method = "get",dataPayload={})=>{
     
     

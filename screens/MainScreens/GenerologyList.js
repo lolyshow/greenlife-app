@@ -7,12 +7,18 @@ import HeaderComponent from "../../components/HeaderComponent";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-date-picker'
 import Helper from "../../Helpers/Helper";
+import Loader  from '../../components/Loader';
+
 
 const GenerologyList = ({ navigation,props }) => {
 
     const Back = () =>{
         navigation.goBack()
     }
+
+    useEffect(() => {
+        geneologyList();
+      },[]);
 
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -68,56 +74,33 @@ const GenerologyList = ({ navigation,props }) => {
     }
 
 
-    const submitForm = async()=>{
+    const geneologyList = async()=>{
+     
+        try {
 
-        if(amount>0){
-            if(paymentType!="" && memberid!="" && amount!=0 && tellerNo!="" && bank!="" && formatedDate!="" && depositorName!=""){
-                let payload = {
-                    textPurpose: purpose,
-                    textType: paymentType,
-                    textMemberID: memberid,
-                    textAmount: amount,
-                    textTeller: tellerNo,
-                    textBank: bank,
-                    textDate: formatedDate ,
-                    textDepositor: depositorName,
-                    textFunction: 'new',
-                    textPayID: 'blabla',
-                }
-                console.log(payload);
-                // return;
-                try {
-
-                    // console.log("insideTryLogin")
-                    setProcessing(true);
-                    
-                    let linkUrl = "MemberPaymentControllerServlet?action=newPaymentMem&api";
-                    console.log("payloadShop", payload);
-                    await Helper.getRequest(linkUrl,"post",payload)
-                    .then((result) =>{ 
-                    let { message, error, response } = result;
-                    
-                    setProcessing(false);
-                    if (!error) {
-                        setDetailsResponse(result.response);
-                        resetForm();
-                        Alert.alert("Payment", result.response.msg);
-                    } else {
-                        Alert.alert("Payment", message);
-                    }
+            setProcessing(true);
             
-                    });
-                    
-                } catch (error) {
-                    setProcessing(false);
-                    Alert.alert("Error", error.toString());
-                }
-            }else{
-                Alert.alert("Payment", "Empty Fields are required");
+            let linkUrl = "TeamPerformanceAgentServlet?memberid="+global.user.memberid+"&api";
+            
+            await Helper.Request(linkUrl)
+            .then((result) =>{
+            let { message, error, response } = result;
+            console.log("generologyListing",result);
+            setProcessing(false);
+            if (!error) {
+                setDetailsResponse(result.response);
+            } else {
+                Alert.alert("Payment", message);
             }
-        }else{
-            Alert.alert("Payment", "Please Enter A Valid Amount");
+    
+            });
+            
+        } catch (error) {
+            setProcessing(false);
+            Alert.alert("Error", error.toString());
         }
+            
+        
     }
     const toggleDate=()=>{
         console.log("toggleDate");
@@ -129,11 +112,20 @@ const GenerologyList = ({ navigation,props }) => {
         return PaymentType;
     }
 
+    const viewMore=(data)=>{
+        // console.log("ViewMoreDeta",data);
+        navigation.navigate({
+            name:'ViewMore',
+            params: { routeData:data},
+        });
+    }
 
 
-    const TableContent =(memberID,Name,Status)=>{
+    const TableContent =(memberID,Name,Status,count,data)=>{
+        
         return (
-            <View style={{flexDirection:'row',}}>
+            
+            <View style={{flexDirection:'row',}} key = {count}>
                             
                 <View style = {{width:100}}><Text>{memberID}</Text></View>
                 <View style = {{width:100,marginLeft:20}}><Text style = {{textAlign:'center'}}>{Name}</Text></View>
@@ -144,7 +136,7 @@ const GenerologyList = ({ navigation,props }) => {
                     <ButtonComponent
                         textinput="View"
                         buttonWidth={50}
-                        onPress={() => submitForm()}
+                        onPress={() => viewMore(data)}
                         boldText = {"bold"}
                         processing = {processing}
                         backgroundColor = {null}
@@ -157,10 +149,12 @@ const GenerologyList = ({ navigation,props }) => {
                     />
                 </View>
             </View>
+            
         );
     }
 
-    const {msg} = DetailsResponse;
+    const {members} = DetailsResponse;
+    let count = 0;
   return (
     <View style={styles.container}>
       {/* header Starts */}
@@ -199,10 +193,10 @@ const GenerologyList = ({ navigation,props }) => {
                     <Text style={{fontSize:12,textAlign:'center',fontWeight:'bold'}}> RIE JOSIAH - 202012340008</Text>
                 </View>
             </View>
+            <Loader loading = {processing}/>
 
-
-            <View>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <ScrollView horizontal ={true} >
+                <View horizontal={true} showsHorizontalScrollIndicator={false}>
                     <View  style = {{}}>
                         <View  style={{flexDirection:'row',backgroundColor:'#0C9344'}}>
                             <Text style ={styles.HeadingText}>MemberID</Text>
@@ -211,12 +205,12 @@ const GenerologyList = ({ navigation,props }) => {
                             <Text style = {styles.HeadingText}>Action</Text>
                         </View>
                         <Space top = {10}/>
-
-                        {TableContent("10000203445","Phillip","Active")}
-
+                        <ScrollView >
+                            {members && members.length>0? members.map((data)=>TableContent(data.sponsor,data.name,data.status,count+=1,data)) :<View></View>}
+                        </ScrollView>
                     </View>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </View>
     </View>
   );

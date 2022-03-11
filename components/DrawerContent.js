@@ -174,10 +174,11 @@ export default function DrawerContent(props){
                                 size={size}
                                 />
                             )}
-                            label="Member's Geneology"
+                            label="Geneology List"
                             onPress={() => {props.navigation.navigate('GenerologyList')
                             }}
                         />
+
                     </Drawer.Section>
 
 

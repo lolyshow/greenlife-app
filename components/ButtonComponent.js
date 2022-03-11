@@ -1,16 +1,44 @@
 import React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text,ActivityIndicator } from "react-native";
+import Feather from 'react-native-vector-icons/Feather';
+const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText,processing,btnHeight=40,icon="", fontSize = 14}) => (
+    
+    icon?
+    (
+    <View >
 
-const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText,processing,btnHeight=40 }) => (
-    
-    
-    <TouchableOpacity
+      
+
+      
+      <TouchableOpacity
+        onPress={onPress}
+        disabled={processing}
+        style={{width:buttonWidth?buttonWidth:100,backgroundColor:backgroundColor,borderRadius:borderRadius,height:btnHeight,justifyContent:'center',borderWidth:1,borderColor:borderColors,  flexDirection:'row'}}
+      >
+        <View style = {{alignSelf:'center',marginRight:5}}> 
+          <Feather color="#FFFFFF" name = {icon}/>
+        </View>
+        {processing ? (
+          <Text style={styles.ButtonText}>
+            Processing <ActivityIndicator size="small" color="#ffffff" />
+          </Text>
+        ):(
+        <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'normal', fontSize: fontSize,}]}>
+          {textinput}
+        </Text>
+        )}
+      </TouchableOpacity>
+      
+    </View>
+    ):
+
+    (<TouchableOpacity
       onPress={onPress}
       disabled={processing}
       style={{width:buttonWidth?buttonWidth:100,backgroundColor:backgroundColor,borderRadius:borderRadius,height:btnHeight,justifyContent:'center',borderWidth:1,borderColor:borderColors,}}
     >
 
-      {/* {console.log("thisIsTitlefd",boldText)} */}
+      
       {processing ? (
         <Text style={styles.ButtonText}>
           Processing <ActivityIndicator size="small" color="#ffffff" />
@@ -20,7 +48,8 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
         {textinput}
       </Text>
       )}
-    </TouchableOpacity>
+    </TouchableOpacity>)
+      
   );
 
   const styles = StyleSheet.create({
@@ -46,6 +75,7 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
       color: "#ffffff",
       textAlign:'center'
     },
+    
   });
 
   export default ButtonComponent;

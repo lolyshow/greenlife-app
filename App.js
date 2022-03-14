@@ -1,5 +1,5 @@
 import React, {Component,useState} from 'react';
-import { View, Text,Platform } from 'react-native';
+import { View, Text,Platform,Button,TouchableHighlight,TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from "./screens/Auth/Splash";
@@ -17,7 +17,8 @@ import DrawerNavigator from "./screens/Navigations/DrawerNavigator";
 import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import LoginStack from './screens/Navigations/AuthStack/LoginStack';
+ 
 function HomeScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -36,7 +37,7 @@ export default App = () => {
 
 const Stack = createNativeStackNavigator();
 
-function AppContainer() {
+function AppContainer({navigation}) {
   const { loginStatus, showSplash } = useSelector((state) => state.reducers);
   
 
@@ -46,9 +47,11 @@ function AppContainer() {
 
         screenOptions={{
           title: null,
+          headerShadowVisible:false,
           headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
+            borderBottomWidth: 0,
             borderBottomWidth: 0,
             // backgroundColor: "",
           },
@@ -56,9 +59,9 @@ function AppContainer() {
           headerLeft: Platform.select({
             ios: null,
           }),
-          headerTitleStyle: {
-            color: "#ffffff",
-          },
+          // headerTitleStyle: {
+          //   color: "#ffffff",
+          // },
           headerShown: Platform.select({
             ios: false,
             android: false,
@@ -75,7 +78,13 @@ function AppContainer() {
 
 
             <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
-            <Stack.Screen name="NextScreen" component={NextScreen} />
+            {/* to be reverted if urgent test <Stack.Screen name="NextScreen" component={NextScreen} /> */}
+
+            <Stack.Screen name="NextScreen" options={{title: "Sign In / SignUp", borderBottomWidth: 0,  headerShown: true, headerStyle :{elevation: 0,
+            shadowOpacity: 0}, headerTitleAlign:'center',headerLeft:()=>null, headerBackVisible:false, headerBackTitleVisible: false, headerRight: () => (
+            <TouchableOpacity onPress={()=>console.log("ghfhgfgf")} ><Text style={{fontSize:17}}>X</Text></TouchableOpacity>
+          ), }} component={LoginStack} />
+
             <Stack.Screen name="StoreStack" component={StoreStack} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />

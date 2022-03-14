@@ -45,7 +45,6 @@ export default function NextScreen(props) {
                     onChangeText={(value) => setMemberID(value)}
                     inputValue={memberID}
                     borderWidth={1}
-                    // inputLabel="Number of PINS"
                     placeholder="Insert ID here"
                     />
                 </View>

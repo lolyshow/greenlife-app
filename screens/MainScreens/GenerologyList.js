@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Text, StyleSheet,ScrollView,TouchableWithoutFeedback,TouchableOpacity, Alert } from "react-native";
-import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
+import { View, Text, StyleSheet,ScrollView, Alert } from "react-native";
 import ButtonComponent from "../../components/ButtonComponent";
 import Space from "../../components/Space/Space";
 import HeaderComponent from "../../components/HeaderComponent";
-import FontAwesome from 'react-native-vector-icons/MaterialIcons';
-import DatePicker from 'react-native-date-picker'
+
 import Helper from "../../Helpers/Helper";
 import Loader  from '../../components/Loader';
 
@@ -20,60 +18,20 @@ const GenerologyList = ({ navigation,props }) => {
         geneologyList();
       },[]);
 
-    const [firstname, setFirstname] = useState("");
-    const [lastname, setLastname] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [isEmail, setIsEmail] = useState(true);
+   
     const [processing, setProcessing] = useState(false);
     const [DetailsResponse, setDetailsResponse] = useState({});
-    const [bank, setBank] = useState("");
-    const [activation, setActivation] = useState("");
-    const [purpose, setPurpose] = useState("");
-    const [paymentType, setPaymentType] = useState("");
-    const [memberid, setmemberid] = useState("");
-    const [depositorName, setDepositor] = useState("");
-    const [amount, setAmount] = useState(0);
-    const [tellerNo, settellerNo] = useState("");
-    const [selectedDate, setDate] = useState(new Date())
-    const [formatedDate, setFormatedDate] = useState("")
-    const [open, setOpen] = useState(false)
+
 
 
     
-
-    const Purpose = [
-        { label: 'ACTIVATION', value: 'ACTIVATION' },
-        { label: 'TOP-UP', value: 'TOP-UP' },
-    ];
-
-    const setSelectedDate=(date)=>{
-        formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-        console.log("formatedDate",formattedDate);
-        setFormatedDate(formattedDate);
-    }
-
-    const PaymentType = [
-        { label: 'Bank Transfer', value: 'Bank Transfer' },
-        { label: 'Internet Transfer', value: 'Internet Transfer' },
-        { label: 'Mobile Transfer', value: 'Mobile Transfer' },
-        { label: 'USSD Transfer', value: 'USSD Transfer' },
-    ];
-
     const Banks = [
         { label: 'GTB', value: 'Gtb' },
         { label: 'ZENITH', value: 'Zenith' },
         { label: 'UBA', value: 'UBA' },
     ];
 
-    const resetForm = () =>{
-        setFirstname("");
-        setLastname("");
-        setEmail("");
-        setPhone("");
-    }
-
-
+    
     const geneologyList = async()=>{
      
         try {
@@ -102,18 +60,9 @@ const GenerologyList = ({ navigation,props }) => {
             
         
     }
-    const toggleDate=()=>{
-        console.log("toggleDate");
-        setOpen(true)
-    }
-    console.log("myDateGoesHere",selectedDate);
-
-    const getSelectedValue =()=>{
-        return PaymentType;
-    }
+    
 
     const viewMore=(data)=>{
-        // console.log("ViewMoreDeta",data);
         navigation.navigate({
             name:'ViewMore',
             params: { routeData:data},

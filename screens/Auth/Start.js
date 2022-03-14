@@ -27,6 +27,10 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 
 import GreenButton from "../../components/GreenButton";
 
+import Entypo from "react-native-vector-icons/Entypo"
+
+import AntDesign from "react-native-vector-icons/AntDesign"
+
 
 // import SwipeGestureComponents from "../components/SwipeGestureComponents";
 
@@ -89,8 +93,8 @@ const styles = StyleSheet.create({
 },
 
   buttonWrapper: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    // flexDirection: "row",
+    // justifyContent: "space-between",
   },
 
   IconTextWrapper: {
@@ -100,11 +104,11 @@ const styles = StyleSheet.create({
   },
 
   IconText: {
-    width: 198,
+    width: 200,
     // height: 57,
     // fontFamily: "Poppins",
-    fontSize: 20,
-    fontWeight: "600",
+    fontSize: 15,
+    fontWeight: "400",
     fontStyle: "normal",
     // lineHeight: 28,
     letterSpacing: 0,
@@ -239,12 +243,12 @@ export default class Start extends Component {
         <View style = {{width:300}}>
           {/* <SwipeGestureComponents onSwipePerformed={this.onSwipePerformed}> */}
           <View style={styles.displayIconWrapper}>
-            <Image resizeMode="stretch" style={{width: win.width/2,height: win.width/2,resizeMode: "contain",alignSelf: "center",}}
+            <Image resizeMode="stretch" style={{width: win.width/4,height: win.width/4,resizeMode: "contain",alignSelf: "center",}}
              source={Ads[currentAdsPosition].icon} />
           </View>
           <View style={styles.IconTextWrapper}>
             <Text style={styles.IconText}>{Ads[currentAdsPosition].title} </Text>
-            <Text>{Ads[currentAdsPosition].text} </Text>
+            <Text style={{fontSize:12,}}>{Ads[currentAdsPosition].text} </Text>
           </View>
           {/* </SwipeGestureComponents> */}
         </View>
@@ -281,12 +285,12 @@ export default class Start extends Component {
         </View>
 
 
-        <View style={[styles.buttonWrapper,{}]}>
+        <View style={[styles.buttonWrapper,{marginTop:-10}]}>
           <View>
             <GreenButton
               text="Continue to store"
               buttonWidth={300}
-              onPress={() => this.props.navigation.navigate("NextScreen")}
+              onPress={() => this.props.navigation.navigate("StoreStack")}
               borderR ={1}
               borderC = {"green"}
               borderW={1}
@@ -295,6 +299,58 @@ export default class Start extends Component {
               textStyle={{color:"#FFFFFF"}}
             />
           </View>
+        </View>
+
+
+        
+
+        <View style ={{flexDirection:'row',marginTop:-10}}>
+          <TouchableOpacity onPress ={()=>console.log("pressed")}>
+            <View style={{width:80,justifyContent:'center'}}>
+              <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
+                <AntDesign name ="adduser" size={40} style={{textAlign:'center'}}/>
+                
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress ={()=>console.log("pressed")}>
+            <View style={{width:80,justifyContent:'center'}}>
+              <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
+                <AntDesign name ="addusergroup" size={40} style={{textAlign:'center'}}/>
+              </View>
+              
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress ={()=>console.log("pressed")}>
+            <View style={{width:80,justifyContent:'center'}}>
+              <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
+                <Entypo name ="login" size={40} style={{textAlign:'center'}}/>
+              </View>
+              
+            </View>
+          </TouchableOpacity>
+        </View>
+
+
+        <View style ={{flexDirection:'row',marginTop:-20}}>
+          <TouchableOpacity onPress={()=>console.log("Hi")}>
+            <View style={{width:80,justifyContent:'center'}}>
+              <Text style={{textAlign:'center',marginTop:-10}}>Login As GTPS User</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=>console.log("Hi")}>
+            <View style={{width:80,justifyContent:'center'}}>
+              <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS Member</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>console.log("Hi")}>
+            <View style={{width:80,justifyContent:'center'}}>
+              <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS User</Text>
+            </View>
+          </TouchableOpacity>
         </View>
 
         

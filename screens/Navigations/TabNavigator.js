@@ -117,10 +117,7 @@ const HomeTabs = () => {
       <Tab.Screen name="ShopTab" options={{/*tabBarStyle:{display:'none'}, /*showLabel: false,*/ /*headerLeft: null,*/ /*tabBarVisible: false,*/ /*gesturesEnabled: false,*/ headerShown: false }} component={ShopStackNavigator} />
       <Tab.Screen name="Withdrawal" options={{ headerShown: false }} component={WithdrawalStart} />
       <Tab.Screen name="Account" options={{ headerShown: false }} component={AccountStackNavigator} />
-      {/* <Tab.Screen name="Shopin" options={{ headerShown: true }} component={Products} /> */}
-      {/* <Tab.Screen name="EditProfile" options={{ headerShown: false }} component={AccountStackNavigator} /> */}
-
-      {/* Withdrawal */}
+      
     </Tab.Navigator>
   );
 };

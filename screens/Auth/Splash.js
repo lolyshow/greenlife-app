@@ -20,19 +20,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import logoWatermark from "../assets/logoWatermark.png";
 
-import Logo from "../../assets/logo2.png";
+import Logo from "../../assets/greenlife_logo.jpeg";
 
 // import SwipeGestureComponents from "../components/SwipeGestureComponents";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.9,
-    // backgroundColor: "#E5E5E5",
+    flex: 1,
+    backgroundColor: "#FFF",
     justifyContent: "center",
     alignItems: "center",
   },
   StatusBar: {
-    color: "white",
+    color: "#FFF",
   },
 });
 
@@ -168,7 +168,7 @@ export default class Splash extends Component {
             barStyle="light-content"
             backgroundColor={styles.container.backgroundColor}
           />
-          <Image resizeMode="stretch"   source={Logo} />
+          <Image style={{width:200,height:200}}  source={Logo} />
         </View>
       </View>
     );

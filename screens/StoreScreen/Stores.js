@@ -66,6 +66,7 @@ export default class Stores extends Component {
       searchPhrase:"",
       clicked:false,
       searchString: "",
+      stores:""
       
     };
   }
@@ -120,10 +121,14 @@ export default class Stores extends Component {
       await Helper.Request(payload,"post",body)
       .then((result) =>{ 
         let { message, error, response } = result;
-      
+        console.log("myStoreResultis",response)
         this.setState({processing:false});
+        this.setState({appReady:true});
         if (!error) {
+          this.setState({appReady:true});
+          this.setState({processing:false});
           this.setState({detailsResponse:result.response});
+          this.setState({stores:result.response.stores});
           
         } else {
           Alert.alert("Shop", message);
@@ -133,17 +138,19 @@ export default class Stores extends Component {
 
       
     } catch (error) {
+      this.setState({appReady:true});
       this.setState({processing:false});
       Alert.alert("Error", error.toString());
     }
   }
 
-  onPressProduct(){
-
+  onPressProduct =(shopid)=>{
+    console.log("myData",shopid)
+    this.props.navigation.navigate("MemberShop",{shopid})
   }
+  
 
-
-  onPressCall(){
+  onPressCall = () =>{
 
   }
 
@@ -153,7 +160,7 @@ export default class Stores extends Component {
     
     let count = 0;
     let {stores} = this.state.detailsResponse;
-    
+    // console.log("insideCardStore",stores)
     
     return (
       
@@ -163,7 +170,8 @@ export default class Stores extends Component {
         style={styles.gridView}
         renderItem={({ item }) => 
           (
-            <StoreCard filepath ={item.filepath} shopname={item.shopname} address={item.shop_location} phone={item.phone} onPressCall={this.onPressCall.bind(this,"0")} onPressProduct = {this.onPressProduct.bind(this,"1")} count = {count+=1}/>
+            
+            <StoreCard filepath ={item.filepath} shopname={item.gl_productname} address={item.shop_location} phone={item.phone} onPressCall={this.onPressCall.bind(this,item.phone)} onPressProduct = {this.onPressProduct.bind(this,item.memshopid)} count = {count+=1}/>
           )
          
         }
@@ -174,7 +182,8 @@ export default class Stores extends Component {
 
 
   render() {
-    let {detailsResponse} = this.state;
+    let {detailsResponse,processing,appReady,stores} = this.state;
+    console.log("myStoreDatasss",stores);
     return (
       
       <View style={styles.container}>
@@ -194,22 +203,33 @@ export default class Stores extends Component {
 
               <View><Text style = {{fontWeight:'bold',fontSize:20}}>Stores selling: Danshen Plus:</Text></View>
                */}
-                  
-              {detailsResponse!= null ?
+              {processing?(<View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
+
+                <ActivityIndicator size="large" color="#0C9344" />
+                <Text style={{textAlign:'center'
+                }}>Loading, Please wait......</Text>
+                </View>):null}  
+
+
+              {appReady && detailsResponse!= null ?
             
           
                 (<View style ={{}}>
                     {this.renderProductCard()}
                 </View>)
 
-                :(<View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
-
-                  <ActivityIndicator size="large" color="#0C9344" />
-                  <Text style={{textAlign:'center'
-                  }}>Loading, Please wait......</Text>
-                </View>)
+                :null
 
               }
+              
+
+              {appReady && stores.length==0?
+                (<View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
+
+                  
+                  <Text style={{textAlign:'center'
+                  }}>There seems to be an error loading this product details. Please try again later. Thank you</Text>
+                </View>):null}
           </View>
         </View>
       </View>

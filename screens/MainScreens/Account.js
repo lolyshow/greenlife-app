@@ -125,7 +125,7 @@ const Account = ({ navigation,props }) => {
                   // disabled={processing}
                   style={{}}
                 >
-                  <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
+                  {/* <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
 
                     <View style={{flexDirection:'row', marginTop:30}}>
                       <FontAwesome name = "user" size={20}/>
@@ -135,7 +135,7 @@ const Account = ({ navigation,props }) => {
                       <FontAwesome name = "angle-right" size={20}/>
                     </View>
 
-                  </View>
+                  </View> */}
                 </TouchableOpacity>
                 
 
@@ -158,7 +158,12 @@ const Account = ({ navigation,props }) => {
                 </TouchableOpacity>
 
 
-
+                
+                <TouchableOpacity
+                  onPress={()=>navigation.navigate("CommissionReport")}
+                  // disabled={processing}
+                  style={{}}
+                >
                   <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
 
                     <View style={{flexDirection:'row', marginTop:30}}>
@@ -170,7 +175,7 @@ const Account = ({ navigation,props }) => {
                     </View>
 
                   </View>
-                  
+                </TouchableOpacity>
 
                   <View style = {{flexDirection:'row',justifyContent:'space-between'}}>
 

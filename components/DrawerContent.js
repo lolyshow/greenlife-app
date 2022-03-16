@@ -61,7 +61,7 @@ export default function DrawerContent(props){
                             <View style={{marginLeft:15, flexDirection:'column'}}>
                                 <Title style={styles.title}>{global.user.name?global.user.name:""}</Title>
                                 <Caption style={{color:'black'}}>{global.user.memberid?global.user.memberid:"202012340005"}</Caption>
-                                <ButtonComponent
+                                {/* <ButtonComponent
                                     textinput="Edit Profile"
                                     buttonWidth={100}
                                     onPress={() => console.log("You Cliked me")}
@@ -72,7 +72,7 @@ export default function DrawerContent(props){
                                     borderWidth = {1}
                                     borderColors = {"#FFFFFF"}
 
-                                />
+                                /> */}
                             </View>
                         </View>
 
@@ -94,7 +94,7 @@ export default function DrawerContent(props){
                     </Drawer.Section>
 
 
-                    <Drawer.Section style={styles.drawerSection}>
+                    {/* <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
@@ -106,7 +106,7 @@ export default function DrawerContent(props){
                             label="My Profile"
                             onPress={() => {props.navigation.navigate('AccountStackWithBottom')}}
                         />
-                    </Drawer.Section>
+                    </Drawer.Section> */}
 
 
                     <Drawer.Section style={styles.drawerSection}>

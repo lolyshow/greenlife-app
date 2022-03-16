@@ -45,7 +45,7 @@ function MyTabs({navigation}) {
     </Tab.Navigator>
   );
 }
-export default function LoginStack({navigation}) {
+export default function MemberAuth({navigation}) {
   return (
     <NavigationContainer independent={true}>
       <MyTabs navigation = {navigation} />

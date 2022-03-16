@@ -134,7 +134,7 @@ const CommissionReport = ({ navigation,props }) => {
           <View >
               <View style ={[styles.BodyHeader,{marginTop:20}]}>
 
-                  <Text style = {{fontWeight:'bold', fontSize:20}}>My Withdrawal Report</Text>
+                  <Text style = {{fontWeight:'bold', fontSize:20}}>My Commission Report</Text>
               </View>
 
               <View >
@@ -161,7 +161,7 @@ const CommissionReport = ({ navigation,props }) => {
 
                   <View>
 
-                      <Text style = {{fontWeight:'bold', fontSize:20,marginBottom:10}}>Withdrawal Report</Text>
+                      <Text style = {{fontWeight:'bold', fontSize:20,marginBottom:10}}>Commission Report</Text>
                   </View>
 
                   {/* <View style = {[styles.Card2,{justifyContent:'center'}]}> */}

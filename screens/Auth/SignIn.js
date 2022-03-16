@@ -148,10 +148,10 @@ const styles_ = StyleSheet.create({
     return (
         <View style={{padding:20,backgroundColor:'#FFF'}}>
             <InputLine
-            keyboardType="email-address"
+            // keyboardType="email-address"
             onChangeText={(email) => this.setState({ email })}
             inputValue={this.state.email}
-            placeholder={"E-Mail *"}
+            placeholder={"Member ID"}
             
             inputStyle ={styles_.inputStyle}
             inputWrapperStyle={styles_.inputWrapper}
@@ -196,7 +196,7 @@ const styles_ = StyleSheet.create({
                 </View>
 
                 <View style={styles_.buttonWrapper}>
-                    <GreenButton
+                  <GreenButton
                     text="Create Account"
                     buttonWidth={300}
                     onPress={() => this.props.navigation.navigate("SignUp")}
@@ -206,7 +206,7 @@ const styles_ = StyleSheet.create({
                     backgroundCol = {"#FFFFFF"}
                     color={"#0C9344"}
                     textStyle={{color:"#0C9344"}}
-                    />
+                  />
                 </View>
             </View>
         </View>

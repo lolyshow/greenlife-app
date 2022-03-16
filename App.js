@@ -17,8 +17,9 @@ import DrawerNavigator from "./screens/Navigations/DrawerNavigator";
 import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LoginStack from './screens/Navigations/AuthStack/LoginStack';
- 
+import MemberAuth from './screens/Navigations/AuthStack/MemberAuth';
+import UserAuth from "./screens/Navigations/AuthStack/UserAuth";
+import Products from './screens/StoreScreen/Products';
 function HomeScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -80,11 +81,14 @@ function AppContainer({navigation}) {
             <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
             {/* to be reverted if urgent test <Stack.Screen name="NextScreen" component={NextScreen} /> */}
 
-            <Stack.Screen name="NextScreen" options={{title: "Sign In / SignUp", borderBottomWidth: 0,  headerShown: true, headerStyle :{elevation: 0,
+            <Stack.Screen name="MemberAuth" options={{title: "Member Sign In / SignUp", borderBottomWidth: 0,  headerShown: true, headerStyle :{elevation: 0,
             shadowOpacity: 0}, headerTitleAlign:'center',headerLeft:()=>null, headerBackVisible:false, headerBackTitleVisible: false, headerRight: () => (
-            <TouchableOpacity onPress={()=>console.log("ghfhgfgf")} ><Text style={{fontSize:17}}>X</Text></TouchableOpacity>
-          ), }} component={LoginStack} />
+            <TouchableOpacity onPress={()=>console.log(navigation)} ><Text style={{fontSize:17}}>X</Text></TouchableOpacity>
+          ), }} component={MemberAuth} />
 
+          <Stack.Screen name="UserAuth"  component={UserAuth} />
+          
+            <Stack.Screen name="Products" component={Products} />
             <Stack.Screen name="StoreStack" component={StoreStack} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />

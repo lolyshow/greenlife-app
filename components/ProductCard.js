@@ -11,7 +11,7 @@ import {
 import { cos } from "react-native-reanimated";
 import ButtonComponent from "../components/ButtonComponent";
 
-const Productcard = ({count,filepath,desc,productname,btn_txt,onpressText})=>{
+const Productcard = ({count,filepath,desc,productname,cost,btn_txt,onpressText,submitForm})=>{
     return(
         <View>
           <View style = {{}} key={count}>
@@ -36,7 +36,7 @@ const Productcard = ({count,filepath,desc,productname,btn_txt,onpressText})=>{
                         <Text style = {{backgroundColor:"#5cb85c",color:"#FFFFFF", fontSize:12}} onPress={onpressText}>View Details</Text>
                     </Text>
                     <Text style={{fontSize:15,fontWeight:'bold'}}>{productname}</Text>
-                    <Text style={{fontSize:15,fontWeight:'bold'}}>{"\u20A6"}{"cost"}</Text>
+                    <Text style={{fontSize:15,fontWeight:'bold'}}>{"\u20A6"}{cost}</Text>
                 </View>
     
     
@@ -49,7 +49,7 @@ const Productcard = ({count,filepath,desc,productname,btn_txt,onpressText})=>{
                       <ButtonComponent
                       textinput={btn_txt}
                       buttonWidth={120}
-                      onPress={"submitForm"}
+                      onPress={submitForm}
                       size ={"sm"}
                       backgroundColor = {"#337ab7"}
                       borderRadius = {8}

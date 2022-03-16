@@ -155,9 +155,8 @@ function BottomTabNavigator() {
       <Stack.Screen name = "ViewMore" component = {ViewMore}/>
       <Stack.Screen name = "PaymentReport" component = {PaymentReport}/>
       <Stack.Screen name = "GenerologyList" component = {GenerologyList}/>
-
       <Stack.Screen name = "CommissionReport" component = {CommissionReport}/>
-      <Stack.Screen name = "AccountStackWithBottom" component = {Account}/>
+      <Stack.Screen name = "AccountStackWithBottom" component = {AccountStackNavigator}/>
       <Stack.Screen name = "Withdrawal" component = {Withdrawal}/>
       <Stack.Screen name = "SubmitWithdrawRequest" component = {SubmitWithdrawRequest} />
     </Stack.Navigator>

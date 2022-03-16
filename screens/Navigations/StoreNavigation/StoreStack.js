@@ -37,15 +37,10 @@ const StoreStack = () => {
       <Stack.Screen name="Products" component={Products} />
       
       <Stack.Screen name="Stores" component={Stores} />
-
-      
         <>
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="SignIn" component={Login} />
         </>
-      
-      
-      
       
     </Stack.Navigator>
   );

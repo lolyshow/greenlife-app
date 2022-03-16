@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Products extends React.Component {
+class MemberShop extends React.Component {
 
   constructor(props) {
     super(props);
@@ -50,16 +50,15 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
+      console.log("insideMemberShop")
     this.fetchShopDetails();
   }
 
   fetchShopDetails =async()=>{
     try {
-
-      console.log("insideTryLogin")
       this.setState({processing:true});
-      
-      let payload = "UsersControllerServet?action=Pager&flag=first&initial=21&step=2&api";
+      let {shopid} = this.props.route.params;
+      let payload = "member_shop_profile.jsp?shopid="+shopid+"&api";
       console.log("payloadShop", payload);
       await Helper.getRequest(payload)
       .then((result) =>{ 
@@ -89,7 +88,7 @@ class Products extends React.Component {
       
     this.props.navigation.navigate("Stores", {memberid}
     ):
-    this.props.navigation.navigate("UserAuth");
+    this.props.navigation.navigate("Register");
     
     }
   }
@@ -102,7 +101,6 @@ class Products extends React.Component {
   }
 
   
-
   onpressText(data){
     console.log("mdddt",data);
   }
@@ -112,8 +110,11 @@ class Products extends React.Component {
 
   renderProductCard = () => {
     
+    // ];
+    
     let count = 0;
     let {stocks} = this.state.detailsResponse;
+    
     
     return (
       
@@ -123,7 +124,7 @@ class Products extends React.Component {
         style={styles.gridView}
         renderItem={({ item }) => 
           (
-            <Productcard filepath = {item.filepath} desc ={item.desc} submitForm = {this.submitForm.bind(this,item.glprodid?item.glprodid:null)} cost={item.cost} productname={item.productname} btn_txt ={"View Store"}  onpressText = {this.onpressText()}  count = {count+=1}/>
+            <Productcard filepath = {item.filepath} desc ={item.desc} submitForm = {this.submitForm.bind(this,item.glprodid?item.glprodid:null)} productname={item.productname} btn_txt ={"View Store"} cost = {item.cost}  onpressText = {this.onpressText()}  count = {count+=1}/>
             )
          
         }
@@ -182,4 +183,4 @@ class Products extends React.Component {
   }
 }
 
-export default Products;
+export default MemberShop;

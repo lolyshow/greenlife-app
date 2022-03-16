@@ -273,7 +273,7 @@ export default class Start extends Component {
             <GreenButton
               text="Login as GTPS Member"
               buttonWidth={300}
-              onPress={() => this.props.navigation.navigate("NextScreen")}
+              onPress={() => this.props.navigation.navigate("MemberAuth")}
               borderR ={1}
               borderC = {"#0C9344"}
               borderW={1}
@@ -290,7 +290,7 @@ export default class Start extends Component {
             <GreenButton
               text="Continue to store"
               buttonWidth={300}
-              onPress={() => this.props.navigation.navigate("StoreStack")}
+              onPress={() => this.props.navigation.navigate("UserAuth")}
               borderR ={1}
               borderC = {"green"}
               borderW={1}
@@ -305,16 +305,36 @@ export default class Start extends Component {
         
 
         <View style ={{flexDirection:'row',marginTop:-10}}>
-          <TouchableOpacity onPress ={()=>console.log("pressed")}>
+          <TouchableOpacity onPress ={()=>this.props.navigation.navigate("UserAuth",{
+            screen:"SignIn"
+          })}>
             <View style={{width:80,justifyContent:'center'}}>
               <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
-                <AntDesign name ="adduser" size={40} style={{textAlign:'center'}}/>
+                <Entypo name ="login" size={40} style={{textAlign:'center'}}/>
                 
               </View>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress ={()=>console.log("pressed")}>
+
+          <TouchableOpacity onPress ={()=>this.props.navigation.navigate("UserAuth",{
+            screen:"Auth",params:{
+              screen: 'SignUp'
+            }
+          })}>
+          
+            <View style={{width:80,justifyContent:'center'}}>
+              <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
+                <AntDesign name ="adduser" size={40} style={{textAlign:'center'}}/>
+                
+              </View>
+              
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress ={()=>this.props.navigation.navigate("MemberAuth",{
+            screen:"SignUp"
+          })}>
             <View style={{width:80,justifyContent:'center'}}>
               <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
                 <AntDesign name ="addusergroup" size={40} style={{textAlign:'center'}}/>
@@ -323,14 +343,7 @@ export default class Start extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress ={()=>console.log("pressed")}>
-            <View style={{width:80,justifyContent:'center'}}>
-              <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
-                <Entypo name ="login" size={40} style={{textAlign:'center'}}/>
-              </View>
-              
-            </View>
-          </TouchableOpacity>
+          
         </View>
 
 
@@ -343,14 +356,16 @@ export default class Start extends Component {
 
           <TouchableOpacity onPress={()=>console.log("Hi")}>
             <View style={{width:80,justifyContent:'center'}}>
-              <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS Member</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>console.log("Hi")}>
-            <View style={{width:80,justifyContent:'center'}}>
               <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS User</Text>
             </View>
           </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=>console.log("Hi")}>
+            <View style={{width:80,justifyContent:'center'}}>
+              <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS Member</Text>
+            </View>
+          </TouchableOpacity>
+          
         </View>
 
         

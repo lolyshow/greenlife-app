@@ -290,7 +290,7 @@ export default class Start extends Component {
             <GreenButton
               text="Continue to store"
               buttonWidth={300}
-              onPress={() => this.props.navigation.navigate("UserAuth")}
+              onPress={() => this.props.navigation.navigate("ContinueToStoreStack")}
               borderR ={1}
               borderC = {"green"}
               borderW={1}

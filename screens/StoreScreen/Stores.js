@@ -72,6 +72,7 @@ export default class Stores extends Component {
   }
 
   componentDidMount() {
+    global.gotoStore = null;
     this.fetchStoreDetails();
     
   }
@@ -113,9 +114,14 @@ export default class Stores extends Component {
         "api":""
       }
 
-      console.log("bodydyd",body)
+      console.log("MemberIdLoghere",memberid)
       this.setState({processing:true});
-      let {memberid} = this.props.route.params;
+      let memberid = "";
+      if(this.props.route.params && this.props.route.params.memberid){
+        memberid = this.props.route.params.memberid
+      }else{
+        memberid = global.usermemberid;
+      }
       let payload = "view_stores.jsp?product="+memberid+"&api";
       console.log("payloadProuctsCat", payload);
       await Helper.Request(payload,"post",body)

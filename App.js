@@ -18,7 +18,7 @@ import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MemberAuth from './screens/Navigations/AuthStack/MemberAuth';
-import UserAuth from "./screens/Navigations/AuthStack/UserAuth";
+import UserAuth, { ContinueToStoreStack, ProductStack } from "./screens/Navigations/AuthStack/UserAuth";
 import Products from './screens/StoreScreen/Products';
 function HomeScreen() {
   return (
@@ -86,9 +86,9 @@ function AppContainer({navigation}) {
             <TouchableOpacity onPress={()=>console.log(navigation)} ><Text style={{fontSize:17}}>X</Text></TouchableOpacity>
           ), }} component={MemberAuth} />
 
-          <Stack.Screen name="UserAuth"  component={UserAuth} />
+            <Stack.Screen name="UserAuth"  component={UserAuth} />
           
-            <Stack.Screen name="Products" component={Products} />
+            <Stack.Screen name="ContinueToStoreStack" component={ContinueToStoreStack} />
             <Stack.Screen name="StoreStack" component={StoreStack} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />

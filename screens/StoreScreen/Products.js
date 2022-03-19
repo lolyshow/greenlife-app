@@ -18,6 +18,7 @@ import SearchBar from "../../components/SearchBar";
 import ProductCard from "../../components/ProductCard";
 import { FlatList } from "react-native-gesture-handler";
 import Productcard from "../../components/ProductCard";
+import EcommerceHeader from "../../components/EcommerceHeader";
 // import { Consumer } from "react-native-paper/lib/typescript/core/settings";
 const styles = StyleSheet.create({
   container: {
@@ -84,12 +85,11 @@ class Products extends React.Component {
   
   submitForm =(memberid)=>{
     console.log("MyAwesomeMemberId",memberid)
-    // console.log("MyNav",this.props.navigation.getParent)
+    //console.log("MyNav",this.props.navigation.getParent)
     {global.gtpsUserData !=undefined && global.gtpsUserData!=null?
       
     this.props.navigation.navigate("Stores", {memberid}
-    ):
-    this.props.navigation.navigate("UserAuth");
+    ):(global.gotoStore= true, global.usermemberid = memberid, this.props.navigation.navigate("UserAuth"))
     
     }
   }
@@ -118,7 +118,7 @@ class Products extends React.Component {
     return (
       
       <FlatGrid
-        itemDimension={118}
+        itemDimension={200}
         data={stocks}
         style={styles.gridView}
         renderItem={({ item }) => 
@@ -132,6 +132,11 @@ class Products extends React.Component {
     );
   };
 
+
+   toggleNav=()=>{
+     this.props.navigation.goBack()
+      console.log("thisIsProps",this.props.navigation.navigate)
+    }
   
   onSwipePerformed = (action) => {
     switch (action) {
@@ -146,8 +151,11 @@ class Products extends React.Component {
     let {detailsResponse} = this.state;
     let count = 0;
     return (
-      
+        
         <View style={styles.container}>
+          <View style = {{backgroundColor:'#0C9344',paddingLeft:20}}>
+            <EcommerceHeader onPress = {this.toggleNav} title = {"Products"} memberId = {"10000203445"} />
+          </View>
 
             <View style = {{padding:20,paddingBottom:0}}>
 

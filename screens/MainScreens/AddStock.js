@@ -45,7 +45,7 @@ const AddStock = ({ navigation,route }) => {
     ];
 
     const Categories = [
-        { label: 'Harbal', value: 'Harbal' },
+        { label: 'Herbal', value: 'Herbal' },
         { label: 'Electronics', value: 'Electronics' },
         { label: 'Smart Phones', value: 'Smart Phones' },
         { label: 'HouseHold Products', value: 'HouseHold Products' },

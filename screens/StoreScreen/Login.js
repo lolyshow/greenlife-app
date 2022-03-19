@@ -131,6 +131,7 @@ const styles_ = StyleSheet.create({
   
   
     gotoStores = ()=>{
+      console.log("gotoStore",global.gotoStore);
       this.props.navigation.navigate("Products");
       console.log("myStoreDataIsTHis",global.gtpsUserData+" glogloglo");
     }
@@ -187,6 +188,8 @@ const styles_ = StyleSheet.create({
                   }
     
                   global.gtpsUserData = userData;
+
+                  console.log("myUserDataHere",global.gtpsUserData);
                   try{
                       store.dispatch({
                       type: "GTPS_USER_DATA",

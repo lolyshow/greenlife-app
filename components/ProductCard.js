@@ -14,13 +14,13 @@ import ButtonComponent from "../components/ButtonComponent";
 const Productcard = ({count,filepath,desc,productname,cost,btn_txt,onpressText,submitForm})=>{
     return(
         <View>
-          <View style = {{}} key={count}>
+          <View style = {{alignItems:'center'}} key={count}>
                     
-            <View style={{justifyContent:"center", shadowOffset: {width: 10, height: 10}, borderRadius:10, shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10,width:160}}>
+            <View style={{justifyContent:"center", shadowOffset: {width: 10, height: 10}, borderRadius:10, shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10,width:150,}}>
                 <View style={{justifyContent:'space-between',flexDirection:'row'}}>
-                  <Text style = {{fontSize:12,color:'#0C9344'}}>Stock Status:</Text>
+                  <Text style = {{fontSize:10,color:'#0C9344'}}>Stock Status:</Text>
                   <View style = {{borderRadius:10,backgroundColor:"#d9dbda",width:65}}>
-                    <Text style = {{fontSize:12,textAlign:'center'}}>{"Available"}</Text>
+                    <Text style = {{fontSize:10,textAlign:'center'}}>{"Available"}</Text>
                   </View>
                 </View>
                 <TouchableOpacity onPress={()=>console.log("pressed!!!")} >
@@ -31,12 +31,12 @@ const Productcard = ({count,filepath,desc,productname,cost,btn_txt,onpressText,s
                 <View style={{justifyContent:'center'}}>
                     
                     
-                    <Text numberOfLines={3} style={{fontSize:12}}>
+                    <Text numberOfLines={3} style={{fontSize:10}}>
                     {desc}
                         <Text style = {{backgroundColor:"#5cb85c",color:"#FFFFFF", fontSize:12}} onPress={onpressText}>View Details</Text>
                     </Text>
-                    <Text style={{fontSize:15,fontWeight:'bold'}}>{productname}</Text>
-                    <Text style={{fontSize:15,fontWeight:'bold'}}>{"\u20A6"}{cost}</Text>
+                    <Text style={{fontSize:10,fontWeight:'bold'}}>{productname}</Text>
+                    <Text style={{fontSize:10,fontWeight:'bold'}}>{"\u20A6"}{cost}</Text>
                 </View>
     
     
@@ -45,7 +45,7 @@ const Productcard = ({count,filepath,desc,productname,cost,btn_txt,onpressText,s
     
                   
     
-                    <View style={{paddingTop:20,alignItems:'center'}}>
+                    <View style={{paddingTop:10,alignItems:'center'}}>
                       <ButtonComponent
                       textinput={btn_txt}
                       buttonWidth={120}

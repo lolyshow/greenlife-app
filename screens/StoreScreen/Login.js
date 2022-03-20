@@ -188,7 +188,7 @@ const styles_ = StyleSheet.create({
                   }
     
                   global.gtpsUserData = userData;
-
+                  global.loggedin = true;
                   console.log("myUserDataHere",global.gtpsUserData);
                   try{
                       store.dispatch({

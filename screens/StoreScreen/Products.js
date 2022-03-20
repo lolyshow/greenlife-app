@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   gridView: {
     // margin: 10,
-    // flex: 1,
+    // flex: 2,
   },
 });
 
@@ -51,6 +51,8 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
+    // console.log("component Launched");
+    this.renderHeader();
     this.fetchShopDetails();
   }
 
@@ -114,12 +116,17 @@ class Products extends React.Component {
     
     let count = 0;
     let {stocks} = this.state.detailsResponse;
-    
+    let half = (screenWidth/2)-30;
     return (
-      
+      <View style={{
+        justifyContent:'center',
+        alignContent:'center'
+      }}>
       <FlatGrid
-        itemDimension={200}
+        itemDimension={half}
         data={stocks}
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
         style={styles.gridView}
         renderItem={({ item }) => 
           (
@@ -128,15 +135,10 @@ class Products extends React.Component {
          
         }
       />
+      </View>
       
     );
   };
-
-
-   toggleNav=()=>{
-     this.props.navigation.goBack()
-      console.log("thisIsProps",this.props.navigation.navigate)
-    }
   
   onSwipePerformed = (action) => {
     switch (action) {
@@ -146,16 +148,36 @@ class Products extends React.Component {
       }
     }
   };
+
+  toggleNav=()=>{
+    this.props.navigation.goBack()
+     console.log("thisIsProps",this.props.navigation.navigate)
+   }
+
+   logout =()=>{
+     this.props.navigation.navigate("Products");
+   } 
+  renderHeader=()=>{
+    console.log("logmeHerere");
+    return(
+    
+      <View style = {{backgroundColor:'#0C9344',padding:5}}>
+        <EcommerceHeader loggedin = {global.loggedin} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Products"} memberId = {"10000203445"} />
+      </View>
+    )
+  }
+  
   render() {
     console.log("myDetalsResponsePProductsPage",this.state.detailsResponse);
     let {detailsResponse} = this.state;
     let count = 0;
+    
+    // console.log("HalfOfMyScreen",half);
     return (
         
+        
         <View style={styles.container}>
-          <View style = {{backgroundColor:'#0C9344',paddingLeft:20}}>
-            <EcommerceHeader onPress = {this.toggleNav} title = {"Products"} memberId = {"10000203445"} />
-          </View>
+            {this.renderHeader()}
 
             <View style = {{padding:20,paddingBottom:0}}>
 

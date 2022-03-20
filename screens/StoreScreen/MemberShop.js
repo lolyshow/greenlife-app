@@ -18,6 +18,7 @@ import SearchBar from "../../components/SearchBar";
 import ProductCard from "../../components/ProductCard";
 import { FlatList } from "react-native-gesture-handler";
 import Productcard from "../../components/ProductCard";
+import EcommerceHeader from "../../components/EcommerceHeader";
 // import { Consumer } from "react-native-paper/lib/typescript/core/settings";
 const styles = StyleSheet.create({
   container: {
@@ -114,12 +115,13 @@ class MemberShop extends React.Component {
     
     let count = 0;
     let {stocks} = this.state.detailsResponse;
-    
+    let half = (screenWidth/2)-30;
     
     return (
       
       <FlatGrid
-        itemDimension={118}
+        itemDimension={half}
+        
         data={stocks}
         style={styles.gridView}
         renderItem={({ item }) => 
@@ -142,6 +144,25 @@ class MemberShop extends React.Component {
       }
     }
   };
+
+  toggleNav=()=>{
+    this.props.navigation.goBack()
+     console.log("thisIsProps",this.props.navigation.navigate)
+   }
+
+   logout =()=>{
+     this.props.navigation.navigate("Products");
+   } 
+  renderHeader=()=>{
+    console.log("logmeHerere");
+    return(
+    
+      <View style = {{backgroundColor:'#0C9344',padding:5}}>
+        <EcommerceHeader loggedin = {global.loggedin} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Products"} memberId = {"10000203445"} />
+      </View>
+    )
+  }
+
   render() {
     console.log("myDetalsResponsePProductsPage",this.state.detailsResponse);
     let {detailsResponse} = this.state;
@@ -149,7 +170,7 @@ class MemberShop extends React.Component {
     return (
       
         <View style={styles.container}>
-
+            {this.renderHeader()}
             <View style = {{padding:20,paddingBottom:0}}>
 
               <SearchBar

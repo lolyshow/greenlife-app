@@ -3,7 +3,8 @@ import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import ToggleDrawerBtn from "./ToggleDrawerBtn";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple} from 'react-native-paper';
 import BackBtn from "./BackBtn";
-const EcommerceHeader = ({ onPress, title, memberId,headerType, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText }) => (
+import {AntDesign} from "react-native-vector-icons";
+const EcommerceHeader = ({ onPress, title, loggedin, memberId,headerType,onpressLogout, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText }) => (
 headerType && headerType == "home"?  
 <View style = {styles.headerContainer2}>
     <View>
@@ -35,14 +36,22 @@ headerType && headerType == "home"?
         />
     </View>
 
-    <View style = {{}}>
+    <View style = {{justifyContent:'center',}}>
         <Text style = {{fontSize:14, color:"#FFF",textAlign:'center',}}>{title}</Text>
         
     </View>
-
-    <View style = {{width:40,}}>
+    {loggedin?
+        <View style = {{justifyContent:'center',}}>
             
-    </View>
+            <TouchableOpacity onPress={onpressLogout}>
+                <AntDesign color={"#FFF"} size = {35} name = "logout" />
+            </TouchableOpacity>
+        </View>:
+        <View style = {{justifyContent:'center',width:40}}>
+            
+            
+        </View>
+    }
 
 </View>
 

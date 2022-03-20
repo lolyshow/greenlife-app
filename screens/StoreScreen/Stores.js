@@ -21,6 +21,8 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 // import Logo from "../../assets/logo2.png";
 import Logo from "../../assets/store.png";
 import StoreCard from "../../components/StoreCard";
+import { store } from "../../redux/store";
+import EcommerceHeader from "../../components/EcommerceHeader";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -160,6 +162,32 @@ export default class Stores extends Component {
 
   }
 
+  logout=()=>{
+
+    global.gtpsUserData = null;
+    global.loggedin = false;
+    try{
+        store.dispatch({
+        type: "GTPS_USER_DATA",
+        payload: null,
+      });
+    }
+    catch(error){
+      console.log("ErrorDey ForHieOh",error)
+    }
+    this.props.navigation.navigate("Products");
+  }
+
+  renderHeader=()=>{
+    console.log("logmeHerere");
+    return(
+    
+      <View style = {{backgroundColor:'#0C9344',padding:5}}>
+        <EcommerceHeader loggedin = {global.loggedin} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Store"} memberId = {"10000203445"} />
+      </View>
+    )
+  }
+
   renderProductCard = () => {
     
     // ];
@@ -167,12 +195,13 @@ export default class Stores extends Component {
     let count = 0;
     let {stores} = this.state.detailsResponse;
     // console.log("insideCardStore",stores)
-    
+    let half = screenWidth-30;
     return (
       
       <FlatGrid
-        itemDimension={150}
+        itemDimension={half}
         data={stores}
+        showsVerticalScrollIndicator={false}
         style={styles.gridView}
         renderItem={({ item }) => 
           (
@@ -193,7 +222,7 @@ export default class Stores extends Component {
     return (
       
       <View style={styles.container}>
-              
+          {this.renderHeader()}
         <View>
             
 

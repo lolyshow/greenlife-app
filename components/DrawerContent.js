@@ -18,31 +18,18 @@ import Feather from "react-native-vector-icons/Feather";
 import ButtonComponent from "./ButtonComponent";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { store } from "../redux/store";
-export default function DrawerContent(props){
-
-    
-
-      console.log("loginOutAlready")
+import { useDispatch } from "react-redux";
+import { handlesaveuserAuth, handleShowSplashScreen, handleUpdateLoggedInStatus } from "../reduxx/actions/requests";
+export default function DrawerContent (props) {
+    const dispatch = useDispatch()
 
     const logout= async()=>{
 
         await AsyncStorage.removeItem("userLogin");
 
         await AsyncStorage.removeItem("userData");
-
-        store.dispatch({
-            type: "SHOW_SPLASH_SCREEN",
-            payload: false,
-        });
-        global.user =null;
-        store.dispatch({
-            type: "IS_SIGNED_IN",
-            payload: false,
-          });
-
-
-          
-        //   props.navigation.navigate("Start");
+        dispatch(handleShowSplashScreen(false))
+        dispatch(handleUpdateLoggedInStatus(false))
     }
 
     const paperTheme = useTheme();
@@ -266,7 +253,7 @@ export default function DrawerContent(props){
                             )}
                             label="Sign Out"
                             labelStyle={{fontWeight:'bold'}}
-                            onPress={() => {logout()}}
+                            onPress={logout}
                         />
                     </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">

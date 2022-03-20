@@ -19,6 +19,8 @@ import ProductCard from "../../components/ProductCard";
 import { FlatList } from "react-native-gesture-handler";
 import Productcard from "../../components/ProductCard";
 import EcommerceHeader from "../../components/EcommerceHeader";
+import { connect } from "react-redux";
+import { handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
 // import { Consumer } from "react-native-paper/lib/typescript/core/settings";
 const styles = StyleSheet.create({
   container: {
@@ -155,14 +157,20 @@ class Products extends React.Component {
    }
 
    logout =()=>{
-     this.props.navigation.navigate("Products");
+    this.props?.dispatch(handleUpdateUserLoggedIn(false))
+    this.props?.dispatch(
+      handlesaveuserAuth({
+        email:"",
+        password:""
+      })
+    )
    } 
   renderHeader=()=>{
-    console.log("logmeHerere");
+    const {userLoggedIn} = this.props;
     return(
     
       <View style = {{backgroundColor:'#0C9344',padding:5}}>
-        <EcommerceHeader loggedin = {global.loggedin} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Products"} memberId = {"10000203445"} />
+        <EcommerceHeader loggedin = {userLoggedIn} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Products"} memberId = {"10000203445"} />
       </View>
     )
   }
@@ -172,7 +180,7 @@ class Products extends React.Component {
     let {detailsResponse} = this.state;
     let count = 0;
     
-    // console.log("HalfOfMyScreen",half);
+    console.log("currentUser",this.props.currentUser);
     return (
         
         
@@ -212,4 +220,14 @@ class Products extends React.Component {
   }
 }
 
-export default Products;
+const mapStateToProps = (state) => {
+  return { 
+    currentUser: state.authReducer.currentUser,
+    userLoggedIn:state.authReducer.userLoggedIn
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  dispatch, 
+});
+
+export default connect( mapStateToProps, mapDispatchToProps)(Products)

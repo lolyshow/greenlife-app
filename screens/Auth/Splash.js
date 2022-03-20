@@ -12,7 +12,7 @@ import Helper from "../../Helpers/Helper";
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
-import { Provider, useSelector } from "react-redux";
+import { connect, Provider, useSelector } from "react-redux";
 import { store } from "../../redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -21,6 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import logoWatermark from "../assets/logoWatermark.png";
 
 import Logo from "../../assets/greenlife_logo.jpeg";
+import { handleShowSplashScreen } from "../../reduxx/actions/requests";
 
 // import SwipeGestureComponents from "../components/SwipeGestureComponents";
 
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Splash extends Component {
+ class Splash extends Component {
 
   constructor(props) {
     super(props);
@@ -49,6 +50,8 @@ export default class Splash extends Component {
   }
 
   componentDidMount() {
+    console.log("insideTryLogin")
+
     setTimeout(() => {
       this.gotToNextScreen();
     }, 2000);
@@ -57,7 +60,6 @@ export default class Splash extends Component {
   signIn = async (email, password) => {
     try {
 
-      console.log("insideTryLogin")
       this.setState({ processing: true });
       let res = {};
       let payload = "action=Member_login&memberid="+email+"&password="+password+"&api=";
@@ -91,7 +93,7 @@ export default class Splash extends Component {
   
 
   gotToNextScreen = async() => {
-
+    console.log("props ingotToNextScreen",this.props)
 
     
     // const { loginStatus, showSplash } = useSelector((state) => state.reducers);
@@ -123,6 +125,9 @@ export default class Splash extends Component {
         }else{
           this.setState({storedCredentials:null})
           console.log("noCredentialFOund");
+          this.props.dispatch(
+            handleShowSplashScreen(false)
+          )
         }
       })
       .catch(error=>{console.log("errorDetails",error)})
@@ -130,10 +135,11 @@ export default class Splash extends Component {
       // return;
     // return this.props.navigation.navigate("Start");
     
-    store.dispatch({
-      type: "SHOW_SPLASH_SCREEN",
-      payload: false,
-    });
+    // store.dispatch({
+    //   type: "SHOW_SPLASH_SCREEN",
+    //   payload: false,
+    // });
+  
     // if(this.state.storedCredentials !== null){
     //   global.user = this.state.storedCredentials;
     //   console.log("thisUserIsGlogal", global.user)
@@ -174,3 +180,14 @@ export default class Splash extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { 
+    currentUser: state.authReducer.currentUser
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  dispatch, 
+});
+
+export default connect( mapStateToProps, mapDispatchToProps)(Splash)

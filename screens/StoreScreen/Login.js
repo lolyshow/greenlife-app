@@ -7,6 +7,8 @@ import InputLinePassword from "../../components/InputLinePassword";
 import Helper from "../../Helpers/Helper";
 import { store } from "../../redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { connect } from "react-redux";
+import { handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
 
 
 const styles_ = StyleSheet.create({
@@ -138,6 +140,7 @@ const styles_ = StyleSheet.create({
   
   
     submitForm = async () => {
+    
       try {
         let { email, password } = this.state;
   
@@ -147,7 +150,7 @@ const styles_ = StyleSheet.create({
           return Alert.alert("Message", errorMessage);
         }
   
-        return this.Login(email, password);
+        return this.Login();
       } catch (error) {
         Alert.alert("Error", error.toString());
       }
@@ -186,20 +189,27 @@ const styles_ = StyleSheet.create({
                     email:this.state.email,
                     password:this.state.password,
                   }
-    
-                  global.gtpsUserData = userData;
-                  global.loggedin = true;
-                  console.log("myUserDataHere",global.gtpsUserData);
-                  try{
-                      store.dispatch({
-                      type: "GTPS_USER_DATA",
-                      payload: JSON.stringify(userData),
-                    });
-                    console.log("saved")
-                  }
-                  catch(error){
-                    console.log("ErrorDey ForHieOh",error)
-                  }
+                  const {email,password} = this.state
+                  // global.gtpsUserData = userData;
+                  // global.loggedin = true;
+                  // console.log("myUserDataHere",global.gtpsUserData);
+                  this.props?.dispatch(
+                    handlesaveuserAuth({
+                      email,
+                      password
+                    })
+                  )
+                  this.props?.dispatch(handleUpdateUserLoggedIn(true))
+                  // try{
+                  //     store.dispatch({
+                  //     type: "GTPS_USER_DATA",
+                  //     payload: JSON.stringify(userData),
+                  //   });
+                  //   console.log("saved")
+                  // }
+                  // catch(error){
+                  //   console.log("ErrorDey ForHieOh",error)
+                  // }
                   return this.gotoStores();
                   Alert.alert("New User", result.response.msg);
                 
@@ -299,4 +309,11 @@ const styles_ = StyleSheet.create({
         </View>
     )}
   }
-export default SignIn;
+const mapStateToProps = (state) => {
+  return { };
+};
+const mapDispatchToProps = (dispatch) => ({
+  dispatch, 
+});
+
+export default connect( mapStateToProps, mapDispatchToProps)(SignIn)

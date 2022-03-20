@@ -15,23 +15,23 @@ import Home from "./screens/MainScreens/Home";
 import BottomTabNavigator from "./screens/Navigations/TabNavigator";
 import DrawerNavigator from "./screens/Navigations/DrawerNavigator";
 import { Provider, useSelector } from "react-redux";
-import { store } from "./redux/store";
+// import { store } from "./redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MemberAuth from './screens/Navigations/AuthStack/MemberAuth';
 import UserAuth, { ContinueToStoreStack, ProductStack } from "./screens/Navigations/AuthStack/UserAuth";
 import Products from './screens/StoreScreen/Products';
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
+import { PersistGate } from 'redux-persist/integration/react';
+import returnStoreAndPersistor from './reduxx/configureStore';
+
+const { store } = returnStoreAndPersistor();
+const { persistor } = returnStoreAndPersistor();
 
 export default App = () => {
   return (
     <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
       <AppContainer />
+      </PersistGate>
     </Provider>
   );
 };
@@ -39,8 +39,8 @@ export default App = () => {
 const Stack = createNativeStackNavigator();
 
 function AppContainer({navigation}) {
-  const { loginStatus, showSplash } = useSelector((state) => state.reducers);
-  
+  const {showSplashScreen} = useSelector((state) => state.appReducer);
+  const {loginStatus} = useSelector((state) => state.authReducer);
 
   return (
     <NavigationContainer>
@@ -72,7 +72,7 @@ function AppContainer({navigation}) {
 
         {!loginStatus ? (
           <>
-          {showSplash && (
+          {showSplashScreen && (
             <Stack.Screen name="Splash" component={SplashScreen} />
           )}
 

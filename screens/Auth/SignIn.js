@@ -6,6 +6,8 @@ import InputLinePassword from "../../components/InputLinePassword";
 import Helper from "../../Helpers/Helper";
 import { store } from "../../redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { connect } from "react-redux";
+import { handleUpdateLoggedInStatus } from "../../reduxx/actions/requests";
 
 
 const styles_ = StyleSheet.create({
@@ -108,11 +110,8 @@ const styles_ = StyleSheet.create({
     
             await AsyncStorage.setItem("userData",JSON.stringify(response));
             this.setState({ email: "", password: "" });
-    
-            store.dispatch({
-              type: "IS_SIGNED_IN",
-              payload: true,
-            });
+            this.props.dispatch(handleUpdateLoggedInStatus(true))
+            
     
             return this.props.navigation.navigate("GotoHomeStack");
           } else {
@@ -212,4 +211,11 @@ const styles_ = StyleSheet.create({
         </View>
     )}
   }
-export default SignIn;
+  const mapStateToProps = (state) => {
+    return { };
+  };
+  const mapDispatchToProps = (dispatch) => ({
+    dispatch, 
+  });
+  
+  export default connect( mapStateToProps, mapDispatchToProps)(SignIn)

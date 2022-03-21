@@ -80,7 +80,7 @@ export const getBalance = (walletDetail = null) => {
             payload: wallet,
           });
         } else {
-          console.log(message);
+          
         }
       }
     };
@@ -100,7 +100,6 @@ export const getNotifications = () => {
           payload: notification,
         });
       } else {
-        console.log(message);
       }
     };
   } catch (error) {

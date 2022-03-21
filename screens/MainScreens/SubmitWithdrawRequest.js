@@ -54,7 +54,7 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
     const submitForm = async()=>{
 
       if(amount>0){
-        console.log("insideSubmitFormm")
+        
           if(amount!=0 && bank!="" && accountNo!="" && accountName!="" && withdrawalType!=""){
               let payload = {
                   textBalance: amount,
@@ -66,19 +66,18 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
                   textFlag: withdrawalType,
                   textFunction: 'new'
               }
-              console.log(payload);
+              
               // return;
               try {
 
-                  // console.log("insideTryLogin")
+                  
                   setProcessing(true);
                   
                   let linkUrl = "MemberCommissionServlet?action=Add_withdrawal&api";
-                  console.log("payloadShop", payload);
+                  
                   await Helper.getRequest(linkUrl,"post",payload)
                   .then((result) =>{ 
                   let { message, error, response } = result;
-                  // console.log("myResalResponse",result.response)
                   setProcessing(false);
                   if (!error) {
                       setDetailsResponse(result.response);

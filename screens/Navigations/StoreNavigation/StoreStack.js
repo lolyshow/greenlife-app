@@ -28,7 +28,6 @@ const screenOptionStyle = {
 const StoreStack = () => {
   const { loginStatus, showSplash,gtpsUserData } = useSelector((state) => state.reducers);
 
-  console.log("myLoginStatusStore",gtpsUserData);
   return (
     <Stack.Navigator
         screenOptions={screenOptionStyle}

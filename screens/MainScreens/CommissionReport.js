@@ -33,14 +33,11 @@ const CommissionReport = ({ navigation,props }) => {
     const fetchCommissionReport =async()=>{
       try {
   
-        console.log("insideTryLogin")
         setProcessing(true);
         
         let payload = "backoffice/commissions.jsp?memberid="+global.user.memberid+"&api";
-        console.log("payloadShop", payload);
         await Helper.getRequest(payload)
         .then((result) =>{ 
-          // console.log()
           let { message, error, response } = result;
          
           setProcessing(false);
@@ -118,7 +115,6 @@ const CommissionReport = ({ navigation,props }) => {
     ];
   const {commissions,wallet_balance} = CommissionDetailsResponse;
   let count = 0;
-  console.log("thisIsmyWithdrwal",commissions);
   return (
     <View style={styles.container}>
         {/* header Starts */}

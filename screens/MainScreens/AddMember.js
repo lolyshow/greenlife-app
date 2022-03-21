@@ -55,11 +55,9 @@ const AddMember = ({ navigation,props }) => {
           }
           try {
   
-            // console.log("insideTryLogin")
             setProcessing(true);
             
             let linkUrl = "MemberControllerServlet?action=NewMember&api";
-            console.log("payloadShop", payload);
             await Helper.getRequest(linkUrl,"post",payload)
             .then((result) =>{ 
               let { message, error, response } = result;
@@ -86,10 +84,8 @@ const AddMember = ({ navigation,props }) => {
 
     const validateEmail = (text)=>{
       
-        console.log("emailEntered",text);
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (reg.test(text) === false) {
-          console.log("Email is Not Correct");
           setEmail(text )
           setIsEmail(false)
           return false;
@@ -97,7 +93,6 @@ const AddMember = ({ navigation,props }) => {
         else {
           setEmail(text )
           setIsEmail(true)
-          console.log("Email is Correct");
         }
       
     }

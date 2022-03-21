@@ -43,7 +43,6 @@ const GenerologyList = ({ navigation,props }) => {
             await Helper.Request(linkUrl)
             .then((result) =>{
             let { message, error, response } = result;
-            console.log("generologyListing",result);
             setProcessing(false);
             if (!error) {
                 setDetailsResponse(result.response);

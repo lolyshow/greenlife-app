@@ -87,11 +87,9 @@ class Login extends Component {
   signIn = async (email, password) => {
     try {
 
-      console.log("insideTryLogin")
       this.setState({ processing: true });
       let res = {};
       let payload = "action=Member_login&memberid="+email+"&password="+password+"&api=";
-      console.log("payload", payload);
       let { message, error, user, response } = await Helper.logInApi(
         payload
       ).then((result) => res = result);

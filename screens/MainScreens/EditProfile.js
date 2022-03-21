@@ -48,15 +48,12 @@ const EditProfile = ({ navigation,props }) => {
                     textFunction: 'new',
                     textPayID: 'blabla',
                 }
-                console.log(payload);
                 // return;
                 try {
 
-                    // console.log("insideTryLogin")
                     setProcessing(true);
                     
                     let linkUrl = "MemberPaymentControllerServlet?action=newPaymentMem&api";
-                    console.log("payloadShop", payload);
                     await Helper.getRequest(linkUrl,"post",payload)
                     .then((result) =>{ 
                     let { message, error, response } = result;
@@ -84,7 +81,6 @@ const EditProfile = ({ navigation,props }) => {
         }
     }
 
-    console.log("myDateGoesHere",selectedDate);
 
 
 
@@ -122,7 +118,7 @@ const EditProfile = ({ navigation,props }) => {
             <View style = {{}}>
                 <InputBox
                 // keyboardType="numeric"
-                onChangeText={(value) => console.log('')}
+                onChangeText={(value) => null}
                 // inputValue={navigation.params.ShopID}
                 borderWidth={1}
                 // inputLabel = {"Shop ID:"}
@@ -136,7 +132,7 @@ const EditProfile = ({ navigation,props }) => {
             <View style = {{}}>
                 <InputBox
                 // keyboardType="numeric"
-                onChangeText={(value) => console.log('')}
+                onChangeText={(value) => null}
                 // inputValue={navigation.params.ShopID}
                 borderWidth={1}
                 // inputLabel = {"Shop ID:"}
@@ -151,7 +147,7 @@ const EditProfile = ({ navigation,props }) => {
             <View style = {{marginBottom:30}}>
                 <InputBox
                 // keyboardType="numeric"
-                onChangeText={(value) => console.log('')}
+                onChangeText={(value) => null}
                 // inputValue={navigation.params.ShopID}
                 borderWidth={1}
                 // inputLabel = {"Shop ID:"}

@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
   }
 
   componentDidMount() {
-    console.log("insideTryLogin")
 
     setTimeout(() => {
       this.gotToNextScreen();
@@ -63,7 +62,6 @@ const styles = StyleSheet.create({
       this.setState({ processing: true });
       let res = {};
       let payload = "action=Member_login&memberid="+email+"&password="+password+"&api=";
-      console.log("payload", payload);
       let { message, error, user, response } = await Helper.logInApi(
         payload
       ).then((result) => res = result);
@@ -93,11 +91,9 @@ const styles = StyleSheet.create({
   
 
   gotToNextScreen = async() => {
-    console.log("props ingotToNextScreen",this.props)
 
     
     // const { loginStatus, showSplash } = useSelector((state) => state.reducers);
-    console.log("insideGoto")
       await AsyncStorage
       .getItem("userData")
       .then( async (result)=>{
@@ -107,50 +103,23 @@ const styles = StyleSheet.create({
           .getItem("userLogin")
           .then((result)=>{
             if(result !==null){
-              console.log("ThisIsUserLoginDetails",result);
               let res = JSON.parse(result);
-              // console.log("TheRealMemeberIdInAsyncIs",JSON.parse(res.memberid));
               // return;
               return this.signIn(res.memberid, res.password);
             }else{
-                console.log("emptyDAtaSeen")
             }})
           
-          // this.setState({storedCredentials:result})
-          // console.log("credentialFound")
-          // console.log(result);
-          // setStoredCredentials(result);
-            // return; 
+          
           
         }else{
           this.setState({storedCredentials:null})
-          console.log("noCredentialFOund");
           this.props.dispatch(
             handleShowSplashScreen(false)
           )
         }
       })
-      .catch(error=>{console.log("errorDetails",error)})
+      .catch(error=>{null})
     
-      // return;
-    // return this.props.navigation.navigate("Start");
-    
-    // store.dispatch({
-    //   type: "SHOW_SPLASH_SCREEN",
-    //   payload: false,
-    // });
-  
-    // if(this.state.storedCredentials !== null){
-    //   global.user = this.state.storedCredentials;
-    //   console.log("thisUserIsGlogal", global.user)
-    //   store.dispatch({
-    //     type: "IS_SIGNED_IN",
-    //     payload: true,
-    //   });
-
-      
-
-    // }
   };
 
   onSwipePerformed = (action) => {

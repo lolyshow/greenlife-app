@@ -23,20 +23,21 @@ const Productcard = ({count,filepath,desc,productname,cost,btn_txt,onpressText,s
                     <Text style = {{fontSize:10,textAlign:'center'}}>{"Available"}</Text>
                   </View>
                 </View>
-                <TouchableOpacity onPress={()=>console.log("pressed!!!")} >
+                <TouchableOpacity onPress={()=>{onpressText}} >
                     <View style ={{alignSelf:'center',justifyContent:'center',marginTop:10}}>
                         <Image resizeMode="contain" style = {{width: 90, height: 90,}}  source={{uri:filepath}} />
                     </View>
                 </TouchableOpacity>
                 <View style={{justifyContent:'center'}}>
                     
-                    
+                  <TouchableOpacity onPress={onpressText}> 
                     <Text numberOfLines={3} style={{fontSize:10}}>
                     {desc}
-                        <Text style = {{backgroundColor:"#5cb85c",color:"#FFFFFF", fontSize:12}} onPress={onpressText}>View Details</Text>
+                        <Text style = {{backgroundColor:"#5cb85c",color:"#FFFFFF", fontSize:12}}>View Details</Text>
                     </Text>
                     <Text style={{fontSize:10,fontWeight:'bold'}}>{productname}</Text>
                     <Text style={{fontSize:10,fontWeight:'bold'}}>{"\u20A6"}{cost}</Text>
+                  </TouchableOpacity> 
                 </View>
     
     

@@ -83,8 +83,8 @@ function AppContainer({navigation}) {
 
             <Stack.Screen name="MemberAuth" options={{title: "Member Sign In / SignUp", borderBottomWidth: 0,  headerShown: true, headerStyle :{elevation: 0,
             shadowOpacity: 0}, headerTitleAlign:'center',headerLeft:()=>null, headerBackVisible:false, headerBackTitleVisible: false, headerRight: () => (
-            <TouchableOpacity onPress={()=>console.log(navigation)} ><Text style={{fontSize:17}}>X</Text></TouchableOpacity>
-          ), }} component={MemberAuth} />
+            // <TouchableOpacity onPress={()=>navigation.navigate("Start")} ><Text style={{fontSize:17}}>X</Text></TouchableOpacity>
+          null), }} component={MemberAuth} />
 
             <Stack.Screen name="UserAuth"  component={UserAuth} />
           

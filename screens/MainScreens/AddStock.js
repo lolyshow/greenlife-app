@@ -63,9 +63,7 @@ const AddStock = ({ navigation,route }) => {
 
 
     const submitForm = async()=>{
-        console.log("insideSubmitFormmAddStock")
         if(amount>0){
-          console.log("insideSubmitFormmAddStock")
             if(amount!=0 && category!="" && productName!="" && quantity!="" && Negotiable!=""){
                 let payload = {
                     textShopID: route.params.ShopID,
@@ -85,19 +83,15 @@ const AddStock = ({ navigation,route }) => {
                     textPage: "shop_details"
                    
                 }
-                console.log(payload);
                 // return;
                 try {
   
-                    // console.log("insideTryLogin")
                     setProcessing(true);
                     
                     let linkUrl = "AdminTaskControllerServlet?action=AddNewStock&api";
-                    console.log("payloadShop", payload);
                     await Helper.getRequest(linkUrl,"post",payload)
                     .then((result) =>{ 
                     let { message, error, response } = result;
-                    // console.log("myResalResponse",result.response)
                     setProcessing(false);
                     if (!error) {
                         setDetailsResponse(result.response);
@@ -146,7 +140,7 @@ const AddStock = ({ navigation,route }) => {
                 <View style = {{marginTop:30}}>
                     <InputBox
                     // keyboardType="numeric"
-                    onChangeText={(value) => console.log('')}
+                    onChangeText={(value) => null}
                     inputValue={route.params.ShopID}
                     borderWidth={1}
                     inputLabel = {"Shop ID:"}

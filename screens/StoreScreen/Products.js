@@ -11,7 +11,7 @@ import {
 import Helper from "../../Helpers/Helper";
 import ButtonComponent from "../../components/ButtonComponent";
 const screenWidth = Math.round(Dimensions.get("window").width);
-
+import { StackActions } from '@react-navigation/native';
 const screenHeight = Math.round(Dimensions.get("window").height);
 import { FlatGrid } from "react-native-super-grid";
 import SearchBar from "../../components/SearchBar";
@@ -25,7 +25,7 @@ import { handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actio
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom:100,
+    // paddingBottom:100,
   },
   StatusBar: {
     color: "white",
@@ -61,11 +61,9 @@ class Products extends React.Component {
   fetchShopDetails =async()=>{
     try {
 
-      console.log("insideTryLogin")
       this.setState({processing:true});
       
       let payload = "UsersControllerServet?action=Pager&flag=first&initial=21&step=2&api";
-      console.log("payloadShop", payload);
       await Helper.getRequest(payload)
       .then((result) =>{ 
         let { message, error, response } = result;
@@ -88,12 +86,11 @@ class Products extends React.Component {
   }
   
   submitForm =(memberid)=>{
-    console.log("MyAwesomeMemberId",memberid)
-    //console.log("MyNav",this.props.navigation.getParent)
-    {global.gtpsUserData !=undefined && global.gtpsUserData!=null?
-      
-    this.props.navigation.navigate("Stores", {memberid}
-    ):(global.gotoStore= true, global.usermemberid = memberid, this.props.navigation.navigate("UserAuth"))
+
+    const {userLoggedIn} = this.props;
+    {userLoggedIn?
+      this.props.navigation.navigate("Stores", {memberid}):
+      (this.props.navigation.navigate("UserAuth",{memberid,gotoStore:true}))
     
     }
   }
@@ -108,10 +105,12 @@ class Products extends React.Component {
   
 
   onpressText(data){
-    console.log("mdddt",data);
+    this.props.navigation.navigate("ProductDetails",{data});
   }
 
-  
+  viewProductDetails =()=>{
+
+  }
 
 
   renderProductCard = () => {
@@ -132,7 +131,7 @@ class Products extends React.Component {
         style={styles.gridView}
         renderItem={({ item }) => 
           (
-            <Productcard filepath = {item.filepath} desc ={item.desc} submitForm = {this.submitForm.bind(this,item.glprodid?item.glprodid:null)} cost={item.cost} productname={item.productname} btn_txt ={"View Store"}  onpressText = {this.onpressText()}  count = {count+=1}/>
+            <Productcard viewProductDetails = {this.viewProductDetails} filepath = {item.filepath} desc ={item.desc} submitForm = {this.submitForm.bind(this,item.glprodid?item.glprodid:null)} cost={item.cost} productname={item.productname} btn_txt ={"View Store"}  onpressText = {this.onpressText.bind(this,item)}  count = {count+=1}/>
             )
          
         }
@@ -153,7 +152,6 @@ class Products extends React.Component {
 
   toggleNav=()=>{
     this.props.navigation.goBack()
-     console.log("thisIsProps",this.props.navigation.navigate)
    }
 
    logout =()=>{
@@ -164,6 +162,9 @@ class Products extends React.Component {
         password:""
       })
     )
+
+    this.props.navigation.dispatch(StackActions.popToTop());
+    
    } 
   renderHeader=()=>{
     const {userLoggedIn} = this.props;
@@ -176,11 +177,9 @@ class Products extends React.Component {
   }
   
   render() {
-    console.log("myDetalsResponsePProductsPage",this.state.detailsResponse);
     let {detailsResponse} = this.state;
     let count = 0;
     
-    console.log("currentUser",this.props.currentUser);
     return (
         
         
@@ -201,7 +200,7 @@ class Products extends React.Component {
           {detailsResponse!= null ?
             
           
-            (<View style ={{}}>
+            (<View style ={{marginBottom:200}}>
                 {this.renderProductCard()}
             </View>)
 
@@ -213,6 +212,8 @@ class Products extends React.Component {
             </View>)
 
           }
+
+          
           
           </View>
         </View>

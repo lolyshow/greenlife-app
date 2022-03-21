@@ -23,12 +23,10 @@ export const registerDispatcher = ({email, phoneNumber, password},callback) => {
                   },
                 }),
             );
-              console.log("SuccessResponse",data)
               if(callback){
                 callback(data.user,"")
               }
         } else if(data.status === 'failed' && !data.user) {
-            console.log("insideLife")
             dispatch(
                 handleError({
                   payload: {
@@ -41,11 +39,9 @@ export const registerDispatcher = ({email, phoneNumber, password},callback) => {
                 callback(null,data.message)
               }
               
-          console.log("SuccessResponse",data);
         }
 
         else{
-            console.log("insideLife")
             dispatch(
                 handleError({
                   payload: {
@@ -58,7 +54,6 @@ export const registerDispatcher = ({email, phoneNumber, password},callback) => {
               if(callback){
                 callback(null,"Please Try Again Later")
               }
-          console.log("SuccessResponse",data);
         }
       })
       .catch(error => {
@@ -72,7 +67,6 @@ export const registerDispatcher = ({email, phoneNumber, password},callback) => {
         if(callback){
           callback()
         }
-        console.log("ErrorResponse",error);
       });
   };
 };
@@ -83,7 +77,6 @@ export const registerDispatcher = ({email, phoneNumber, password},callback) => {
 
 export const loginDispatcher = (payload,callback) => {
 
-  console.log("payloadLoginoooo",payload)
   // return;
   return dispatch => {
     // start loading state
@@ -99,7 +92,6 @@ export const loginDispatcher = (payload,callback) => {
         .then(response => response.json())
         .then(data => {
           // return;
-          // console.log("AuthResponse1",data);
           // return;
           if (data.status === 'failed') {
             dispatch(
@@ -113,7 +105,6 @@ export const loginDispatcher = (payload,callback) => {
             if(callback){
               callback(null,data.message)
             }
-            console.log("AuthResponse0",data);
           } else if(data.status == "successful") {
             dispatch(
               login({
@@ -122,7 +113,6 @@ export const loginDispatcher = (payload,callback) => {
                 },
               }),
             );
-            console.log("AuthResponse2",data);
               if(callback){
                   callback(data.user,"")
               }
@@ -140,11 +130,9 @@ export const loginDispatcher = (payload,callback) => {
           if(callback){
             callback(null,error.message)
           }
-          console.log("AuthResponseError",error);
         });
     }
     catch(error){
-      console.log("errorHere",error)
       if(callback){
         callback(null,error.message)
       }
@@ -154,7 +142,6 @@ export const loginDispatcher = (payload,callback) => {
 
 
 export const verificationDispatcher = ({type, token, user_id},callback) => {
-    console.log("typeOfOf",type," Tokeken",token,", user_id",user_id)
     return dispatch => {
       // start loading state
       dispatch(handleLoading());
@@ -176,12 +163,10 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
                     },
                   }),
               );
-                console.log("SuccessResponse",data)
                 if(callback){
                   callback()
                 }
           } else if(data.status === 'failed' || data.error ===true) {
-              console.log("insideLife")
               dispatch(
                   handleError({
                     payload: {
@@ -193,11 +178,9 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
                     callback()
                   }
                 
-            console.log("SuccessResponse",data);
           }
   
           else{
-              console.log("insideLife")
               dispatch(
                   handleError({
                     payload: {
@@ -208,7 +191,6 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
   
             
   
-            console.log("SuccessResponse",data);
           }
         })
         .catch(error => {
@@ -220,7 +202,6 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
             }),
           );
           
-          console.log("ErrorResponse",error);
         });
     };
   };
@@ -229,7 +210,6 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
 
 
   export const bvnValidationDispatcher = (payload,callback) => {
-    console.log("BVNPAYLOADSUMBIT",payload);
     return dispatch => {
       // start loading state
       dispatch(handleLoading());
@@ -247,9 +227,7 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("dataGottenStaysHere",data.status);
           if(data.status === 'failed') {
-              // console.log("insideLifeFailed")
               let msg = data.message.data?data.message.data:data.message
               dispatch(
                   handleError({
@@ -262,7 +240,6 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
                 if(callback){
                     callback(false,msg)
                   }
-            console.log("SuccessResponse",data);
           }
           else if (data.status !== "failed" ) {
             
@@ -273,12 +250,10 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
                     },
                   }),
               );
-                console.log("SuccessResponse",data)
                 if(callback){
                   callback(true)
                 }
           }else if(data.status === 'failed' || data.error && data.error ===true) {
-              console.log("insideLife")
               dispatch(
                   handleError({
                     payload: {
@@ -290,11 +265,9 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
                 if(callback){
                     callback(false,data.message)
                   }
-            console.log("SuccessResponse",data);
           }
   
           else{
-              console.log("insideLife")
               dispatch(
                   handleError({
                     payload: {
@@ -307,7 +280,6 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
                 if(callback){
                   callback(false,"please Try again Later")
                 }
-            console.log("failureReponse",data);
           }
         })
         .catch(error => {
@@ -321,7 +293,6 @@ export const verificationDispatcher = ({type, token, user_id},callback) => {
           if(callback){
             callback(false,"Whoops Something went Wrong. please Try later ")
           }
-          console.log("ErrorResponse",error.message);
         });
     };
 };

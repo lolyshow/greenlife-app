@@ -43,7 +43,6 @@ const AddNewMemberPayment = ({ navigation,props }) => {
 
     const setSelectedDate=(date)=>{
         formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-        console.log("formatedDate",formattedDate);
         setFormatedDate(formattedDate);
     }
 
@@ -84,15 +83,12 @@ const AddNewMemberPayment = ({ navigation,props }) => {
                     textFunction: 'new',
                     textPayID: 'blabla',
                 }
-                console.log(payload);
                 // return;
                 try {
 
-                    // console.log("insideTryLogin")
                     setProcessing(true);
                     
                     let linkUrl = "MemberPaymentControllerServlet?action=newPaymentMem&api";
-                    console.log("payloadShop", payload);
                     await Helper.getRequest(linkUrl,"post",payload)
                     .then((result) =>{ 
                     let { message, error, response } = result;
@@ -121,10 +117,9 @@ const AddNewMemberPayment = ({ navigation,props }) => {
     }
 
     const toggleDate=()=>{
-        console.log("toggleDate");
+        
         setOpen(true)
     }
-    console.log("myDateGoesHere",selectedDate);
 
     const getSelectedValue =()=>{
         return PaymentType;
@@ -240,7 +235,7 @@ const AddNewMemberPayment = ({ navigation,props }) => {
                     <View style = {{paddingTop:30}}>
                         <TouchableOpacity onPress={toggleDate}>
                             <InputBox
-                            onChangeText={(selectedDate) => console.log('')}
+                            onChangeText={(selectedDate) => null}
                             inputValue={formatedDate.toString()}
                             borderWidth={1}
                             inputLabel = {""}

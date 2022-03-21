@@ -3,10 +3,16 @@ import actionTypes from "../actions/actionTypes";
 const initialState  = {
   currentUser: {
       email:"",
-      password:""
+      password:"",
+  },
+  gotoStore:{
+    memberid:null,
+    gotoStore:false
   },
   userLoggedIn:false,
   loginStatus:false,
+  loginTabSwitch:true,
+  
 };
 
 
@@ -20,16 +26,29 @@ const authReducer = (
         ...state,
         currentUser:action.payload?.currentUser
       };
-      case actionTypes.SAVE_USER_LOGGED_IN:
-        return {
-          ...state,
-          userLoggedIn:action.payload?.userLoggedIn
-        };
+    case actionTypes.SAVE_USER_LOGGED_IN:
+      return {
+        ...state,
+        userLoggedIn:action.payload?.userLoggedIn
+      };
 
-    case actionTypes.SAVE_MEMBER_LOGGED_IN:
+    case actionTypes.ROUTER:
         return {
             ...state,
+            gotoStore:action.payload?.gotoStore
+    };
+
+    case actionTypes.SAVE_MEMBER_LOGGED_IN:
+      return {
+            ...state,
             loginStatus:action.payload?.loginStatus
+    };
+
+    case actionTypes.IS_LOGIN_TAB:
+      
+      return {
+        ...state,
+        loginTab:action.payload?.loginTab
     };
 
     default:

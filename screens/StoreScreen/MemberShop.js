@@ -11,7 +11,7 @@ import {
 import Helper from "../../Helpers/Helper";
 import ButtonComponent from "../../components/ButtonComponent";
 const screenWidth = Math.round(Dimensions.get("window").width);
-
+import { StackActions } from '@react-navigation/native';
 const screenHeight = Math.round(Dimensions.get("window").height);
 import { FlatGrid } from "react-native-super-grid";
 import SearchBar from "../../components/SearchBar";
@@ -19,6 +19,8 @@ import ProductCard from "../../components/ProductCard";
 import { FlatList } from "react-native-gesture-handler";
 import Productcard from "../../components/ProductCard";
 import EcommerceHeader from "../../components/EcommerceHeader";
+import { connect } from "react-redux";
+import { handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
 // import { Consumer } from "react-native-paper/lib/typescript/core/settings";
 const styles = StyleSheet.create({
   container: {
@@ -51,7 +53,6 @@ class MemberShop extends React.Component {
   }
 
   componentDidMount() {
-      console.log("insideMemberShop")
     this.fetchShopDetails();
   }
 
@@ -60,7 +61,6 @@ class MemberShop extends React.Component {
       this.setState({processing:true});
       let {shopid} = this.props.route.params;
       let payload = "member_shop_profile.jsp?shopid="+shopid+"&api";
-      console.log("payloadShop", payload);
       await Helper.getRequest(payload)
       .then((result) =>{ 
         let { message, error, response } = result;
@@ -83,15 +83,11 @@ class MemberShop extends React.Component {
   }
   
   submitForm =(memberid)=>{
-    console.log("MyAwesomeMemberId",memberid)
-    // console.log("MyNav",this.props.navigation.getParent)
-    {global.gtpsUserData !=undefined && global.gtpsUserData!=null?
+   
       
-    this.props.navigation.navigate("Stores", {memberid}
-    ):
-    this.props.navigation.navigate("Register");
+    this.props.navigation.navigate("Stores", {memberid})
     
-    }
+    
   }
 
   setClicked =(clicked)=>{
@@ -103,7 +99,7 @@ class MemberShop extends React.Component {
 
   
   onpressText(data){
-    console.log("mdddt",data);
+    this.props.navigation.navigate("ProductDetails",{data});
   }
 
   
@@ -121,12 +117,12 @@ class MemberShop extends React.Component {
       
       <FlatGrid
         itemDimension={half}
-        
+        showsVerticalScrollIndicator={false}
         data={stocks}
         style={styles.gridView}
         renderItem={({ item }) => 
           (
-            <Productcard filepath = {item.filepath} desc ={item.desc} submitForm = {this.submitForm.bind(this,item.glprodid?item.glprodid:null)} productname={item.productname} btn_txt ={"View Store"} cost = {item.cost}  onpressText = {this.onpressText()}  count = {count+=1}/>
+            <Productcard filepath = {item.filepath} desc ={item.desc} submitForm = {this.submitForm.bind(this,item.glprodid?item.glprodid:null)} productname={item.productname} btn_txt ={"View Store"} cost = {item.cost}  onpressText = {this.onpressText.bind(this,item)}  count = {count+=1}/>
             )
          
         }
@@ -147,24 +143,32 @@ class MemberShop extends React.Component {
 
   toggleNav=()=>{
     this.props.navigation.goBack()
-     console.log("thisIsProps",this.props.navigation.navigate)
    }
 
    logout =()=>{
-     this.props.navigation.navigate("Products");
+
+    this.props?.dispatch(handleUpdateUserLoggedIn(false))
+    this.props?.dispatch(
+      handlesaveuserAuth({
+        email:"",
+        password:""
+      })
+    )
+    const popAction = StackActions.pop(5);
+    this.props.navigation.dispatch(popAction);
+    //  this.props.navigation.navigate("Products");
    } 
   renderHeader=()=>{
-    console.log("logmeHerere");
+    const {userLoggedIn} = this.props;
     return(
     
       <View style = {{backgroundColor:'#0C9344',padding:5}}>
-        <EcommerceHeader loggedin = {global.loggedin} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Products"} memberId = {"10000203445"} />
+        <EcommerceHeader loggedin ={userLoggedIn} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Products"} memberId = {"10000203445"} />
       </View>
     )
   }
 
   render() {
-    console.log("myDetalsResponsePProductsPage",this.state.detailsResponse);
     let {detailsResponse} = this.state;
     let count = 0;
     return (
@@ -204,4 +208,14 @@ class MemberShop extends React.Component {
   }
 }
 
-export default MemberShop;
+const mapStateToProps = (state) => {
+  return { 
+    currentUser: state.authReducer.currentUser,
+    userLoggedIn:state.authReducer.userLoggedIn
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  dispatch, 
+});
+
+export default connect( mapStateToProps, mapDispatchToProps)(MemberShop)

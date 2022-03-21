@@ -33,14 +33,11 @@ const PaymentReport = ({ navigation,props }) => {
     const fetchPaymentReport =async()=>{
       try {
   
-        console.log("insideTryLogin")
         setProcessing(true);
         
         let payload = "backoffice/payments_report.jsp?memberid="+global.user.memberid+"&api";
-        console.log("payloadShop", payload);
         await Helper.getRequest(payload)
         .then((result) =>{ 
-          // console.log()
           let { message, error, response } = result;
          
           setProcessing(false);

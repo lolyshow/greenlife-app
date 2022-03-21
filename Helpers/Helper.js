@@ -235,13 +235,12 @@ const Helper = {
 
     let url = Config.base_url+"MemberControllerServlet?"+payloads;
 
-    console.log("thisIsUrl",url.toString());
+    
     let result = {};
     
     await axios
       .post(url, LoginData, { headers: headerPayload })
       .then(function(response) {
-        console.log("thisisMyResponse",response)
         let { loginStatus } = response.data;
 
         if (loginStatus != true) {
@@ -257,7 +256,6 @@ const Helper = {
           global.password = password;
           global.user = response.data;
           global.header = response.headers;
-          console.log("MyHeaderIsRightHere123",response.headers);
           // global.authToken = Helper.getPropValue(
           //   response.data,
           //   "auth.access_token"
@@ -303,13 +301,11 @@ const Helper = {
 
     let url = Config.base_url+"MemberControllerServlet?"+payloads;
 
-    console.log("thisIsUrl",url.toString());
     let result = {};
     
     await axios
       .post(url, LoginData, { headers: headerPayload })
       .then(function(response) {
-        console.log("thisisMyResponse",response)
         let { loginStatus } = response.data;
 
         if (loginStatus != true) {
@@ -325,11 +321,7 @@ const Helper = {
           global.password = password;
           global.user = response.data;
           global.header = response.headers;
-          console.log("MyHeaderIsRightHere123",response.headers);
-          // global.authToken = Helper.getPropValue(
-          //   response.data,
-          //   "auth.access_token"
-          // );
+          
           
 
           result = {
@@ -358,7 +350,6 @@ const Helper = {
     var data = qs.stringify(dataPayload);
     let urls = Config.base_url_live+linkUrl;
 
-    console.log("myPayloadAnds",urls);
     let result = {};
     var config = {
       method: method,
@@ -372,7 +363,6 @@ const Helper = {
 
     await axios(config)
     .then(function (response) {
-      console.log("myResponse",response);
       let data = response.data;
         if (!data) {
           result = {
@@ -397,7 +387,6 @@ const Helper = {
         error: true,
         response: null,
       };
-      console.log(error);
     });
     return result;
   },
@@ -408,7 +397,6 @@ const Helper = {
     
     var data = qs.stringify(dataPayload);
     let urls = Config.base_url+linkUrl;
-    console.log("myPayloadAnds",urls);
     let result = {};
     var config = {
       method: method,
@@ -422,7 +410,6 @@ const Helper = {
 
     await axios(config)
     .then(function (response) {
-      console.log("myResponse",response);
       let data = response.data;
         if (!data) {
           result = {
@@ -447,7 +434,6 @@ const Helper = {
         error: true,
         response: null,
       };
-      console.log(error);
     });
     return result;
   },

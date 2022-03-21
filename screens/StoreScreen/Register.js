@@ -6,7 +6,9 @@ import InputLine from "../../components/InputLine";
 import InputLinePassword from "../../components/InputLinePassword";
 import Helper from "../../Helpers/Helper";
 import { store } from "../../redux/store";
+import { connect, useDispatch } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { handleActiveTab } from "../../reduxx/actions/requests";
 
 
 const styles_ = StyleSheet.create({
@@ -78,19 +80,17 @@ const styles_ = StyleSheet.create({
 
    gotoStores = ()=>{
      global.message = "Registration Successfull Please signin to Continue";
-    this.props.navigation.navigate("SignIn",{
-      registrationMessage:"Registration Successfull Please signin to Continue"
-    });
+     this.props?.dispatch(handleActiveTab(true))
+     this.props.navigation.navigate("AuthUser")
+     
   }
 
 
   signIn = async (email,password) => {
-      console.log("emailHere",email+"pass",password)
     try {
         let payload = {
             "email": email,
             "password": password,
-            // "confirm_password": confirmPassword,
             "btn-submit": "Admin-Login",
             "function":"client-login",
             "textMemberID": ' 202012340008',
@@ -100,15 +100,12 @@ const styles_ = StyleSheet.create({
           }
           try {
   
-            // console.log("insideTryLogin")
             this.setState({processing:true});
             
             let linkUrl = "UsersControllerServet?action=Client_Login_Online";
-            console.log("payloadShop", payload);
             await Helper.getRequest(linkUrl,"post",payload)
             .then((result) =>{ 
               let { message, error, response } = result;
-              console.log("resultHereherwreww",response)
               this.setState({processing:false});
               if (!error && response.status == true) {
                 this.setState({DetailsResponse:result.response});
@@ -124,10 +121,8 @@ const styles_ = StyleSheet.create({
                     type: "GTPS_USER_DATA",
                     payload: JSON.stringify(userData),
                   });
-                  console.log("saved")
                 }
                 catch(error){
-                  console.log("ErrorDey ForHieOh",error)
                 }
                 return this.gotoStores();
                 Alert.alert("New User", result.response.msg);
@@ -167,11 +162,9 @@ const styles_ = StyleSheet.create({
 
           try {
   
-            // console.log("insideTryLogin")
             this.setState({ processing: true });
             
             let linkUrl = "UsersControllerServet?action=Client_Register_Online";
-            console.log("payloadShop", payload);
             await Helper.getRequest(linkUrl,"post",payload)
             .then((result) =>{ 
               let { message, error, response } = result;
@@ -179,8 +172,6 @@ const styles_ = StyleSheet.create({
               this.setState({ processing: false });
               if (!error) {
                 if(response.status == true ){
-                  console.log("RegistereedResponseDetails",response);
-                  // resetForm();
                   let userData = {
                     email:email,
                     password:password,
@@ -192,13 +183,10 @@ const styles_ = StyleSheet.create({
                       type: "GTPS_USER_DATA",
                       payload: JSON.stringify(userData),
                     });
-                    console.log("saved")
                   }
                   catch(error){
                     this.setState({ processing: false });
-                    console.log("ErrorDey ForHieOh",error)
                   }
-                  console.log("beforeSignin");
                   // return this.signIn(email,password);
                   return this.gotoStores();
                   Alert.alert("New User", result.response.msg);
@@ -323,4 +311,11 @@ const styles_ = StyleSheet.create({
         </ScrollView>
     )}
   }
-export default Register;
+const mapStateToProps = (state) => {
+  return { };
+};
+const mapDispatchToProps = (dispatch) => ({
+  dispatch, 
+});
+
+export default connect( mapStateToProps, mapDispatchToProps)(Register)

@@ -33,14 +33,11 @@ const Withdrawal = ({ navigation,props }) => {
     const fetchWithdrawalReport =async()=>{
       try {
   
-        console.log("insideTryLogin")
         setProcessing(true);
         
         let payload = "backoffice/withdrawals.jsp?memberid="+global.user.memberid+"&api";
-        console.log("payloadShop", payload);
         await Helper.getRequest(payload)
         .then((result) =>{ 
-          // console.log()
           let { message, error, response } = result;
          
           setProcessing(false);
@@ -118,7 +115,6 @@ const Withdrawal = ({ navigation,props }) => {
     ];
   const {fullname,msg,portal,withdrawals,wallet_balance} = WithdrawDetailsResponse;
   let count = 0;
-  console.log("thisIsmyWithdrwal",withdrawals);
   return (
     <View style={styles.container}>
         {/* header Starts */}

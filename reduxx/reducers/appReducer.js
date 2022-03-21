@@ -2,10 +2,11 @@ import actionTypes from '../actions/actionTypes';
 
 const initialState =  {
     category:false,
-    showSplashScreen:true
+    showSplashScreen:true,
+    loginTab:true,
 }
 
-const authReducer = (state = initialState, action)  => {
+const appReducer = (state = initialState, action)  => {
   
     switch (action.type) {
     case actionTypes.SAVE_CATEGORY:
@@ -18,6 +19,12 @@ const authReducer = (state = initialState, action)  => {
           ...state,
           showSplashScreen: action.payload.showSplashScreen,
         };
+
+        case actionTypes.IS_LOGIN_TAB:
+        return {
+          ...state,
+          loginTab: action.payload.loginTab,
+        };
       
         default:
             return state;
@@ -26,4 +33,4 @@ const authReducer = (state = initialState, action)  => {
 
 
 
-export default authReducer;
+export default appReducer;

@@ -8,7 +8,7 @@ import Helper from "../../Helpers/Helper";
 import { store } from "../../redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { connect } from "react-redux";
-import { handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
+import { handleGotoStore, handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
 
 
 const styles_ = StyleSheet.create({
@@ -59,15 +59,8 @@ const styles_ = StyleSheet.create({
         secureTextEntry: true,
         processing: false,
         errorMessage: undefined,
-        biometric: undefined,
         popupShowed: false,
-        showBiometric: false,
-        biometryType: undefined,
-        token: "",
-        showTokenModal: false,
-        deviceAccessLogId: "",
         message:"",
-        
       };
     }
 
@@ -84,11 +77,8 @@ const styles_ = StyleSheet.create({
     }
 
     validateEmail = (text)=>{
-      
-      console.log("emailEntered",text);
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
       if (reg.test(text) === false) {
-        console.log("Email is Not Correct");
         setEmail(text )
         setIsEmail(false)
         return false;
@@ -96,9 +86,7 @@ const styles_ = StyleSheet.create({
       else {
         setEmail(text )
         setIsEmail(true)
-        console.log("Email is Correct");
       }
-    
   }
     
    
@@ -115,7 +103,6 @@ const styles_ = StyleSheet.create({
     validateForm = () => {
       let email = this.state.email;
       let password = this.state.password;
-  
       if (!email) {
         return {
           validationStatus: false,
@@ -133,17 +120,24 @@ const styles_ = StyleSheet.create({
   
   
     gotoStores = ()=>{
-      console.log("gotoStore",global.gotoStore);
-      this.props.navigation.navigate("Products");
-      console.log("myStoreDataIsTHis",global.gtpsUserData+" glogloglo");
+      
+      if(this.props.data.memberid && this.props.data.gotoStore){
+        const {gotoStore,memberid} = this.props.data;
+        this.props.navigation.navigate("ContinueToStoreStack",{memberid,gotoStore});
+      }else{
+        this.props.navigation.navigate("ContinueToStoreStack");
+      }
+      
+      
     }
   
   
     submitForm = async () => {
-    
+      
+
       try {
         let { email, password } = this.state;
-  
+        
         let { validationStatus, errorMessage } = this.validateForm();
   
         if (!validationStatus) {
@@ -156,13 +150,16 @@ const styles_ = StyleSheet.create({
       }
     };
   
+   
   
     Login = async () => {
+
+      let memberids = null;
+      let gotoStores = false;
       try {
           let payload = {
               "email": this.state.email,
               "password": this.state.password,
-              // "confirm_password": confirmPassword,
               "btn-submit": "Admin-Login",
               "function":"client-login",
               "textMemberID": ' 202012340008',
@@ -172,44 +169,46 @@ const styles_ = StyleSheet.create({
             }
             try {
     
-              // console.log("insideTryLogin")
               this.setState({processing:true});
               
               let linkUrl = "UsersControllerServet?action=Client_Login_Online";
-              console.log("payloadShop", payload);
               await Helper.getRequest(linkUrl,"post",payload)
               .then((result) =>{ 
                 let { message, error, response } = result;
-                console.log("resultHereherwreww",response)
                 this.setState({processing:false});
                 if (!error && response.status == true) {
                   this.setState({DetailsResponse:result.response});
-                  // resetForm();
                   let userData = {
                     email:this.state.email,
                     password:this.state.password,
                   }
                   const {email,password} = this.state
-                  // global.gtpsUserData = userData;
-                  // global.loggedin = true;
-                  // console.log("myUserDataHere",global.gtpsUserData);
+
+                  if(this.props.data.memberid && this.props.data.gotoStore){
+                    const {gotoStore,memberid} = this.props.data;
+                    memberids = memberid
+                    gotoStores = gotoStore
+                    // this.props.navigation.navigate("ContinueToStoreStack",{memberid,gotoStore});
+                  }else{
+                    memberids = null;
+                    gotoStores = false;
+                  }
+                  
                   this.props?.dispatch(
                     handlesaveuserAuth({
                       email,
-                      password
+                      password,
                     })
                   )
+
+                  this.props?.dispatch(
+                    handleGotoStore({
+                      memberid:memberids,
+                      gotoStore:gotoStores
+                    })
+                  )
+
                   this.props?.dispatch(handleUpdateUserLoggedIn(true))
-                  // try{
-                  //     store.dispatch({
-                  //     type: "GTPS_USER_DATA",
-                  //     payload: JSON.stringify(userData),
-                  //   });
-                  //   console.log("saved")
-                  // }
-                  // catch(error){
-                  //   console.log("ErrorDey ForHieOh",error)
-                  // }
                   return this.gotoStores();
                   Alert.alert("New User", result.response.msg);
                 
@@ -237,9 +236,7 @@ const styles_ = StyleSheet.create({
     };
 
     render(){
-      const { navigation } = this.props;
-      console.log("parameData",navigation.params?navigation.params:"nullParams");
-      console.log("myMessage",global.message);
+      
     return (
 
       
@@ -258,53 +255,53 @@ const styles_ = StyleSheet.create({
 
             
             <InputLinePassword
-            keyboardType="default"
-            onChangeText={(password) => this.setState({ password })}
-            inputValue={this.state.password}
-            placeholder={"Password"}
-            inputWrapperStyle={styles_.inputWrapper}
-            secureTextEntry={this.state.secureTextEntry}
-            inputStyle ={styles_.inputStyle}
-            inputWrapperStyle={styles_.inputWrapper}
-            passwordViewToggle={() =>
+              keyboardType="default"
+              onChangeText={(password) => this.setState({ password })}
+              inputValue={this.state.password}
+              placeholder={"Password"}
+              inputWrapperStyle={styles_.inputWrapper}
+              secureTextEntry={this.state.secureTextEntry}
+              inputStyle ={styles_.inputStyle}
+              inputWrapperStyle={styles_.inputWrapper}
+              passwordViewToggle={() =>
                 this.setState({ secureTextEntry: !this.state.secureTextEntry })
-            }
+              }
             />
 
             <View style={{flexDirection:'row',justifyContent:'flex-end', }}>
                 <Text style={{color:"#0C9344"}} onPress={() => {this.props.navigation.navigate("ForgotPassword");}}>Forgot Your Password?</Text>
             </View>
             <View>
-                <View style={styles_.buttonWrapper}>
-                    
-                  <GreenButton
-                      text="Login"
-                      buttonWidth={300}
-                      disabled={this.state.processing}
-                      processing={this.state.processing}
-                      onPress={() => this.submitForm()}
-                      borderR={2}
-                  />
-                </View>
-                <View style = {{flexDirection:'row',margin:20,}}> 
-                    <View style={{borderBottomWidth:1,borderBottomColor:'black', width:120,margin:10,marginLeft:0}}></View>
-                    <Text>OR</Text>
-                    <View style={{borderBottomWidth:1,borderBottomColor:'black',width:120,margin:10}}></View>
-                </View>
-
-                <View style={styles_.buttonWrapper}>
-                  <GreenButton
-                    text="Create Account"
+              <View style={styles_.buttonWrapper}>
+                  
+                <GreenButton
+                    text="Login"
                     buttonWidth={300}
-                    onPress={() => this.props.navigation.navigate("SignUp")}
-                    borderR ={1}
-                    borderC = {"#0C9344"}
-                    borderW={1}
-                    backgroundCol = {"#FFFFFF"}
-                    color={"#0C9344"}
-                    textStyle={{color:"#0C9344"}}
-                  />
-                </View>
+                    disabled={this.state.processing}
+                    processing={this.state.processing}
+                    onPress={() => this.submitForm()}
+                    borderR={2}
+                />
+              </View>
+              <View style = {{flexDirection:'row',margin:20,}}> 
+                  <View style={{borderBottomWidth:1,borderBottomColor:'black', width:120,margin:10,marginLeft:0}}></View>
+                  <Text>OR</Text>
+                  <View style={{borderBottomWidth:1,borderBottomColor:'black',width:120,margin:10}}></View>
+              </View>
+
+              <View style={styles_.buttonWrapper}>
+                <GreenButton
+                  text="Create Account"
+                  buttonWidth={300}
+                  onPress={this.props.onclickCreateAccount}
+                  borderR ={1}
+                  borderC = {"#0C9344"}
+                  borderW={1}
+                  backgroundCol = {"#FFFFFF"}
+                  color={"#0C9344"}
+                  textStyle={{color:"#0C9344"}}
+                />
+              </View>
             </View>
         </View>
     )}

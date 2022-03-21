@@ -5,6 +5,8 @@ const actionTypes = {
   REQUEST_SUCCESS:"REQUEST_SUCCESS",
   REQUEST_FAILURE:"REQUEST_FAILURE",
   END_REQUEST:"END_REQUEST",
+  ROUTER:"ROUTER",
+  IS_LOGIN_TAB:"IS_LOGIN_TAB",
   SAVE_CATEGORY:'SAVE_CATEGORY',
   SHOW_SPLASH_SCREEN:'SHOW_SPLASH_SCREEN',
   SAVE_USER_LOGGED_IN:'SAVE_USER_LOGGED_IN',
@@ -15,6 +17,21 @@ export const saveUserAuth = (currentUser) => ({
   type: actionTypes.SAVE_USER_AUTH,
   payload: { currentUser },
 });
+
+export function saveStoreData(gotoStore) {
+  return {
+    type: actionTypes.ROUTER,
+    payload:{gotoStore}
+  };
+}
+
+export const setActiveTab=(loginTab) =>({
+    type: actionTypes.IS_LOGIN_TAB,
+    payload:{loginTab}
+  }
+);
+
+
 
 export const saveUserCategory = (category) => ({
   type: actionTypes.SAVE_CATEGORY,
@@ -32,6 +49,8 @@ export function requestSuccess(data) {
     data
   };
 }
+
+
 export function requestFailure(error) {
   return {
     type: actionTypes.REQUEST_FAILURE,

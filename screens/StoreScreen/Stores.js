@@ -11,6 +11,7 @@ import {
 import Helper from "../../Helpers/Helper";
 import ButtonComponent from "../../components/ButtonComponent";
 import { FlatGrid } from "react-native-super-grid";
+import { StackActions } from '@react-navigation/native';
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
@@ -23,11 +24,12 @@ import Logo from "../../assets/store.png";
 import StoreCard from "../../components/StoreCard";
 import { store } from "../../redux/store";
 import EcommerceHeader from "../../components/EcommerceHeader";
+import { connect } from "react-redux";
+import { handleGotoStore, handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
+    
   },
   StatusBar: {
     color: "white",
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Stores extends Component {
+class Stores extends Component {
 
   constructor(props) {
     super(props);
@@ -74,6 +76,21 @@ export default class Stores extends Component {
   }
 
   componentDidMount() {
+
+    if(!this.props.userLoggedIn){
+      this.props.navigation.dispatch(StackActions.popToTop());
+    }
+
+    this.props?.dispatch(
+      handleGotoStore({
+        memberid:null,
+        gotoStore:false
+      })
+    )
+
+    
+
+
     global.gotoStore = null;
     this.fetchStoreDetails();
     
@@ -81,7 +98,6 @@ export default class Stores extends Component {
 
   
   submitForm =()=>{
-    console.log("myEmailIsKukuHere", global.gtpsUserData.email)
     {global.gtpsUserData !=undefined && global.gtpsUserData!=null?
     
     this.props.navigation.navigate("Store"):
@@ -103,7 +119,7 @@ export default class Stores extends Component {
 
   fetchStoreDetails =async()=>{
 
-    const {email,password} = global.gtpsUserData;
+    const {email,password} = this.props?.currentUser
     try {
       let body = {
         "email": email,
@@ -116,20 +132,31 @@ export default class Stores extends Component {
         "api":""
       }
 
-      console.log("MemberIdLoghere",memberid)
+
       this.setState({processing:true});
       let memberid = "";
-      if(this.props.route.params && this.props.route.params.memberid){
+      if(this.props.route.gotoStore && this.props.route.memberid){
+
+        memberid = this.props.route.memberid
+
+        this.props?.dispatch(
+          handleGotoStore({
+            memberid:null,
+            gotoStore:false
+          })
+        )
+      }
+      else if(this.props.route.params.memberid){
+
         memberid = this.props.route.params.memberid
-      }else{
+      }
+      else{
         memberid = global.usermemberid;
       }
       let payload = "view_stores.jsp?product="+memberid+"&api";
-      console.log("payloadProuctsCat", payload);
       await Helper.Request(payload,"post",body)
       .then((result) =>{ 
         let { message, error, response } = result;
-        console.log("myStoreResultis",response)
         this.setState({processing:false});
         this.setState({appReady:true});
         if (!error) {
@@ -153,7 +180,6 @@ export default class Stores extends Component {
   }
 
   onPressProduct =(shopid)=>{
-    console.log("myData",shopid)
     this.props.navigation.navigate("MemberShop",{shopid})
   }
   
@@ -162,28 +188,36 @@ export default class Stores extends Component {
 
   }
 
-  logout=()=>{
 
-    global.gtpsUserData = null;
-    global.loggedin = false;
-    try{
-        store.dispatch({
-        type: "GTPS_USER_DATA",
-        payload: null,
-      });
-    }
-    catch(error){
-      console.log("ErrorDey ForHieOh",error)
-    }
-    this.props.navigation.navigate("Products");
-  }
+    logout =()=>{
+      // this.props.navigation.navigate("Products");
+      this.props?.dispatch(handleUpdateUserLoggedIn(false))
+      this.props?.dispatch(
+        handlesaveuserAuth({
+          email:"",
+          password:""
+        })
+      )
+
+      this.props.navigation.goBack()
+      // this.props.navigation.navigate("ContinueToStoreStack")
+      // return 
+     } 
+
+    //
+
+    toggleNav=()=>{
+      this.props.navigation.goBack()
+       
+     }
+  
 
   renderHeader=()=>{
-    console.log("logmeHerere");
+    const {userLoggedIn} = this.props;
     return(
     
       <View style = {{backgroundColor:'#0C9344',padding:5}}>
-        <EcommerceHeader loggedin = {global.loggedin} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Store"} memberId = {"10000203445"} />
+        <EcommerceHeader loggedin = {userLoggedIn} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Store"} memberId = {"10000203445"} />
       </View>
     )
   }
@@ -194,7 +228,6 @@ export default class Stores extends Component {
     
     let count = 0;
     let {stores} = this.state.detailsResponse;
-    // console.log("insideCardStore",stores)
     let half = screenWidth-30;
     return (
       
@@ -218,7 +251,6 @@ export default class Stores extends Component {
 
   render() {
     let {detailsResponse,processing,appReady,stores} = this.state;
-    console.log("myStoreDatasss",stores);
     return (
       
       <View style={styles.container}>
@@ -271,3 +303,15 @@ export default class Stores extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { 
+    currentUser: state.authReducer.currentUser,
+    userLoggedIn:state.authReducer.userLoggedIn
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  dispatch, 
+});
+
+export default connect( mapStateToProps, mapDispatchToProps)(Stores)

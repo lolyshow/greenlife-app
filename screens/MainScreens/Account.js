@@ -48,15 +48,12 @@ const Account = ({ navigation,props }) => {
                     textFunction: 'new',
                     textPayID: 'blabla',
                 }
-                console.log(payload);
                 // return;
                 try {
 
-                    // console.log("insideTryLogin")
                     setProcessing(true);
                     
                     let linkUrl = "MemberPaymentControllerServlet?action=newPaymentMem&api";
-                    console.log("payloadShop", payload);
                     await Helper.getRequest(linkUrl,"post",payload)
                     .then((result) =>{ 
                     let { message, error, response } = result;
@@ -84,7 +81,6 @@ const Account = ({ navigation,props }) => {
         }
     }
 
-    console.log("myDateGoesHere",selectedDate);
 
 
 

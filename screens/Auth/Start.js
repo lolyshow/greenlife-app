@@ -221,15 +221,14 @@ export default class Start extends Component {
         break;
       }
       case "up": {
-        console.log("up Swipe performed");
+        ("up Swipe performed");
         break;
       }
       case "down": {
-        console.log("down Swipe performed");
+        ("down Swipe performed");
         break;
       }
       default: {
-        console.log("Undeteceted action");
       }
     }
   };
@@ -348,19 +347,19 @@ export default class Start extends Component {
 
 
         <View style ={{flexDirection:'row',marginTop:-20}}>
-          <TouchableOpacity onPress={()=>console.log("Hi")}>
+          <TouchableOpacity onPress={()=>null}>
             <View style={{width:80,justifyContent:'center'}}>
               <Text style={{textAlign:'center',marginTop:-10}}>Login As GTPS User</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>console.log("Hi")}>
+          <TouchableOpacity onPress={()=>null}>
             <View style={{width:80,justifyContent:'center'}}>
               <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS User</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>console.log("Hi")}>
+          <TouchableOpacity onPress={()=>null}>
             <View style={{width:80,justifyContent:'center'}}>
               <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS Member</Text>
             </View>

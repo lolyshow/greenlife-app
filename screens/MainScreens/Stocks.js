@@ -32,7 +32,7 @@ const Stocks = ({ navigation,props }) => {
         setSearchPhrase(text)
     }
 
-    const toggleNav = () =>{ console.log("navToggled");  navigation.openDrawer()}
+    const toggleNav = () =>{navigation.openDrawer()}
 
     const setClickedFunc = (action) =>{
         setClicked(action)
@@ -41,12 +41,9 @@ const Stocks = ({ navigation,props }) => {
 
     const fetchShopDetails =async()=>{
       try {
-  
-        console.log("insideTryLogin")
         setProcessing(true);
         
         let payload = "backoffice/shop_details.jsp?memberid="+global.user.memberid+"&api";
-        console.log("payloadShop", payload);
         await Helper.getRequest(payload)
         .then((result) =>{ 
           let { message, error, response } = result;
@@ -74,7 +71,6 @@ const Stocks = ({ navigation,props }) => {
         params: { ShopID: ShopDetailsResponse.shopid },
         });
         // getCountriesApiServices().then((res)=>{
-        //   console.log("ress")
         // })
         // .catch((err)=>{
 
@@ -114,7 +110,7 @@ const Stocks = ({ navigation,props }) => {
                     
                     <View style = {{marginRight:10,paddingLeft:10,justifyContent:'center'}}>
                         <TouchableOpacity
-                            onPress={()=>console.log("")}
+                            onPress={()=>null}
                             // disabled={processing}
                             style={{}}
                         >

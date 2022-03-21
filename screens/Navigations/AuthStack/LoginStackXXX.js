@@ -3,7 +3,6 @@ import { View, StyleSheet, Dimensions,Text } from 'react-native';
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
  
 const FirstRoute = (navigation) => (
-  console.log("myNav",navigation),
   <View style={[styles.scene, { backgroundColor: '#FFF' }]} >
 
     <Text>My Text</Text>

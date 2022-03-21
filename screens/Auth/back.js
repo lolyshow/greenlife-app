@@ -36,7 +36,6 @@ export const authSlice = createSlice({
       state.showResult = false;
     },
     handleError: (state, {payload}) => {
-      // console.log("errorPayloadHEre",payload);
       state.error = payload.payload.errorMessage;
       state.loading = false;
       state.failed = true;
@@ -45,20 +44,13 @@ export const authSlice = createSlice({
     },
 
     signupSuccess: (state, {payload}) => {
-      console.log("PayMyLoadHere",payload.payload.id)
       state.error = "";
       state.loading = false;
       state.id = payload.payload.id;
       state.phone_number = payload.payload.phone_number;
-      // state = {
-      //   loading: false,
-      //   error: '',
-      //   id:payload.payload.id,
-      //   // ...payload.payload,
-      // };
+      
     },
     login: (state, {payload}) => {
-      // console.log("PayMyLoadHere",payload.payload.id)
       state.error = "";
       state.loading = false;
       state.id = payload.payload.id;
@@ -67,7 +59,6 @@ export const authSlice = createSlice({
     },
 
     loginSuccess: state => {
-      // console.log("PayMyLoadHere",payload.payload.id)
       state.error = "";
       state.loading = false;
       state.loggedIn = true;
@@ -82,14 +73,12 @@ export const authSlice = createSlice({
     },
 
     verificationSuccess: (state, {payload}) => {
-      console.log("PayMyLoadHere",payload.payload.id)
       state.error = "";
       state.loading = false;
       
     },
 
     bvnSuccess: (state, {payload}) => {
-      console.log("PayMyLoadHere",payload.payload.id)
       state.error = "";
       state.loading = false;
     },

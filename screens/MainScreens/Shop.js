@@ -32,7 +32,7 @@ const Shop = ({ navigation,props }) => {
         setSearchPhrase(text)
     }
 
-    const toggleNav = () =>{ console.log("navToggled");  navigation.openDrawer()}
+    const toggleNav = () =>{navigation.openDrawer()}
 
     const setClickedFunc = (action) =>{
         setClicked(action)
@@ -42,11 +42,9 @@ const Shop = ({ navigation,props }) => {
     const fetchShopDetails =async()=>{
       try {
   
-        console.log("insideTryLogin")
         setProcessing(true);
         
         let payload = "backoffice/shop_details.jsp?memberid="+global.user.memberid+"&api";
-        console.log("payloadShop", payload);
         await Helper.getRequest(payload)
         .then((result) =>{ 
           let { message, error, response } = result;
@@ -74,7 +72,6 @@ const Shop = ({ navigation,props }) => {
         params: { ShopID: ShopDetailsResponse.shopid },
         });
         // getCountriesApiServices().then((res)=>{
-        //   console.log("ress")
         // })
         // .catch((err)=>{
 

@@ -38,7 +38,7 @@ const ViewMore = ({ navigation,props,route }) => {
 
     const setSelectedDate=(date)=>{
         formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-        console.log("formatedDate",formattedDate);
+        
         setFormatedDate(formattedDate);
     }
 
@@ -64,13 +64,11 @@ const ViewMore = ({ navigation,props,route }) => {
 
 
    
-    console.log("myDateGoesHere",selectedDate);
 
 
     
 
     const {msg} = DetailsResponse;
-    console.log("thisIsMyROuteDatajjj", route.params.routeData)
     const {routeData} = route.params;
     let count = 0;
   return (
@@ -86,7 +84,6 @@ const ViewMore = ({ navigation,props,route }) => {
             {routeData?
             <View style = {{marginTop:20,marginBottom:20}}>
                 {Object.entries(routeData).map((data,index)=>{
-                    console.log("data112345678910",data);
                     let title = data[0].toUpperCase();
                     if(title == "FNAME"){title ="FULL NAME"}else if(title == "MEMID"){title = "MEMBER ID"}
                     else if(title== "ACCTNO"){title = "ACCOUNT NAME"}

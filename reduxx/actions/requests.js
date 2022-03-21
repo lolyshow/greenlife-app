@@ -1,4 +1,4 @@
-import actionTypes, { saveUserAuth, saveUserCategory, doshowSplashScreen } from './actionTypes';
+import actionTypes, { saveUserAuth, saveUserCategory, doshowSplashScreen,saveStoreData,setActiveTab } from './actionTypes';
 
 
 /* Utility functions */
@@ -36,6 +36,15 @@ export function handlesaveuserAuth(currentUser) {
 }
 
 
+export function handleGotoStore(storeData) {
+
+  return (dispatch )=> {
+    return (
+      dispatch(saveStoreData(storeData))
+    );
+  };
+}
+
 
 
 export function handlesaveuserCategory(category) {
@@ -54,6 +63,14 @@ export function handleShowSplashScreen(showSplashScreen) {
     };
   }
 
+  export function handleActiveTab(loginTab) {
+    return (dispatch) => {
+      return (
+        dispatch(setActiveTab(loginTab))
+      );
+    };
+  }
+
   export function handleUpdateUserLoggedIn(userLoggedIn) {
     return (dispatch) => {
       return (
@@ -61,8 +78,11 @@ export function handleShowSplashScreen(showSplashScreen) {
             type: actionTypes.SAVE_USER_LOGGED_IN,
             payload: { userLoggedIn },
         })
+        
       );
     };
+  
+    
   }
 
 

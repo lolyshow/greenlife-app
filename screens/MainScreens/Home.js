@@ -63,7 +63,6 @@ export default class Home extends React.Component {
     try {
       await Share.open(options);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -79,19 +78,14 @@ export default class Home extends React.Component {
    fetchHomepage =async()=>{
     try {
 
-      console.log("insideTryLogin")
       this.setState({ processing: true });
       
       let payload = "backoffice/dashboard.jsp?memberid="+global.user.memberid+"&api";
-      console.log("payloadHome", payload);
       await Helper.getRequest(payload)
       .then((result) =>{ 
         let { message, error, response } = result;
-        console.log("MyResultStaysHererere",result.response)
         this.setState({ processing: false });
-        console.log("myResponseInsideCallingMe "+response+" ResultTHen",result)
         if (!error) {
-          console.log("myResponseInsideCall",response)
           this.setState({ dashboard : result.response });
           this.setState({accBalance:response.balance});
         } else {
@@ -111,7 +105,6 @@ export default class Home extends React.Component {
   FetchGenerologySummary = async()=>{
     try {
 
-      console.log("insideTryLogin")
       this.setState({ processing: true });
       
       let payload = "GeneologyStatusMemberServlet?action=all&memberid="+global.user.memberid+"&api";
@@ -161,13 +154,12 @@ export default class Home extends React.Component {
       this.setState({accBalance : convert})
      }
     }
-    toggleNav = () =>{ console.log("navToggled");   this.props.navigation.openDrawer()}
+    toggleNav = () =>{this.props.navigation.openDrawer()}
 
     CommissionCard =(title)=>{
 
       const {dashboard} = this.state;
       let amount = 0;
-      console.log("ThisIsMyDashboardTotalEarnednewme",this.state.dashboard.total_earned);
       if(dashboard){
         if(title == "Total Earned"){
           amount = dashboard.total_earned;
@@ -179,7 +171,6 @@ export default class Home extends React.Component {
       }else{
         amount = 0.0
       }
-      console.log("thisIsMyAmount",amount)
       return(
         <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF'}]}>
           <Text style = {{color:'#0C9344',fontSize:18, margin:10,fontWeight:'bold'}}>{title}</Text>
@@ -206,12 +197,6 @@ export default class Home extends React.Component {
 
 
   render(){
-
-
-    console.log("MyHeaderGLobal",global.header)
-    console.log("mydataLogsHere",this.state.dashboard);
-    console.log("isItEnabled",this.state.isEnabled)
-    console.log("THisIsMyStateBalance",this.state.accBalance)
     let {accBalance,isEnabled,generologySummary} = this.state;
     const {first,referral,total_withdraw,total_withdraw_naira,total_stocks,total_views,referral_shop,shopname,shopid,balance} = this.state.dashboard;
     

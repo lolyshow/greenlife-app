@@ -40,8 +40,9 @@ const SearchBar = (props) => {
       </View>
       {/* cancel button, depending on whether the search bar is clicked or not */}
       {props.clicked && (
-        <View>
+        <View >
           <Button
+            
             title="Cancel"
             onPress={() => {
               Keyboard.dismiss();
@@ -63,6 +64,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     flexDirection: "row",
+    shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,
+    shadowOffset: {width: 10, height: 10},borderRadius:10
     // width: "100%",
 
   },
@@ -70,27 +73,29 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     // width: "100%",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 5,
+    // backgroundColor: "#FFFFFF",
+    borderRadius: 15,
     alignItems: "center",
-
     shadowOffset: {width: 0, height: 10},
     shadowColor: '#d9dbda',
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.2,
+    borderRadius:10,
   },
   searchBar__clicked: {
-    padding: 10,
+    padding: 14,
     flexDirection: "row",
-    width: "80%",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 15,
+    alignItems:'center',
+    alignSelf:'center',
+    width: "70%",
+    // backgroundColor: "#FFFFFF",
+    // borderRadius: 15,
     alignItems: "center",
     justifyContent: "space-evenly",
 
-    shadowOffset: {width: 0, height: 1},
-    shadowColor: '#d9dbda',
+    // shadowOffset: {width: 0, height: 1},
+    // shadowColor: '#d9dbda',
     shadowOpacity: 0.2,
-elevation: 1,
+// elevation: 1,
   },
   input: {
     fontSize: 15,

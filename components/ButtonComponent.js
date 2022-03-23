@@ -23,7 +23,7 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
             Processing <ActivityIndicator size="small" color="#ffffff" />
           </Text>
         ):(
-        <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'normal', fontSize: fontSize,}]}>
+        <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'bold', fontSize: fontSize,}]}>
           {textinput}
         </Text>
         )}
@@ -44,7 +44,7 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
           Processing <ActivityIndicator size="small" color="#ffffff" />
         </Text>
       ):(
-      <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'normal', fontSize: 12,}]}>
+      <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'bold', fontSize: 12,}]}>
         {textinput}
       </Text>
       )}
@@ -64,12 +64,13 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
     },
     appButtonText: {
       fontSize: 18,
-      // fontWeight: "bold",
+      fontWeight: "bold",
       alignSelf: "center",
       textTransform: "uppercase"
     },
     ButtonText: {
       fontSize: 16,
+      fontWeight: "bold",
       fontWeight: "500",
       fontStyle: "normal",
       color: "#ffffff",

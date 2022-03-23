@@ -15,7 +15,7 @@ headerType && headerType == "home"?
     </View>
 
     <View>
-        <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>{title}</Text>
+        <Text style = {{fontSize:16, fontWeight:'bold', color:"#979797",textAlign:'center'}}>{title}</Text>
         <Text style = {{textAlign:'center'}}></Text>
     </View>
 
@@ -37,7 +37,7 @@ headerType && headerType == "home"?
     </View>
 
     <View style = {{justifyContent:'center',}}>
-        <Text style = {{fontSize:14, color:"#FFF",textAlign:'center',}}>{title}</Text>
+        <Text style = {{fontSize:16, fontWeight:'bold', color:"#FFF",textAlign:'center',}}>{title}</Text>
         
     </View>
     {loggedin?
@@ -47,7 +47,7 @@ headerType && headerType == "home"?
                 <AntDesign color={"#FFF"} size = {35} name = "logout" />
             </TouchableOpacity>
         </View>:
-        <View style = {{justifyContent:'center',width:40}}>
+        <View style = {{justifyContent:'center',width:48}}>
             
             
         </View>

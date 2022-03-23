@@ -4,19 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from "./screens/Auth/Splash";
 import StartScreen from "./screens/Auth/Start";
-import NextScreen from "./screens/Auth/NextScreen";
 import SignUp from "./screens/Auth/SignUp";
 import Login from "./screens/Auth/Login";
 import ForgotPassword from "./screens/Auth/ForgotPassword";
 import EmailVerify from "./screens/Auth/EmailVerify";
 import GtpsLogin from "./screens/Auth/GtpsLogin";
 import StoreStack from "./screens/Navigations/StoreNavigation/StoreStack";
-import Home from "./screens/MainScreens/Home";
-import BottomTabNavigator from "./screens/Navigations/TabNavigator";
 import DrawerNavigator from "./screens/Navigations/DrawerNavigator";
 import { Provider, useSelector } from "react-redux";
-// import { store } from "./redux/store";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MemberAuth from './screens/Navigations/AuthStack/MemberAuth';
 import UserAuth, { ContinueToStoreStack, ProductStack } from "./screens/Navigations/AuthStack/UserAuth";
 import Products from './screens/StoreScreen/Products';
@@ -99,7 +94,6 @@ function AppContainer({navigation}) {
         ) : (
           <>
             <Stack.Screen name="GotoHomeStack" component={DrawerNavigator}  options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }}/>
-            {/* <Stack.Screen name="Profile" component={DrawerNavigator}  options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }}/> */}
           </>
         )} 
         {/* NextScreen */}

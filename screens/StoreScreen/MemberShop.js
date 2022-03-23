@@ -182,7 +182,7 @@ class MemberShop extends React.Component {
                 setSearchPhrase={(text) => this.setSearchPhrase(text)}
                 clicked={this.state.clicked}
                 setClicked={(clicked) => this.setClicked(clicked)}
-                searchPlaceHolder = "Choose product to search for"
+                searchPlaceHolder = "Search for a product"
               />
             </View>    
           <View>

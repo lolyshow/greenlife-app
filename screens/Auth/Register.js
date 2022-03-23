@@ -197,7 +197,7 @@ const styles_ = StyleSheet.create({
 
             <InputLine
             // keyboardType="email-address"
-            onChangeText={(value) => this.setState({ referral })}
+            onChangeText={(referral) => this.setState({ referral })}
             inputValue={this.state.referral}
             placeholder={"Referral/Sponsor ID"}
             

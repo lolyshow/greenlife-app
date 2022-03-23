@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   },
   circle: {
     //   flex:1,
-    height: 40,
-    width: 40,
+    height: 48,
+    width: 48,
     borderRadius: 30,
     backgroundColor:'#ffffff',
     justifyContent:'center',
@@ -75,7 +75,7 @@ export default function BackBtn({
         </Text> */}
         <Ionicons 
         name="chevron-back-outline" 
-        size={25}
+        size={35}
         />
       
       

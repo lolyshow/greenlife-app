@@ -25,6 +25,7 @@ import { handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actio
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:"#FFFFFF"
     // paddingBottom:100,
   },
   StatusBar: {
@@ -186,14 +187,14 @@ class Products extends React.Component {
         <View style={styles.container}>
             {this.renderHeader()}
 
-            <View style = {{padding:20,paddingBottom:0}}>
+            <View style = {{padding:20,paddingBottom:0,}}>
 
               <SearchBar
                 searchPhrase={this.state.searchPhrase}
                 setSearchPhrase={(text) => this.setSearchPhrase(text)}
                 clicked={this.state.clicked}
                 setClicked={(clicked) => this.setClicked(clicked)}
-                searchPlaceHolder = "Choose product to search for"
+                searchPlaceHolder = "Search for a product"
               />
             </View>    
           <View>

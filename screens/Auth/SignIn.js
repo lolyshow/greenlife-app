@@ -143,7 +143,7 @@ const styles_ = StyleSheet.create({
 
     render(){
     return (
-        <View style={{padding:20,backgroundColor:'#FFF'}}>
+        <View style={{padding:20,backgroundColor:'#FFF',flex:1}}>
             <InputLine
             // keyboardType="email-address"
             onChangeText={(email) => this.setState({ email })}

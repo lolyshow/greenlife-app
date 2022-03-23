@@ -18,14 +18,14 @@ const Productcard = ({count,filepath,desc,productname,cost,btn_txt,onpressText,s
                     
             <View style={{justifyContent:"center", shadowOffset: {width: 10, height: 10}, borderRadius:10, shadowColor: '#d9dbda',elevation:2,borderColor:'black',shadowOpacity: 0.9,padding:10,width:150,}}>
                 <View style={{justifyContent:'space-between',flexDirection:'row'}}>
-                  <Text style = {{fontSize:10,color:'#0C9344'}}>Stock Status:</Text>
+                  <Text style = {{fontSize:10,color:'#0C9344',fontWeight:'bold'}}>Stock Status:</Text>
                   <View style = {{borderRadius:10,backgroundColor:"#d9dbda",width:65}}>
                     <Text style = {{fontSize:10,textAlign:'center'}}>{"Available"}</Text>
                   </View>
                 </View>
                 <TouchableOpacity onPress={()=>{onpressText}} >
                     <View style ={{alignSelf:'center',justifyContent:'center',marginTop:10}}>
-                        <Image resizeMode="contain" style = {{width: 90, height: 90,}}  source={{uri:filepath}} />
+                        <Image resizeMode="contain" style = {{width: 80, height: 80,}}  source={{uri:filepath}} />
                     </View>
                 </TouchableOpacity>
                 <View style={{justifyContent:'center'}}>

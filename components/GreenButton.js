@@ -25,11 +25,14 @@ const styles = StyleSheet.create({
   },
 
   ButtonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "500",
     fontStyle: "normal",
+    fontWeight:'bold',
     color: "#ffffff",
-    textAlign:'center'
+    textAlign:'center',
+    
+
   },
 });
 

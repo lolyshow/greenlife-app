@@ -69,6 +69,11 @@ const styles_ = StyleSheet.create({
       };
     }
 
+    componentDidMount() {
+      
+      console.log("this is logininininin")
+    }
+
     submitForm = async () => {
         try {
           let { email, password } = this.state;
@@ -94,7 +99,8 @@ const styles_ = StyleSheet.create({
           let { message, error, user, response } = await Helper.logInApi(
             payload
           ).then((result) => res = result);
-    
+            // console.log("loginResponse",result)
+            
           this.setState({ processing: false });
     
           if (!error) {
@@ -107,6 +113,7 @@ const styles_ = StyleSheet.create({
             await AsyncStorage.setItem("userLogin",JSON.stringify(userLogin));
     
             await AsyncStorage.setItem("userData",JSON.stringify(response));
+            global.user = res;
             this.setState({ email: "", password: "" });
             this.props.dispatch(handleUpdateLoggedInStatus(true))
             

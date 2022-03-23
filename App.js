@@ -22,6 +22,7 @@ const { store } = returnStoreAndPersistor();
 const { persistor } = returnStoreAndPersistor();
 
 export default App = () => {
+  
   return (
     <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -36,7 +37,7 @@ const Stack = createNativeStackNavigator();
 function AppContainer({navigation}) {
   const {showSplashScreen} = useSelector((state) => state.appReducer);
   const {loginStatus} = useSelector((state) => state.authReducer);
-
+  // console.log("logingooo",loginStatus," Splash",showSplashScreen)
   return (
     <NavigationContainer>
       <Stack.Navigator

@@ -26,7 +26,8 @@ export default function DrawerContent (props) {
     const logout= async()=>{
 
         await AsyncStorage.removeItem("userLogin");
-
+        global.user = null;
+        
         await AsyncStorage.removeItem("userData");
         dispatch(handleShowSplashScreen(false))
         dispatch(handleUpdateLoggedInStatus(false))
@@ -46,8 +47,8 @@ export default function DrawerContent (props) {
                                 size={80}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>{global.user.name?global.user.name:""}</Title>
-                                <Caption style={{color:'black'}}>{global.user.memberid?global.user.memberid:"202012340005"}</Caption>
+                                <Title style={styles.title}>{global.user.name}</Title>
+                                <Caption style={{color:'black'}}>{global.user.memberid}</Caption>
                                 {/* <ButtonComponent
                                     textinput="Edit Profile"
                                     buttonWidth={100}

@@ -56,52 +56,20 @@ const styles = StyleSheet.create({
     }, 2000);
   }
 
-  signIn = async (email, password) => {
-    try {
-
-      this.setState({ processing: true });
-      let res = {};
-      let payload = "action=Member_login&memberid="+email+"&password="+password+"&api=";
-      let { message, error, user, response } = await Helper.logInApi(
-        payload
-      ).then((result) => res = result);
-
-      this.setState({ processing: false });
-
-      if (!error) {
-
-        await AsyncStorage.setItem("userData",JSON.stringify(response));
-        this.setState({ email: "", password: "" });
-
-        store.dispatch({
-          type: "IS_SIGNED_IN",
-          payload: true,
-        });
-
-        return this.props.navigation.navigate("GotoHomeStack");
-      } else {
-        Alert.alert("Login", message);
-      }
-    } catch (error) {
-      this.setState({ processing: false });
-
-      Alert.alert("Error", error.toString());
-    }
-  };
-  
-
   gotToNextScreen = async() => {
-
+    console.log("ResultNotNull")
     
     // const { loginStatus, showSplash } = useSelector((state) => state.reducers);
       await AsyncStorage
       .getItem("userData")
       .then( async (result)=>{
+        // console.log("cashedData",result)
         if(result !==null){
 
           await AsyncStorage
           .getItem("userLogin")
           .then((result)=>{
+            
             if(result !==null){
               let res = JSON.parse(result);
               // return;
@@ -121,6 +89,44 @@ const styles = StyleSheet.create({
       .catch(error=>{null})
     
   };
+
+  signIn = async (email, password) => {
+    try {
+
+      this.setState({ processing: true });
+      let res = {};
+      let payload = "action=Member_login&memberid="+email+"&password="+password+"&api=";
+      let { message, error, user, response } = await Helper.logInApi(
+        payload
+      ).then((result) => res = result);
+      // console.log("loginResponse",res)
+      // return;
+      this.setState({ processing: false });
+
+      if (!error) {
+
+        await AsyncStorage.setItem("userData",JSON.stringify(response));
+        global.user = res;
+        this.setState({ email: "", password: "" });
+
+        store.dispatch({
+          type: "IS_SIGNED_IN",
+          payload: true,
+        });
+
+        return this.props.navigation.navigate("GotoHomeStack");
+      } else {
+        Alert.alert("Login", message);
+      }
+    } catch (error) {
+      this.setState({ processing: false });
+
+      Alert.alert("Error", error.toString());
+    }
+  };
+  
+
+  
 
   onSwipePerformed = (action) => {
     switch (action) {

@@ -214,7 +214,7 @@ export default class Home extends React.Component {
         
         <View>
           <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
-          <Text style = {{textAlign:'center'}}>{global.memberid?global.user.memberid:"202012340005"}</Text>
+          <Text style = {{textAlign:'center'}}>{global.user.memberid}</Text>
         </View>
 
         <View>

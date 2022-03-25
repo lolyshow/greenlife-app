@@ -98,6 +98,7 @@ function AppContainer({navigation}) {
         ) : (
           <>
             <Stack.Screen name="GotoHomeStack" component={DrawerNavigator}  options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }}/>
+            
           </>
         )} 
         {/* NextScreen */}

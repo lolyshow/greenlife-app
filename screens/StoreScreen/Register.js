@@ -8,7 +8,7 @@ import Helper from "../../Helpers/Helper";
 import { store } from "../../redux/store";
 import { connect, useDispatch } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { handleActiveTab } from "../../reduxx/actions/requests";
+import { handleActiveTab, handleGotoStore, handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
 
 
 const styles_ = StyleSheet.create({
@@ -78,15 +78,30 @@ const styles_ = StyleSheet.create({
 
     
 
-   gotoStores = ()=>{
-     global.message = "Registration Successfull Please signin to Continue";
-     this.props?.dispatch(handleActiveTab(true))
-     this.props.navigation.navigate("AuthUser")
+  //  gotoStores = ()=>{
+  //    global.message = "Registration Successfull Please signin to Continue";
+  //    this.props?.dispatch(handleActiveTab(true))
+  //    this.props.navigation.navigate("AuthUser")
      
+  // }
+
+  gotoStores = ()=>{
+      
+    if(this.props.data.memberid && this.props.data.gotoStore){
+      const {gotoStore,memberid} = this.props.data;
+      this.props.navigation.navigate("ContinueToStoreStack",{memberid,gotoStore});
+    }else{
+      this.props.navigation.navigate("ContinueToStoreStack");
+    }
+    
+    
   }
 
 
   signIn = async (email,password) => {
+
+    let memberids = null;
+      let gotoStores = false;
     try {
         let payload = {
             "email": email,
@@ -111,20 +126,51 @@ const styles_ = StyleSheet.create({
                 this.setState({DetailsResponse:result.response});
                 // resetForm();
                 let userData = {
+
                   email:this.state.email,
                   password:this.state.password,
+                  
                 }
-  
-                global.gtpsUserData = userData;
-                try{
-                    store.dispatch({
-                    type: "GTPS_USER_DATA",
-                    payload: JSON.stringify(userData),
-                  });
+                    
+                //   global.gtpsUserData = userData;
+
+                // try{
+                //   store.dispatch({
+                //     type: "GTPS_USER_DATA",
+                //     payload:JSON.stringify(userData),
+                //   });
+                // }
+                // catch(error){
+                  
+                // }
+
+                if(this.props.data.memberid && this.props.data.gotoStore){
+                  const {gotoStore,memberid} = this.props.data;
+                  memberids = memberid
+                  gotoStores = gotoStore
+                  // this.props.navigation.navigate("ContinueToStoreStack",{memberid,gotoStore});
+                }else{
+                  memberids = null;
+                  gotoStores = false;
                 }
-                catch(error){
-                }
+                
+                this.props?.dispatch(
+                  handlesaveuserAuth({
+                    email,
+                    password,
+                  })
+                )
+
+                this.props?.dispatch(
+                  handleGotoStore({
+                    memberid:memberids,
+                    gotoStore:gotoStores
+                  })
+                )
+
+                this.props?.dispatch(handleUpdateUserLoggedIn(true))
                 return this.gotoStores();
+
                 Alert.alert("New User", result.response.msg);
               
               } else {
@@ -187,8 +233,12 @@ const styles_ = StyleSheet.create({
                   catch(error){
                     this.setState({ processing: false });
                   }
-                  // return this.signIn(email,password);
-                  return this.gotoStores();
+                  setTimeout(() => {
+                    // this.messageComp();
+                    return this.signIn(email,password);
+                  }, 1000);
+                  
+                  // return this.gotoStores();
                   Alert.alert("New User", result.response.msg);
                 }else{
                   Alert.alert("New User", response.msg);

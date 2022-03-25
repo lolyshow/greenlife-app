@@ -23,7 +23,7 @@ import { handlesaveuserAuth, handleShowSplashScreen, handleUpdateLoggedInStatus 
 // 
 export default function DrawerContent (props) {
     const dispatch = useDispatch()
-    const {name,memberid} = useSelector((state) => state.appReducer.userDetails);
+    const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
     const logout= async()=>{
 
         await AsyncStorage.removeItem("userLogin");

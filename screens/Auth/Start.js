@@ -30,6 +30,8 @@ import GreenButton from "../../components/GreenButton";
 import Entypo from "react-native-vector-icons/Entypo"
 
 import AntDesign from "react-native-vector-icons/AntDesign"
+import { handleActiveTab } from "../../reduxx/actions/requests";
+import { connect } from "react-redux";
 
 
 // import SwipeGestureComponents from "../components/SwipeGestureComponents";
@@ -131,7 +133,7 @@ const DisplayAds = ({ Icon, text }) => {
   );
 };
 
-export default class Start extends Component {
+class Start extends Component {
   constructor() {
     super();
 
@@ -233,6 +235,22 @@ export default class Start extends Component {
     }
   };
 
+  gotoUserLogin=()=>{
+    this.props.dispatch(handleActiveTab(true))
+    this.props.navigation.navigate("UserAuth",{
+      screen:"SignIn"
+    })
+  }
+
+  gotoUserSignup = ()=>{
+    this.props.dispatch(handleActiveTab(false))
+    this.props.navigation.navigate("UserAuth",{
+      screen:"Auth",params:{
+        screen: 'SignUp'
+      }
+    })
+  }
+
   render() {
     let { currentAdsPosition, Ads } = this.state;
 
@@ -304,9 +322,7 @@ export default class Start extends Component {
         
 
         <View style ={{flexDirection:'row',marginTop:-10}}>
-          <TouchableOpacity onPress ={()=>this.props.navigation.navigate("UserAuth",{
-            screen:"SignIn"
-          })}>
+          <TouchableOpacity onPress ={()=>this.gotoUserLogin()}>
             <View style={{width:80,justifyContent:'center'}}>
               <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
                 <Entypo name ="login" size={40} style={{textAlign:'center'}}/>
@@ -316,11 +332,7 @@ export default class Start extends Component {
           </TouchableOpacity>
 
 
-          <TouchableOpacity onPress ={()=>this.props.navigation.navigate("UserAuth",{
-            screen:"Auth",params:{
-              screen: 'SignUp'
-            }
-          })}>
+          <TouchableOpacity onPress ={()=> this.gotoUserSignup()}>
           
             <View style={{width:80,justifyContent:'center'}}>
               <View style = {{justifyContent:'center', backgroundColor:'#0C9344',opacity:0.5, borderWidth:1,borderColor:"#0C9344",height:65,width:60,margin:10,borderRadius:10}}>
@@ -372,3 +384,9 @@ export default class Start extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatch, 
+});
+// const {email,password} = this.props?.currentUser
+export default connect(mapDispatchToProps)(Start)

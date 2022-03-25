@@ -34,10 +34,12 @@ function MyTabs({navigation}) {
       <Tab.Screen
         name="SignIn"
         component={SignIn}
+        
         options={{ tabBarLabel: 'Login',title:"Login"}}
       />
       <Tab.Screen
         name="SignUp"
+        navigation={navigation}
         component={Register}
         options={{ tabBarLabel: 'Create Account' }}
       />

@@ -89,6 +89,9 @@ const styles_ = StyleSheet.create({
     };
 
       signIn = async (email, password) => {
+        Alert.alert("Login", "Server Erorr. Please try again later");
+        return;
+        return this.props.navigation.navigate("EmailVerify");
         try {
     
           this.setState({ processing: true });
@@ -117,7 +120,7 @@ const styles_ = StyleSheet.create({
               payload: true,
             });
     
-            return this.props.navigation.navigate("GotoHomeStack");
+            return this.props.navigation.navigate("EmailVerify");
           } else {
             Alert.alert("Login", message);
           }
@@ -136,11 +139,6 @@ const styles_ = StyleSheet.create({
           return {
             validationStatus: false,
             errorMessage: "Email cannot be empty",
-          };
-        } else if (!password) {
-          return {
-            validationStatus: false,
-            errorMessage: "Password cannot be empty",
           };
         } else {
           return { validationStatus: true, errorMessage: "Ok" };
@@ -194,18 +192,18 @@ const styles_ = StyleSheet.create({
             inputLabelStyle ={styles_.inputLabelStyle}
             />
 
-
-            <InputLine
-            // keyboardType="email-address"
-            onChangeText={(referral) => this.setState({ referral })}
-            inputValue={this.state.referral}
-            placeholder={"Referral/Sponsor ID"}
-            
-            inputStyle ={styles_.inputStyle}
-            inputWrapperStyle={styles_.inputWrapper}
-            inputLabelStyle ={styles_.inputLabelStyle}
-            />
-
+            <View style = {{marginBottom:20}}>
+              <InputLine
+              // keyboardType="email-address"
+              onChangeText={(referral) => this.setState({ referral })}
+              inputValue={this.state.referral}
+              placeholder={"Referral/Sponsor ID"}
+              
+              inputStyle ={styles_.inputStyle}
+              inputWrapperStyle={styles_.inputWrapper}
+              inputLabelStyle ={styles_.inputLabelStyle}
+              />
+            </View>
             
             
 

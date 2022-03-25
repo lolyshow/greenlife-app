@@ -7,7 +7,7 @@ import Helper from "../../Helpers/Helper";
 import { store } from "../../redux/store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { connect } from "react-redux";
-import { handleUpdateLoggedInStatus } from "../../reduxx/actions/requests";
+import {handleUpdateLoggedInStatus,handleSaveUserDetails } from "../../reduxx/actions/requests";
 
 
 const styles_ = StyleSheet.create({
@@ -99,8 +99,9 @@ const styles_ = StyleSheet.create({
           let { message, error, user, response } = await Helper.logInApi(
             payload
           ).then((result) => res = result);
-            // console.log("loginResponse",result)
+           
             
+            // return;
           this.setState({ processing: false });
     
           if (!error) {
@@ -109,11 +110,13 @@ const styles_ = StyleSheet.create({
               memberid:this.state.email,
               password:this.state.password,
             }
-    
+            console.log("this.Props.userDetails",this.props.userDetails)
+            // return;
             await AsyncStorage.setItem("userLogin",JSON.stringify(userLogin));
     
             await AsyncStorage.setItem("userData",JSON.stringify(response));
             global.user = res;
+            this.props.dispatch(handleSaveUserDetails(res))
             this.setState({ email: "", password: "" });
             this.props.dispatch(handleUpdateLoggedInStatus(true))
             
@@ -217,10 +220,11 @@ const styles_ = StyleSheet.create({
     )}
   }
   const mapStateToProps = (state) => {
-    return { };
+    return { userDetails: state.appReducer.userDetails,
+              currentUser: state.appReducer.currentUser};
   };
   const mapDispatchToProps = (dispatch) => ({
     dispatch, 
   });
-  
+  // const {email,password} = this.props?.currentUser
   export default connect( mapStateToProps, mapDispatchToProps)(SignIn)

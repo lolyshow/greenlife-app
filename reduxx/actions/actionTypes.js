@@ -8,6 +8,7 @@ const actionTypes = {
   ROUTER:"ROUTER",
   IS_LOGIN_TAB:"IS_LOGIN_TAB",
   SAVE_CATEGORY:'SAVE_CATEGORY',
+  USERDETAILS:'USERDETAILS',
   SHOW_SPLASH_SCREEN:'SHOW_SPLASH_SCREEN',
   SAVE_USER_LOGGED_IN:'SAVE_USER_LOGGED_IN',
   SAVE_MEMBER_LOGGED_IN:'SAVE_MEMBER_LOGGED_IN'
@@ -16,6 +17,11 @@ const actionTypes = {
 export const saveUserAuth = (currentUser) => ({
   type: actionTypes.SAVE_USER_AUTH,
   payload: { currentUser },
+});
+
+export const saveUserDetails = (userDetails) => ({
+  type: actionTypes.USERDETAILS,
+  payload: { userDetails },
 });
 
 export function saveStoreData(gotoStore) {

@@ -35,9 +35,12 @@ export default App = () => {
 const Stack = createNativeStackNavigator();
 
 function AppContainer({navigation}) {
-  const {showSplashScreen} = useSelector((state) => state.appReducer);
-  const {loginStatus} = useSelector((state) => state.authReducer);
-  // console.log("logingooo",loginStatus," Splash",showSplashScreen)
+  const {showSplashScreen,userDetails} = useSelector((state) => state.appReducer);
+  const {loginStatus,loginTabSwitch} = useSelector((state) => state.authReducer);
+  console.log("huhuhuhuhumemefdmrwfffdsfdfdfdffw",userDetails)
+  console.log("logggggggg",loginStatus)
+
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -72,7 +75,7 @@ function AppContainer({navigation}) {
             <Stack.Screen name="Splash" component={SplashScreen} />
           )}
 
-
+          {/* <Stack.Screen name="GotoHomeStack" component={DrawerNavigator}  options={{ headerLeft: null, gesturesEnabled: false, headerShown: false }}/> */}
 
             <Stack.Screen name="Start" component={StartScreen} options={{ headerLeft: null, gesturesEnabled: false }}/>
             {/* to be reverted if urgent test <Stack.Screen name="NextScreen" component={NextScreen} /> */}

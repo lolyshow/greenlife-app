@@ -5,11 +5,11 @@ import InputBox from "../../components/InputBox";
 import BackBtn from "../../components/BackBtn";
 import SelectBox from "../../components/SelectBox";
 import Helper from "../../Helpers/Helper";
-
+import { Provider, useSelector } from "react-redux";
     
 
 const AddStock = ({ navigation,route }) => {
-
+    const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
     const [processing, setProcessing] = useState(false);
     const [DetailsResponse, setDetailsResponse] = useState({});
     const [shopID, setShopID] = useState("");
@@ -19,6 +19,10 @@ const AddStock = ({ navigation,route }) => {
     const [quantity, setQunatity] = useState("");
     const [discount, setDiscount] = useState("");
     const [isNegotiable, setIsNegotiable] = useState("");
+    const [showHerbalCategory, setShowHerbalCategory] = useState(false);
+    const [herbalCategory, setHerbalCategory] = useState("");
+    const [showProductBrand, setShowProductBrand] = useState(false);
+    const [productBrand, setProductBrand] = useState("false");
     const [amount, setAmount] = useState(0);
 
     const resetForm = () =>{
@@ -26,7 +30,10 @@ const AddStock = ({ navigation,route }) => {
         setProductName("");
         setDescription("");
         setQunatity("");
-
+        setShowProductBrand(false)
+        setShowHerbalCategory(false)
+        setProductBrand("")
+        setHerbalCategory("")
         setDiscount("");
         setIsNegotiable("");
         setAmount("");
@@ -56,11 +63,54 @@ const AddStock = ({ navigation,route }) => {
         { label: 'Smart Phones', value: 'Smart Phones' },
     ];
 
+    const herbalCategories = [
+        { label: 'Greenlife Product', value: 'Greenlife Product' },
+        { label: 'Non-Greenlife Product', value: 'Non-Greenlife Product' },
+    
+    ];
+
+    const productBrands = [
+        { label: 'Aloevera', value: 'Aloevera' },
+        { label: 'Angel Tea', value: 'Angel Tea' },
+        { label: 'Anticol', value: 'Anticol' },
+        { label: 'Arthro Power', value: 'Athrow Power' },
+        { label: 'Breast Massager', value: 'Breast Massager' },
+        { label: 'Chinese Royal Tea', value: 'Chinese Royal Tea' },
+        
+        { label: 'ChitoMeal', value: 'ChitoMeal' },
+        { label: 'D Regulator', value: 'D Regulator' },
+        { label: 'Danshel Plus', value: 'Danshel Plus' },
+        { label: 'Dark Tea', value: 'Dark Tea' },
+        // { label: 'Chinese Royal Tea', value: 'Athrow Power' },
+        // { label: 'Chinese Royal Tea', value: 'Athrow Power' },
+        // { label: 'Chinese Royal Tea', value: 'Athrow Power' },
+        // { label: 'Chinese Royal Tea', value: 'Athrow Power' },
+
+    ];
+
     const Negotiable = [
         { label: 'Yes', value: 'Yes' },
         { label: 'No', value: 'No' },
     ]
 
+    const setStockCategory= (value)=>{
+        if(value == "Herbal"){
+            setShowHerbalCategory(true)
+        }else{
+            setShowHerbalCategory(false)
+        }
+        setCategory(value)
+        
+    }
+
+    const setHerbalCategoryFunc =(value)=>{
+        if(value == "Greenlife Product"){
+            setShowProductBrand(true)
+        }else{
+            setShowProductBrand(false)
+        }
+        setProductBrand(value);
+    }
 
     const submitForm = async()=>{
         if(amount>0){
@@ -72,14 +122,14 @@ const AddStock = ({ navigation,route }) => {
                     comboChoice: "choose",
                     comboGLProducts: "",
                     textProductName: productName,
-                    textDescription: global.user.memberid,
+                    textDescription: description,
                     textUnitCost: amount,
                     textDiscount: 0,
                     textQuantity: quantity,
                     comboNegotiation: isNegotiable,
                     textFunction: "new",
                     textID: "",
-                    textMemberID: global.user.memberid,
+                    textMemberID: memberid,
                     textPage: "shop_details"
                    
                 }
@@ -154,12 +204,38 @@ const AddStock = ({ navigation,route }) => {
                 <View style = {{marginTop:30}}>
                     <SelectBox
                         value={category}
-                        onValueChange={(value) => setCategory(value)}
+                        onValueChange={(value) => setStockCategory(value)}
                         placeholder={{ label: "Select Category:", value: null }}
                         items={Categories}
                         
                     />
                 </View>
+
+
+                {showHerbalCategory? 
+                <View style = {{marginTop:30}}>
+                    <SelectBox
+                        value={herbalCategory}
+                        onValueChange={(value) => setHerbalCategoryFunc(value)}
+                        placeholder={{ label: "Select Product Brand:", value: null }}
+                        items={herbalCategories}
+                        
+                    />
+                </View>:<View></View>
+                }
+
+
+                {showProductBrand? 
+                <View style = {{marginTop:30}}>
+                    <SelectBox
+                        value={productBrand}
+                        onValueChange={(value) => setHerbalCategory(value)}
+                        placeholder={{ label: "Select Your Greenlife Product:", value: null }}
+                        items={productBrands}
+                        
+                    />
+                </View>:<View></View>
+                }
 
 
                 
@@ -205,7 +281,7 @@ const AddStock = ({ navigation,route }) => {
 
                 <View style = {{marginTop:30}}>
                     <InputBox
-                    // keyboardType="numeric"
+                    keyboardType="numeric"
                     onChangeText={(value) => setQunatity(value)}
                     inputValue={quantity}
                     borderWidth={1}
@@ -262,7 +338,7 @@ const AddStock = ({ navigation,route }) => {
                         <ButtonComponent
                             textinput="Reset"
                             buttonWidth={250}
-                            onPress={() => submitForm}
+                            onPress={() => resetForm()}
                             processing={processing}
                             boldText = {"bold"}
                             backgroundColor = {"#1976D2"}

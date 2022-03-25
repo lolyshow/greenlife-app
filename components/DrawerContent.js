@@ -18,11 +18,12 @@ import Feather from "react-native-vector-icons/Feather";
 import ButtonComponent from "./ButtonComponent";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { store } from "../redux/store";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { handlesaveuserAuth, handleShowSplashScreen, handleUpdateLoggedInStatus } from "../reduxx/actions/requests";
+// 
 export default function DrawerContent (props) {
     const dispatch = useDispatch()
-
+    const {name,memberid} = useSelector((state) => state.appReducer.userDetails);
     const logout= async()=>{
 
         await AsyncStorage.removeItem("userLogin");
@@ -47,8 +48,8 @@ export default function DrawerContent (props) {
                                 size={80}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>{global.user.name}</Title>
-                                <Caption style={{color:'black'}}>{global.user.memberid}</Caption>
+                                <Title style={styles.title}>{name}</Title>
+                                <Caption style={{color:'black'}}>{memberid}</Caption>
                                 {/* <ButtonComponent
                                     textinput="Edit Profile"
                                     buttonWidth={100}

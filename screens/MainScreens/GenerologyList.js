@@ -6,10 +6,11 @@ import HeaderComponent from "../../components/HeaderComponent";
 
 import Helper from "../../Helpers/Helper";
 import Loader  from '../../components/Loader';
+import { useSelector } from "react-redux";
 
 
 const GenerologyList = ({ navigation,props }) => {
-
+    const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
     const Back = () =>{
         navigation.goBack()
     }
@@ -38,7 +39,7 @@ const GenerologyList = ({ navigation,props }) => {
 
             setProcessing(true);
             
-            let linkUrl = "TeamPerformanceAgentServlet?memberid="+global.user.memberid+"&api";
+            let linkUrl = "TeamPerformanceAgentServlet?memberid="+memberid+"&api";
             
             await Helper.Request(linkUrl)
             .then((result) =>{

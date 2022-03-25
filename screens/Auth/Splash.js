@@ -21,7 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import logoWatermark from "../assets/logoWatermark.png";
 
 import Logo from "../../assets/greenlife_logo.jpeg";
-import { handleShowSplashScreen } from "../../reduxx/actions/requests";
+import { handleSaveUserDetails, handleShowSplashScreen } from "../../reduxx/actions/requests";
 
 // import SwipeGestureComponents from "../components/SwipeGestureComponents";
 
@@ -53,44 +53,49 @@ const styles = StyleSheet.create({
 
     setTimeout(() => {
       this.gotToNextScreen();
-    }, 2000);
+    }, 1000);
+
   }
 
   gotToNextScreen = async() => {
     console.log("ResultNotNull")
     
     // const { loginStatus, showSplash } = useSelector((state) => state.reducers);
-      await AsyncStorage
-      .getItem("userData")
-      .then( async (result)=>{
-        // console.log("cashedData",result)
-        if(result !==null){
+    await AsyncStorage
+    .getItem("userData")
+    .then( async (result)=>{
+      console.log("insideuserDataResult",result)
+      if(result !==null){
+        console.log("usersDataNotNull")
+        await AsyncStorage
+        .getItem("userLogin")
+        .then((result)=>{
+          
+          if(result !==null){
+            let res = JSON.parse(result);
+            // return;
+            return this.signIn(res.memberid, res.password);
+          }else{
 
-          await AsyncStorage
-          .getItem("userLogin")
-          .then((result)=>{
-            
-            if(result !==null){
-              let res = JSON.parse(result);
-              // return;
-              return this.signIn(res.memberid, res.password);
-            }else{
-            }})
-          
-          
-          
-        }else{
-          this.setState({storedCredentials:null})
-          this.props.dispatch(
-            handleShowSplashScreen(false)
-          )
-        }
-      })
-      .catch(error=>{null})
+          }})
+        
+        
+        
+      }else{
+        console.log("couldNotFindUserData")
+        this.setState({storedCredentials:null})
+        this.props.dispatch(
+          handleShowSplashScreen(false)
+        )
+      }
+    })
+    .catch(error=>{null})
     
   };
 
   signIn = async (email, password) => {
+  
+    console.log("myLoginHere")
     try {
 
       this.setState({ processing: true });
@@ -99,15 +104,17 @@ const styles = StyleSheet.create({
       let { message, error, user, response } = await Helper.logInApi(
         payload
       ).then((result) => res = result);
-      // console.log("loginResponse",res)
+      // console.log("loginResponseghjggjjgjh",res)
       // return;
       this.setState({ processing: false });
 
       if (!error) {
-
+        this.props.dispatch(handleSaveUserDetails(res))
         await AsyncStorage.setItem("userData",JSON.stringify(response));
         global.user = res;
-        this.setState({ email: "", password: "" });
+        
+        return;
+        this.setState({ email: "" , password: "" });
 
         store.dispatch({
           type: "IS_SIGNED_IN",
@@ -158,6 +165,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return { 
+    userDetails: state.appReducer.userDetails,
     currentUser: state.authReducer.currentUser
   };
 };

@@ -10,6 +10,7 @@ import HeaderComponent from "../../components/HeaderComponent";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 import Helper from "../../Helpers/Helper";
 import Space from "../../components/Space/Space";
+import { useSelector } from "react-redux";
 
 const PaymentReport = ({ navigation,props }) => {
 
@@ -17,6 +18,7 @@ const PaymentReport = ({ navigation,props }) => {
     const [clicked, setClicked] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [DetailsResponse, setDetailsResponse] = useState({});
+    const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
     useEffect(() => {
         fetchPaymentReport()
     },[]);
@@ -35,7 +37,7 @@ const PaymentReport = ({ navigation,props }) => {
   
         setProcessing(true);
         
-        let payload = "backoffice/payments_report.jsp?memberid="+global.user.memberid+"&api";
+        let payload = "backoffice/payments_report.jsp?memberid="+memberid+"&api";
         await Helper.getRequest(payload)
         .then((result) =>{ 
           let { message, error, response } = result;

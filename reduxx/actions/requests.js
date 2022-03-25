@@ -1,4 +1,4 @@
-import actionTypes, { saveUserAuth, saveUserCategory, doshowSplashScreen,saveStoreData,setActiveTab } from './actionTypes';
+import actionTypes, { saveUserAuth, saveUserCategory, doshowSplashScreen,saveStoreData,setActiveTab,saveUserDetails } from './actionTypes';
 
 
 /* Utility functions */
@@ -33,6 +33,16 @@ export function handlesaveuserAuth(currentUser) {
       dispatch(saveUserAuth(currentUser))
     );
   };
+}
+
+export function handleSaveUserDetails(userDetails){
+
+  console.log("SaveUserDetails",userDetails)
+  return (dispatch)=>{
+    return(
+      dispatch(saveUserDetails(userDetails))
+    )
+  }
 }
 
 

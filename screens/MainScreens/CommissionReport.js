@@ -10,6 +10,7 @@ import HeaderComponent from "../../components/HeaderComponent";
 import FontAwesome from 'react-native-vector-icons/MaterialIcons';
 import Helper from "../../Helpers/Helper";
 import Space from "../../components/Space/Space";
+import { useSelector } from "react-redux";
 
 const CommissionReport = ({ navigation,props }) => {
 
@@ -17,6 +18,8 @@ const CommissionReport = ({ navigation,props }) => {
     const [clicked, setClicked] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [CommissionDetailsResponse, setCommissionDetailsResponse] = useState({});
+    const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
+
     useEffect(() => {
       fetchCommissionReport()
     },[]);
@@ -35,7 +38,7 @@ const CommissionReport = ({ navigation,props }) => {
   
         setProcessing(true);
         
-        let payload = "backoffice/commissions.jsp?memberid="+global.user.memberid+"&api";
+        let payload = "backoffice/commissions.jsp?memberid="+memberid+"&api";
         await Helper.getRequest(payload)
         .then((result) =>{ 
           let { message, error, response } = result;

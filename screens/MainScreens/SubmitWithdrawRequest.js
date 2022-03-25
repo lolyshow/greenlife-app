@@ -6,6 +6,7 @@ import SelectBox from "../../components/SelectBox";
 import HeaderComponent from "../../components/HeaderComponent";
 import Helper from "../../Helpers/Helper";
 import { set } from "react-native-reanimated";
+import { useSelector } from "react-redux";
 
 
 
@@ -20,12 +21,12 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
     const [bank, setBank] = useState("");
     const [purpose, setPurpose] = useState("");
     const [withdrawalType, setWithdrawalType] = useState("");
-    const [memberid, setmemberid] = useState("");
+    const [memberids, setmemberid] = useState("");
     const [depositorName, setDepositor] = useState("");
     const [accountNo, setAccountNo] = useState("");
     const [accountName, setAccountName] = useState("");
     const [amount, setAmount] = useState(0);
-    
+    const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
     const Banks = [
       { label: 'GTB', value: 'Gtb' },
       { label: 'ZENITH', value: 'Zenith' },
@@ -62,7 +63,7 @@ const SubmitWithdrawRequest = ({ navigation,props }) => {
                   comboBank: bank,
                   textAccountNo: accountNo,
                   texttAccountName: accountName,
-                  textMemID: global.user.memberid,
+                  textMemID: memberid,
                   textFlag: withdrawalType,
                   textFunction: 'new'
               }

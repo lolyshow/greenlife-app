@@ -3,7 +3,7 @@ import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import ToggleDrawerBtn from "./ToggleDrawerBtn";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple} from 'react-native-paper';
 import BackBtn from "./BackBtn";
-import {AntDesign} from "react-native-vector-icons";
+import AntDesign from "react-native-vector-icons/AntDesign";
 const EcommerceHeader = ({ onPress, title, loggedin, memberId,headerType,onpressLogout, textinput, size, buttonWidth, backgroundColor,borderRadius,textColor,borderWidth,borderColors,boldText }) => (
 headerType && headerType == "home"?  
 <View style = {styles.headerContainer2}>

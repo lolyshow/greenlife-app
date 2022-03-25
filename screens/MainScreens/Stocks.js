@@ -12,6 +12,7 @@ import Feather from "react-native-vector-icons/Feather";
 import ShopImage from "../../assets/shop.png";
 import { getCountriesApiServices } from "../../services/getCountries";
 import Helper from "../../Helpers/Helper";
+import { useSelector } from "react-redux";
 
 const Stocks = ({ navigation,props }) => {
 
@@ -19,7 +20,7 @@ const Stocks = ({ navigation,props }) => {
     const [clicked, setClicked] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [ShopDetailsResponse, setShopDetailsResponse] = useState({});
-
+    const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
     useEffect(() => {
       fetchShopDetails()
     },[]);
@@ -43,7 +44,7 @@ const Stocks = ({ navigation,props }) => {
       try {
         setProcessing(true);
         
-        let payload = "backoffice/shop_details.jsp?memberid="+global.user.memberid+"&api";
+        let payload = "backoffice/shop_details.jsp?memberid="+memberid+"&api";
         await Helper.getRequest(payload)
         .then((result) =>{ 
           let { message, error, response } = result;
@@ -82,14 +83,14 @@ const Stocks = ({ navigation,props }) => {
         { label: 'Baseball', value: 'baseball' },
         { label: 'Hockey', value: 'hockey' },
     ];
-  const {fullname,memberid,msg,shop_lga,shop_street,shopid,shopname,stocks} = ShopDetailsResponse;
+  const {fullname,msg,shop_lga,shop_street,shopid,shopname,stocks} = ShopDetailsResponse;
   let count = 0;
   return (
      
     <View style={styles.container}>
         {/* header Starts */}
     
-      <HeaderComponent onPress = {toggleNav} memberId = {"10000203445"} headerType = {"home"}/>
+      <HeaderComponent onPress = {toggleNav} n = {"10000203445"} headerType = {"home"}/>
       {/* Header Container Ends */}
 
 

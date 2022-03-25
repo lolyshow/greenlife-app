@@ -307,7 +307,7 @@ const Helper = {
       .post(url, LoginData, { headers: headerPayload })
       .then(function(response) {
         let { loginStatus } = response.data;
-
+        
         if (loginStatus != true) {
           result = {
             message: "error",

@@ -2,7 +2,8 @@
 import React from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 // import { Feather, Entypo } from "@expo/vector-icons";
-import { Feather, Entypo } from 'react-native-vector-icons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
 
 const SearchBar = (props) => {
   return (

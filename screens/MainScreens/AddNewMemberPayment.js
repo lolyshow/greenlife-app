@@ -42,7 +42,7 @@ const AddNewMemberPayment = ({ navigation,props }) => {
     ];
 
     const setSelectedDate=(date)=>{
-        formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+        let formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
         setFormatedDate(formattedDate);
     }
 
@@ -208,7 +208,7 @@ const AddNewMemberPayment = ({ navigation,props }) => {
                         onChangeText={(value) => {value>=0?setAmount(value):Alert.alert("Payment", "Please Enter a Valid Amount")}}
                         inputValue={amount}
                         borderWidth={1}
-                        inputLabel = {""}
+                        // inputLabel = {""}
                         placeholder={"Enter Amount Paid"}
                         textColor="black"
                         background="#FFFFFF"

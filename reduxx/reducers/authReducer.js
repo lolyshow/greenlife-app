@@ -12,6 +12,8 @@ const initialState  = {
   userLoggedIn:false,
   loginStatus:false,
   loginTabSwitch:true,
+  userDetailsgggg:{},
+
   
 };
 
@@ -31,6 +33,12 @@ const authReducer = (
         ...state,
         userLoggedIn:action.payload?.userLoggedIn
       };
+
+    // case actionTypes.USERDETAILS:
+    //   return {
+    //     ...state,
+    //     userDetails: action.payload.userDetails,
+    //   };
 
     case actionTypes.ROUTER:
         return {

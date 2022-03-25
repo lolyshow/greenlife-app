@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
  
 const persistConfig = {
   key: 'root',
-  whitelist: ['authReducer'], // only authReducer state will be persisted
+  whitelist: ['authReducer','appReducer'], // only authReducer state will be persisted
   storage:AsyncStorage
 }
  

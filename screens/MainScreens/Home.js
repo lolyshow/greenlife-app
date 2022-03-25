@@ -10,7 +10,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Helper from "../../Helpers/Helper";
 import Share from 'react-native-share';
-export default class Home extends React.Component {
+import { connect } from "react-redux";
+class Home extends React.Component {
   // function Home(props){
 
   constructor(props) {
@@ -76,11 +77,12 @@ export default class Home extends React.Component {
   }
 
    fetchHomepage =async()=>{
+    const {memberid}=this.props.userDetails.response;
     try {
 
       this.setState({ processing: true });
       
-      let payload = "backoffice/dashboard.jsp?memberid="+global.user.memberid+"&api";
+      let payload = "backoffice/dashboard.jsp?memberid="+memberid+"&api";
       await Helper.getRequest(payload)
       .then((result) =>{ 
         let { message, error, response } = result;
@@ -104,10 +106,10 @@ export default class Home extends React.Component {
 
   FetchGenerologySummary = async()=>{
     try {
-
+      const {memberid}=this.props.userDetails.response;
       this.setState({ processing: true });
       
-      let payload = "GeneologyStatusMemberServlet?action=all&memberid="+global.user.memberid+"&api";
+      let payload = "GeneologyStatusMemberServlet?action=all&memberid="+memberid+"&api";
       await Helper.Request(payload)
       .then((result) =>{ 
         let { message, error, response } = result;
@@ -199,7 +201,10 @@ export default class Home extends React.Component {
   render(){
     let {accBalance,isEnabled,generologySummary} = this.state;
     const {first,referral,total_withdraw,total_withdraw_naira,total_stocks,total_views,referral_shop,shopname,shopid,balance} = this.state.dashboard;
-    
+    // const {memberid}= this.props.userDetails
+    console.log("memememememeeeeeeeeeee")
+    const {memberid}=this.props.userDetails.response;
+    // console.log("this.props.userDetails,bbhjgh",this.props.userDetails)
     return (
     <View style={styles.container}>
 
@@ -214,7 +219,7 @@ export default class Home extends React.Component {
         
         <View>
           <Text style = {{fontSize:12, color:"#979797",textAlign:'center'}}>Member ID</Text>
-          <Text style = {{textAlign:'center'}}>{global.user.memberid}</Text>
+          <Text style = {{textAlign:'center'}}>{memberid}</Text>
         </View>
 
         <View>
@@ -427,7 +432,15 @@ export default class Home extends React.Component {
 }
 
 
-
+const mapStateToProps = (state) => {
+  return { userDetails: state.appReducer.userDetails,
+            currentUser: state.appReducer.currentUser};
+};
+const mapDispatchToProps = (dispatch) => ({
+  dispatch, 
+});
+// const {email,password} = this.props?.currentUser
+export default connect( mapStateToProps, mapDispatchToProps)(Home)
 
 
 const styles = StyleSheet.create({

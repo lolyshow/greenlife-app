@@ -119,7 +119,7 @@ const AddMember = ({ navigation,props }) => {
                   <Text style = {{fontWeight:'bold', fontSize:20}}>Add New Member</Text>
               </View>
 
-              <View >
+              {/* <View >
 
                   <SearchBar
                   searchPhrase={searchPhrase}
@@ -128,7 +128,7 @@ const AddMember = ({ navigation,props }) => {
                   searchPlaceHolder={"Search Member ID here"}
                   setClicked={(clicked) => setClickedFunc(clicked)}
                   />
-              </View>   
+              </View>    */}
 
               <View >
 
@@ -142,7 +142,7 @@ const AddMember = ({ navigation,props }) => {
               <ScrollView style ={styles.ContentBody} showsVerticalScrollIndicator={false}>
 
 
-                  <View style = {{paddingTop:30}}>
+                  <View style = {{paddingTop:10}}>
                       <InputBox
                       // keyboardType="numeric"
                       onChangeText={(value) => setFirstname(value)}

@@ -128,17 +128,21 @@ export default function UserAuth({navigation,route}) {
   const [login, setLogin] = useState(true);
   const {loginTab} = useSelector((state) => state.appReducer);
   const dispatch = useDispatch()
-  function switchTab(){
+  function switchLoginTab(){
     // setLogin(prev => !prev);
-    if(loginTab){
-      dispatch(
-        handleActiveTab(false)
-      )
-    }else{
+    
       dispatch(
         handleActiveTab(true)
       )
-    }
+    
+  }
+
+  function switchRegisterTab(){
+    // setLogin(prev => !prev);
+    
+      dispatch(
+        handleActiveTab(false)
+      )
     
     
   }
@@ -152,11 +156,11 @@ export default function UserAuth({navigation,route}) {
       <View style={styles.tabContainer} >
         <View style = {{justifyContent:'space-between',flexDirection:'row',marginTop:40}}>
           
-            <TouchableOpacity onPress={switchTab} style = {[loginTab?styles.activeTab:styles.inActive]}>
+            <TouchableOpacity onPress={switchLoginTab} style = {[loginTab?styles.activeTab:styles.inActive]}>
               <Text>Login</Text>
             </TouchableOpacity>
 
-          <TouchableOpacity onPress={switchTab} style = {[!loginTab?styles.activeTab:styles.inActive]}>
+          <TouchableOpacity onPress={switchRegisterTab} style = {[!loginTab?styles.activeTab:styles.inActive]}>
             <Text>Register</Text>
           </TouchableOpacity>
         </View>

@@ -1,30 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet,ImageBackground,Dimensions,Image,TextInput } from "react-native";
-import logo from "../../assets/logo2.png";
+import { View, Text, StyleSheet,ImageBackground,Dimensions,Image,Alert,TextInput,ScrollView } from "react-native";
+import logo from "../../assets/greenlife_logo.jpeg";
 import unsplash from "../../assets/unsplash.png";
 const screenWidth = Math.round(Dimensions.get("window").width);
-
 const screenHeight = Math.round(Dimensions.get("window").height);
-
+import { useDispatch,useSelector } from "react-redux";
 import GreenButton from "../../components/GreenButton";
 import WhiteButton from "../../components/WhiteButton";
 import InputBox from "../../components/InputBox";
+import Helper from "../../Helpers/Helper";
 import {CodeField,Cursor,useBlurOnFulfill,useClearByFocusCell} from 'react-native-confirmation-code-field';
+import { handleActiveTab } from "../../reduxx/actions/requests";
 
-const CELL_COUNT = 5;
+const CELL_COUNT = 6;
 
 
 
-export default function EmailVerify() {
+export default function EmailVerify({navigation,route}) {
 
     const [enableMask, setEnableMask] = useState(true);
     const [value, setValue] = useState('');
+    const [processing, setProcessing] = useState(false);
     const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
       value,
       setValue,
     });
+    const dispatch = useDispatch()
     const toggleMask = () => setEnableMask((f) => !f);
+
     const renderCell = ({index, symbol, isFocused}) => {
     let textChild = null;
 
@@ -44,24 +48,59 @@ export default function EmailVerify() {
     );
   };
 
+  const submitForm = async () => {
+    let payload = {
+      "memid": route.params.memberid,
+      "code": value+"0728"
+    }
+    console.log("myPayloadVerify",payload)
+    try {
+
+      setProcessing(true)
+      let linkUrl = "AjaxCodeConfirmationServlet?action=confirmEmail&api";
+        await Helper.Request(linkUrl,"post",payload)
+        .then((result) =>{ 
+          console.log("resultHErerEmailVerify",result)
+          let { message, error, response } = result;
+          setProcessing(false)
+          if (!error && result.response.status === true) {
+            setProcessing(false)
+            dispatch(handleActiveTab(true))
+            navigation.navigate("MemberAuth")
+            
+          } else {
+            setProcessing(false)
+            Alert.alert("Member", response.msg);
+          }
+        });
+        
+      } catch (error) {
+        setProcessing(false);
+        Alert.alert("Error", error.toString());
+      }
+    
+  };
+
+
+  console.log("mynav",route.params)
   return (
     <View
         source={unsplash}
         style={styles.centered}
       >
-
-        <View style = {{marginTop:50,justifyContent:"center",alignItems:'center'}}>
-            <Image source = {logo} />
+      <ScrollView showsVerticalScrollIndicator={false} style={{}}>
+        <View style = {{marginTop:20,justifyContent:"center",alignItems:'center'}}>
+            <Image source = {logo} style={{width:150,height:150}}/>
 
         </View>
 
         <View style={{padding:20}}>
-            <Text style = {{fontSize:20, fontWeight:"bold"}}>We have sent a verification code to youremail@gmail.com</Text>
-            <Text style = {{fontSize:12, color:"#979797", marginTop:10,}}>You should have received an email from Green Life Network containing 5 digit verification code. If it’s not in your inbox please check your spam folder.</Text>
+            <Text style = {{fontSize:20, fontWeight:"bold"}}>We have sent a verification code to {route.params?.email}</Text>
+            <Text style = {{fontSize:12, color:"#979797", marginTop:10,}}>You should have received an email from Green Life Network containing 6 digit verification code. If it’s not in your inbox please check your spam folder.</Text>
         </View>
 
 
-        <View style={{padding:20}}>
+        <View style={{}}>
             {/* <Text style = {{fontSize:15, fontWeight:"bold"}}>Member ID</Text> */}
             <View style={styles.inputWrapper}>
                 
@@ -92,7 +131,9 @@ export default function EmailVerify() {
                 <GreenButton
                     text="Submit"
                     buttonWidth={250}
-                    onPress={() => props.navigation.navigate("Login")}
+                    disabled={processing}
+                      processing={processing}
+                    onPress={() => submitForm()}
                 />
             </View>
 
@@ -100,7 +141,7 @@ export default function EmailVerify() {
             
         </View>
 
-       
+      </ScrollView> 
       
     </View>
   );
@@ -108,15 +149,9 @@ export default function EmailVerify() {
   
 const styles = StyleSheet.create({
   centered: {
-    position: "absolute",
-    left:0,
-    right:0,
-    top:0,
-    bottom:0,
-    // alignItems: "center",
-    paddingBottom:10,
-    paddingTop:50,
-    // opacity: 0.8,
+    backgroundColor:"#FFFF",
+    padding:10,
+    flex:1
   },
 
   body:{
@@ -126,7 +161,6 @@ const styles = StyleSheet.create({
     
   },
   inputContainer: {
-  // width:350,
   borderWidth: 1,
   justifyContent:'space-between',
   flexDirection:'row',
@@ -156,11 +190,11 @@ const styles = StyleSheet.create({
   title: {textAlign: 'center', fontSize: 30},
   codeFieldRoot: {marginTop: 20},
   cell: {
-    width: 40,
-    height: 40,
-    lineHeight: 38,
-    fontSize: 24,
-    borderWidth: 2,
+    width: 10,
+    height: 20,
+    // lineHeight: 38,
+    // fontSize: 24,
+    // borderWidth: 2,
     borderColor: '#00000030',
     textAlign: 'center',
   },
@@ -171,10 +205,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flexDirection: 'row',
     marginLeft: 8,
+    // backgroundColor:'blue'
   },
   cell: {
-    width: 55,
-    height: 55,
+    width: 40,
+    height: 40,
     lineHeight: 55,
     fontSize: 30,
     fontWeight: '700',
@@ -182,6 +217,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     borderWidth:1,
     borderRadius: 6,
-    backgroundColor: '#eee',
+    backgroundColor: '#FFFF',
   },
 });

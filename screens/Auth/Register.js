@@ -57,13 +57,14 @@ const styles_ = StyleSheet.create({
         first_name:"",
         last_name:"",
         referral:"",
-
+        sponsor:"",
         secureTextEntry: true,
         processing: false,
         errorMessage: undefined,
         biometric: undefined,
         popupShowed: false,
         showBiometric: false,
+        response: false,
         biometryType: undefined,
         token: "",
         showTokenModal: false,
@@ -88,47 +89,53 @@ const styles_ = StyleSheet.create({
         }
     };
 
-      signIn = async (email, password) => {
-        Alert.alert("Login", "Server Erorr. Please try again later");
-        return;
-        return this.props.navigation.navigate("EmailVerify");
+      signIn = async () => {
+        // Alert.alert("Login", "Server Erorr. Please try again later");
+        // return this.props.navigation.navigate("EmailVerify");
+        const {first_name,last_name,email,phone,sponsor,referral} = this.state;
+        let payload = {
+          "firstname": first_name,
+          "lastname": last_name,
+          "email": email,
+          "phone": phone,
+          "sponsorid": referral,
+          "sponsor": sponsor,
+          "btn-submit": 'Admin-Login' 
+        }
+        console.log("myPayload",payload)
         try {
     
           this.setState({ processing: true });
           let res = {};
-          let payload = "action=Member_login&memberid="+email+"&password="+password+"&api=";
-          let { message, error, user, response } = await Helper.logInApi(
-            payload
-          ).then((result) => res = result);
+          let linkUrl = "MemberControllerServlet?action=Member_Register_Online&api";
+            await Helper.Request(linkUrl,"post",payload)
+            .then((result) =>{ 
+              console.log("resultHErer",result)
+              let { message, error, response } = result;
+              this.setState({ processing: false });
+              if (!error && result.response.success === true) {
+                this.setState({response:result.response});
+                // const {memberid,}
+                return this.props.navigation.navigate("EmailVerify",{memberid:response.memberid,email});
+                // resetForm();
+                //  AsyncStorage.setItem("userLogin",JSON.stringify(userLogin));
     
-          this.setState({ processing: false });
-    
-          if (!error) {
-    
-            let userLogin = {
-              memberid:this.state.email,
-              password:this.state.password,
-            }
-    
-            await AsyncStorage.setItem("userLogin",JSON.stringify(userLogin));
-    
-            await AsyncStorage.setItem("userData",JSON.stringify(response));
-            this.setState({ email: "", password: "" });
-    
-            store.dispatch({
-              type: "IS_SIGNED_IN",
-              payload: true,
+                // await AsyncStorage.setItem("userData",JSON.stringify(response));
+                // Alert.alert("New Member", result.response.msg);
+              } else {
+                Alert.alert("Member", response.msg);
+              }
+      
             });
-    
-            return this.props.navigation.navigate("EmailVerify");
-          } else {
-            Alert.alert("Login", message);
+            
+          } catch (error) {
+            this.setState({ processing: false });
+            Alert.alert("Error", error.toString());
           }
-        } catch (error) {
-          this.setState({ processing: false });
-    
-          Alert.alert("Error", error.toString());
-        }
+
+
+
+          
       };
 
       validateForm = () => {
@@ -204,6 +211,20 @@ const styles_ = StyleSheet.create({
               inputLabelStyle ={styles_.inputLabelStyle}
               />
             </View>
+
+
+            <View style = {{marginBottom:20}}>
+              <InputLine
+              // keyboardType="email-address"
+              onChangeText={(sponsor) => this.setState({ sponsor })}
+              inputValue={this.state.sponsor}
+              placeholder={"Sponsor"}
+              
+              inputStyle ={styles_.inputStyle}
+              inputWrapperStyle={styles_.inputWrapper}
+              inputLabelStyle ={styles_.inputLabelStyle}
+              />
+            </View>
             
             
 
@@ -227,7 +248,7 @@ const styles_ = StyleSheet.create({
             </View>
 
             <View
-            style = {{marginBottom:45}}
+            style = {{marginBottom:60}}
             ></View>
         </ScrollView>
     )}

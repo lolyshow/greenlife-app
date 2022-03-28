@@ -102,13 +102,13 @@ const Shop = ({ navigation,props }) => {
             <View>
                 <View style = {styles.Card}>
                     <Text style = {{fontWeight:'bold', fontSize:20}}>Hello, {processing?"........":fullname?fullname:"......"}</Text>
-                    <Text style = {{}}>Welcome to your e-shop summary dashboard.</Text>
+                    <Text style = {{fontSize:12}}>Welcome to your e-shop summary dashboard.</Text>
 
-                    <Text style = {{marginTop:10,}}>GTPS provides a market-place platform designed to enable the meeting point between business owners, eg service providers, retailers and prospective clients or buyers.
+                    <Text style = {{marginTop:10,fontSize:12}}>GTPS provides a market-place platform designed to enable the meeting point between business owners, eg service providers, retailers and prospective clients or buyers.
 
                     </Text>
                     
-                    <Text style = {{marginTop:10,}}>For easy implementation, we are piloting this service in Nigeria first.</Text>
+                    <Text style = {{marginTop:10,fontSize:12}}>For easy implementation, we are piloting this service in Nigeria first.</Text>
                 </View>
 
                 {/* <View>
@@ -116,7 +116,7 @@ const Shop = ({ navigation,props }) => {
                     <Text style = {{fontWeight:'bold', fontSize:20,marginTop:40,marginBottom:40}}>Withdrawal Report</Text>
                 </View> */}
 
-                <View style = {[styles.Card2,{marginTop:40,flexDirection:'row',}]}>
+                <View style = {[styles.Card2,{marginTop:20,flexDirection:'row',}]}>
 
                     <View style = {{marginRight:20,paddingLeft:20,justifyContent:'center'}}>
                         <Image
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     Card:{
     borderRadius:5,
     padding:20,
-    height:200,
+    height:220,
     marginTop:10,
     backgroundColor:"#97ADB6",
     shadowColor: '#171717',
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   Card2:{
     borderRadius:10,
     padding:10,
-    height:200,
+    height:250,
     marginTop:20,
     backgroundColor:"white",
     shadowColor: '#171717',

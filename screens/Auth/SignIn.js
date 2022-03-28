@@ -206,7 +206,7 @@ const styles_ = StyleSheet.create({
                   <GreenButton
                     text="Create Account"
                     buttonWidth={300}
-                    onPress={() => this.props.navigation.navigate("SignUp")}
+                    onPress={this.props.onclickCreateAccount}
                     borderR ={1}
                     borderC = {"#0C9344"}
                     borderW={1}

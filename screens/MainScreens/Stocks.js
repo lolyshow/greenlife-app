@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Text, StyleSheet,ScrollView,Image,ActivityIndicator,TouchableOpacity } from "react-native";
+import { View, Button, Text, StyleSheet,ScrollView,Image,ActivityIndicator,TouchableOpacity,Dimensions } from "react-native";
 import {useTheme,Avatar,Title,Caption,Paragraph,Drawer,TouchableRipple,Switch} from 'react-native-paper';
 import ButtonComponent from "../../components/ButtonComponent";
 import InputBox from "../../components/InputBox";
@@ -13,7 +13,7 @@ import ShopImage from "../../assets/shop.png";
 import { getCountriesApiServices } from "../../services/getCountries";
 import Helper from "../../Helpers/Helper";
 import { useSelector } from "react-redux";
-
+const screenWidth = Math.round(Dimensions.get("window").width);
 const Stocks = ({ navigation,props }) => {
 
     const [searchPhrase, setSearchPhrase] = useState("");
@@ -85,6 +85,7 @@ const Stocks = ({ navigation,props }) => {
     ];
   const {fullname,msg,shop_lga,shop_street,shopid,shopname,stocks} = ShopDetailsResponse;
   let count = 0;
+  let half = (screenWidth/2)-30;
   return (
      
     <View style={styles.container}>
@@ -109,7 +110,7 @@ const Stocks = ({ navigation,props }) => {
                 
                 return(<View style = {[styles.Card2,{flexDirection:'row',}]} key = {count+=1}>
                     
-                    <View style = {{marginRight:10,paddingLeft:10,justifyContent:'center'}}>
+                    <View style = {{marginRight:10,justifyContent:'center'}}>
                         <TouchableOpacity
                             onPress={()=>null}
                             // disabled={processing}
@@ -124,11 +125,11 @@ const Stocks = ({ navigation,props }) => {
 
                     <View style = {{}}>
                         <View style = {{marginBottom:20}}>
-                            <Text style = {{marginBottom:8,}}>Product Name</Text>
+                            <Text style = {{marginBottom:4,}}>Product Name</Text>
                             <Text style = {styles.BoldText}>{data.productname}</Text>
                         </View>
                         <View style = {{marginBottom:20}}>
-                            <Text style = {{marginBottom:8,}}>Price</Text>
+                            <Text style = {{marginBottom:4,}}>Price</Text>
                             <Text style = {styles.BoldText}>{data.cost}</Text>
                         </View>
 
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
   },
   BoldText:{
     fontWeight:'bold',
-    fontSize:15,
+    fontSize:12,
 
   },
     Card:{
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
   Card2:{
     borderRadius:10,
     padding:10,
-    height:200,
+    height:210,
     marginTop:20,
     backgroundColor:"white",
     shadowColor: '#171717',

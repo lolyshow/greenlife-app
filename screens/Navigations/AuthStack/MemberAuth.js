@@ -92,12 +92,12 @@ export default function MemberAuth({navigation,route}) {
   }
 
   const createAccount =()=>{
-    setLogin(false);
+    handleActiveTab(false)
   }
   
 
   return (
-    <View>
+    <View style= {{backgroundColor:"#FFFFFF",flex:1}}>
       <View style={styles.tabContainer} >
         <View style = {{justifyContent:'space-between',flexDirection:'row',marginTop:20}}>
           
@@ -112,7 +112,7 @@ export default function MemberAuth({navigation,route}) {
       </View>
 
       <ScrollView style = {styles.bodyContent}>
-        {loginTab?<SignIn data ={route.params} onclickCreateAccount = {createAccount} navigation={navigation}/>:<Register data ={route.params} navigation={navigation}/>}
+        {loginTab?<SignIn data ={route.params} onclickCreateAccount = {switchRegisterTab} navigation={navigation}/>:<Register data ={route.params} navigation={navigation}/>}
       </ScrollView>
 
 

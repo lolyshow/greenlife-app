@@ -1,4 +1,4 @@
-import actionTypes, { saveUserAuth, saveUserCategory, doshowSplashScreen,saveStoreData,setActiveTab,saveUserDetails } from './actionTypes';
+import actionTypes, { saveUserAuth, saveUserCategory, doshowSplashScreen,saveStoreData,setActiveTab,saveUserDetails, saveGenerologySummary } from './actionTypes';
 
 
 /* Utility functions */
@@ -64,6 +64,15 @@ export function handlesaveuserCategory(category) {
     );
   };
 }
+
+export function handlesaveGenerologySummary(summary) {
+  return (dispatch) => {
+    return (
+      dispatch(saveGenerologySummary(summary))
+    );
+  };
+}
+
 
 export function handleShowSplashScreen(showSplashScreen) {
     return (dispatch) => {

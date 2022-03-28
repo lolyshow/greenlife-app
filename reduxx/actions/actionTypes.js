@@ -9,6 +9,7 @@ const actionTypes = {
   IS_LOGIN_TAB:"IS_LOGIN_TAB",
   SAVE_CATEGORY:'SAVE_CATEGORY',
   USERDETAILS:'USERDETAILS',
+  GENEROLOGYSUMARY:'GENEROLOGYSUMARY',
   SHOW_SPLASH_SCREEN:'SHOW_SPLASH_SCREEN',
   SAVE_USER_LOGGED_IN:'SAVE_USER_LOGGED_IN',
   SAVE_MEMBER_LOGGED_IN:'SAVE_MEMBER_LOGGED_IN'
@@ -28,6 +29,14 @@ export function saveStoreData(gotoStore) {
   return {
     type: actionTypes.ROUTER,
     payload:{gotoStore}
+  };
+}
+
+
+export function saveGenerologySummary(summary) {
+  return {
+    type: actionTypes.GENEROLOGYSUMARY,
+    payload:{summary}
   };
 }
 

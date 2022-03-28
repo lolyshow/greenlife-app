@@ -11,6 +11,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Helper from "../../Helpers/Helper";
 import Share from 'react-native-share';
 import { connect } from "react-redux";
+import { handlesaveGenerologySummary } from "../../reduxx/actions/requests";
 class Home extends React.Component {
   // function Home(props){
 
@@ -88,6 +89,7 @@ class Home extends React.Component {
         let { message, error, response } = result;
         this.setState({ processing: false });
         if (!error) {
+          console.log("HomeData",result)
           this.setState({ dashboard : result.response });
           this.setState({accBalance:response.balance});
         } else {
@@ -114,6 +116,8 @@ class Home extends React.Component {
       .then((result) =>{ 
         let { message, error, response } = result;
         if (!error) {
+          console.log("homeGerologySumary",result.response)
+          this.props.dispatch(handlesaveGenerologySummary(result.response))
           this.setState({ generologySummary : result.response });
         } else {
           Alert.alert("Home", message);
@@ -299,8 +303,8 @@ class Home extends React.Component {
 
         <View >
           <ScrollView style = {styles.upperScrollView} horizontal={true} showsHorizontalScrollIndicator={false} bouncesZoom={true} showsVerticalScrollIndicator={true}>
-            <View style = {[styles.innerScrollView,{marginTop:10}]}>
-              <Text style = {{color:'#FFFFFF',fontSize:16, margin:10,fontWeight:'bold'}}>E-Wallet</Text>
+            <View style = {[styles.innerScrollView,{}]}>
+              <Text style = {{color:'#FFFFFF',fontSize:16,textAlign:'center', fontWeight:'bold'}}>E-Wallet</Text>
               <Text style = {{color:'#FFFFFF',fontSize:18,fontWeight:'bold'}}>{balance? isEnabled? '\u20A6'+accBalance:'$'+accBalance:'0.00'}</Text>
 
               <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:10}}>
@@ -434,7 +438,7 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
   return { userDetails: state.appReducer.userDetails,
-            currentUser: state.appReducer.currentUser};
+            currentUser: state.appReducer.currentUser,};
 };
 const mapDispatchToProps = (dispatch) => ({
   dispatch, 
@@ -478,8 +482,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,  },
   textCenter:{fontSize:12,textAlign:'center'},
   totalReferal:{width:100, height:50,borderColor:"#0C9344",borderWidth:1,borderRadius:3,justifyContent:'center',marginTop:10,},
-  upperScrollView:{flex:1,shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',shadowOpacity: 0.9,elevation:2},
-  innerScrollView:{flex:1, padding:10,alignItems:'center',justifyContent:'center', margin:10, borderRadius:20, backgroundColor:'#0C9344',width:260,height:165,marginTop:20, marginRight:20,shadowOffset: {width: 10, height: 10},
+  upperScrollView:{flex:1, shadowOffset: {width: 10, height: 10},shadowColor: '#d9dbda',shadowOpacity: 0.9,elevation:2},
+  innerScrollView:{justifyContent:'center',alignItems:'center', borderRadius:20, backgroundColor:'#0C9344',width:260,height:175, marginRight:20,shadowOffset: {width: 10, height: 10},
     shadowColor: '#d9dbda',elevation:2,borderColor:'black',
     shadowOpacity: 0.9,}
 });

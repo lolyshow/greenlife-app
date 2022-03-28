@@ -6,6 +6,9 @@ const initialState =  {
     loginTab:true,
     userDetails:{},
     lol:{},
+    side_a:0,
+    side_b:0,
+    total:0,
 }
 
 const appReducer = (state = initialState, action)  => {
@@ -29,6 +32,11 @@ const appReducer = (state = initialState, action)  => {
           userDetails: action.payload.userDetails,
         };
         
+        case actionTypes.GENEROLOGYSUMARY:
+        return {
+          ...state,
+          ...action.payload.summary,
+        };
 
         case actionTypes.IS_LOGIN_TAB:
         return {

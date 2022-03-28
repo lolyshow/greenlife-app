@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 
 const GenerologyList = ({ navigation,props }) => {
     const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
+
+    const {side_a,side_b,total} = useSelector((state) => state.appReducer);
     const Back = () =>{
         navigation.goBack()
     }
@@ -46,6 +48,7 @@ const GenerologyList = ({ navigation,props }) => {
             let { message, error, response } = result;
             setProcessing(false);
             if (!error) {
+                console.log(result)
                 setDetailsResponse(result.response);
             } else {
                 Alert.alert("Payment", message);
@@ -76,11 +79,11 @@ const GenerologyList = ({ navigation,props }) => {
             
             <View style={{flexDirection:'row',}} key = {count}>
                             
-                <View style = {{width:100}}><Text>{memberID}</Text></View>
-                <View style = {{width:100,marginLeft:20}}><Text style = {{textAlign:'center'}}>{Name}</Text></View>
-                <View style = {{width:100,marginLeft:40}}><Text style = {{textAlign:'center'}}>{Status}</Text></View>
+                <View style = {{width:120,height:50}}><Text style={{textAlign:'center',fontSize:12}}>{memberID}</Text></View>
+                <View style = {{width:120,height:50}}><Text style = {{textAlign:'center',fontSize:12}}>{Name}</Text></View>
+                <View style = {{width:70,height:50}}><Text style = {{textAlign:'center',fontSize:12}}>{Status}</Text></View>
                 
-                <View style = {{width:100,marginLeft:20,justifyContent:"center"}}>
+                <View style = {{width:60,alignItems:'center'}}>
 
                     <ButtonComponent
                         textinput="View"
@@ -121,17 +124,17 @@ const GenerologyList = ({ navigation,props }) => {
             <View style = {{marginTop:20,marginBottom:20}}>
                 <View style = {{flexDirection:'row'}}>
                     <View style = {{width:150,}}><Text style = {{color:'#0C9344',fontWeight:'bold'}}>Total Downlines:</Text></View>
-                    <View style = {{width:120,height:30,justifyContent:'center'}}><Text style = {{color:'#0C9344',textAlign:'center'}}>51 Downlines</Text></View>
+                    <View style = {{width:120,height:30,justifyContent:'center'}}><Text style = {{color:'#0C9344',textAlign:'center'}}>{total}</Text></View>
                 </View>
 
                 <View style = {{flexDirection:'row'}}>
                     <View style = {{width:150,}}><Text style = {{color:'#0C9344',}}>Total A-Side</Text></View>
-                    <View style = {{width:120,backgroundColor:'green',height:30,justifyContent:'center'}}><Text style = {{textAlign:'center',color:'#FFFFFF'}}>5 Downlines</Text></View>
+                    <View style = {{width:120,backgroundColor:'green',height:30,justifyContent:'center'}}><Text style = {{textAlign:'center',color:'#FFFFFF'}}>{side_a} Downlines</Text></View>
                 </View>
 
                 <View style = {{flexDirection:'row'}}>
                     <View style = {{width:150,}}><Text style = {{color:'#0C9344',}}>Total B-Side</Text></View>
-                    <View style = {{width:120,}}><Text style = {{color:'#0C9344',textAlign:'center'}}>47 Downlines</Text></View>
+                    <View style = {{width:120,}}><Text style = {{color:'#0C9344',textAlign:'center'}}>{side_b} Downlines</Text></View>
                 </View>
             
             </View> 
@@ -139,7 +142,7 @@ const GenerologyList = ({ navigation,props }) => {
             <View>
                 <View style = {{borderColor:'green',borderWidth:1,margin:20,borderRadius:20,padding:10}}>
                     <Text style={{fontSize:10,textAlign:'center',fontWeight:'bold'}}>GREENLIFE TREASURE PURSE REFERRAL NETWORK</Text>
-                    <Text style={{fontSize:12,textAlign:'center',fontWeight:'bold'}}> RIE JOSIAH - 202012340008</Text>
+                    <Text style={{fontSize:12,textAlign:'center',fontWeight:'bold'}}> {name?name:"...."} - {memberid?memberid: "...."}</Text>
                 </View>
             </View>
             <Loader loading = {processing}/>
@@ -148,10 +151,10 @@ const GenerologyList = ({ navigation,props }) => {
                 <View horizontal={true} showsHorizontalScrollIndicator={false}>
                     <View  style = {{}}>
                         <View  style={{flexDirection:'row',backgroundColor:'#0C9344'}}>
-                            <Text style ={styles.HeadingText}>MemberID</Text>
-                            <Text style = {styles.HeadingText}>Destributor Name</Text>
-                            <Text style = {styles.HeadingText}>Status</Text>
-                            <Text style = {styles.HeadingText}>Action</Text>
+                            <Text style ={[styles.HeadingText,{width:120,}]}>MemberID</Text>
+                            <Text style = {[styles.HeadingText,{width:120,}]}>Destributor Name</Text>
+                            <Text style = {[styles.HeadingText,{width:70,}]}>Status</Text>
+                            <Text style = {[styles.HeadingText,{width:60}]}>Action</Text>
                         </View>
                         <Space top = {10}/>
                         <ScrollView >
@@ -194,12 +197,11 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   HeadingText:{
-      margin:10,
-      marginRight:35,
-    
+    //   margin:10,
       fontSize:15, 
       fontWeight:'bold',
-      color:"#FFFFFF"
+      color:"#FFFFFF",
+      textAlign:'center',
   },
   BodyText:{
     // marginLeft:10,

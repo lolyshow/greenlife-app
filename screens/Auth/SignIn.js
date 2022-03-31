@@ -99,29 +99,32 @@ const styles_ = StyleSheet.create({
           let { message, error, user, response } = await Helper.logInApi(
             payload
           ).then((result) => res = result);
-           
-            
             // return;
           this.setState({ processing: false });
-    
+
           if (!error) {
-    
+            
             let userLogin = {
               memberid:this.state.email,
               password:this.state.password,
             }
-            console.log("this.Props.userDetails",this.props.userDetails)
-            // return;
-            await AsyncStorage.setItem("userLogin",JSON.stringify(userLogin));
-    
-            await AsyncStorage.setItem("userData",JSON.stringify(response));
-            global.user = res;
-            this.props.dispatch(handleSaveUserDetails(res))
-            this.setState({ email: "", password: "" });
-            this.props.dispatch(handleUpdateLoggedInStatus(true))
-            
-    
-            return this.props.navigation.navigate("GotoHomeStack");
+              console.log("this.Props.userDetails",this.props.userDetails)
+              if(response.status.toUpperCase() == "ACTIVE"){
+              // return;
+              await AsyncStorage.setItem("userLogin",JSON.stringify(userLogin));
+      
+              await AsyncStorage.setItem("userData",JSON.stringify(response));
+              global.user = res;
+              this.props.dispatch(handleSaveUserDetails(res))
+              this.setState({ email: "", password: "" });
+              this.props.dispatch(handleUpdateLoggedInStatus(true))
+              
+      
+              return this.props.navigation.navigate("GotoHomeStack");
+            }else{
+              // global.loginStatus = true;
+              return this.props.navigation.navigate("MemberActivatePayment");
+            }
           } else {
             Alert.alert("Login", message);
           }

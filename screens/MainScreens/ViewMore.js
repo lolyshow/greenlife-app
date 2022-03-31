@@ -77,10 +77,15 @@ const ViewMore = ({ navigation,props,route }) => {
         <HeaderComponent onPress = {Back} memberId = {"10000203445"}/>
       {/* Header Container Ends */}
 
+        <View style={{justifyContent:'center',alignItems:'center'}}> 
+          <Text> Geneology Summary </Text> 
+        </View>
+
 
 
       {/* Body Starts */}
-        <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            
             {routeData?
             <View style = {{marginTop:20,marginBottom:20}}>
                 {Object.entries(routeData).map((data,index)=>{
@@ -89,9 +94,9 @@ const ViewMore = ({ navigation,props,route }) => {
                     else if(title== "ACCTNO"){title = "ACCOUNT NAME"}
 
                     if(title !="ID"){
-                    return(<View style = {{flexDirection:'row',justifyContent:'space-between'}} key = {count+=1}>
-                        <View style = {{}}><Text style = {{color:'#0C9344',fontWeight:'bold'}}>{title}:</Text></View>
-                        <View style = {{}}><Text style = {{color:'#0C9344',textAlign:'center'}}>{data[1]}</Text></View>
+                    return(<View elevation={1} style = {{flexDirection:'row',justifyContent:'space-between',height:50,marginBottom:5,backgroundColor:"#FFFFFF",borderRadius:10,shadowColor: '#171717',shadowOffset: {width: -2, height: 4},shadowOpacity: 0.2,shadowRadius: 3,}} key = {count+=1}>
+                            <View style = {{}}><Text style = {{color:'#0C9344',fontWeight:'bold',textAlign:'center',margin:10}}>{title}:</Text></View>
+                            <View style = {{}}><Text style = {{color:'#0C9344',textAlign:'center',margin:10}}>{data[1]}</Text></View>
                     </View>)
                     }
                 }
@@ -105,7 +110,7 @@ const ViewMore = ({ navigation,props,route }) => {
             </View>:<></>
             }
             
-        </View>
+        </ScrollView>
     </View>
   );
 };
@@ -121,6 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft:20,
     paddingRight:20,
+    backgroundColor:'#FFFFFF'
   },
   headerContainer:{
     marginTop:40,

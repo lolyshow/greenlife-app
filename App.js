@@ -17,6 +17,7 @@ import UserAuth, { ContinueToStoreStack, ProductStack } from "./screens/Navigati
 import Products from './screens/StoreScreen/Products';
 import { PersistGate } from 'redux-persist/integration/react';
 import returnStoreAndPersistor from './reduxx/configureStore';
+import MemberActivatePayment from './screens/Auth/MemberActivatePayment';
 
 const { store } = returnStoreAndPersistor();
 const { persistor } = returnStoreAndPersistor();
@@ -31,6 +32,8 @@ export default App = () => {
     </Provider>
   );
 };
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -86,7 +89,7 @@ function AppContainer({navigation}) {
           null), }} component={MemberAuth} />
 
             <Stack.Screen name="UserAuth"  component={UserAuth} />
-          
+            <Stack.Screen name="MemberActivatePayment"  component={MemberActivatePayment} />
             <Stack.Screen name="ContinueToStoreStack" component={ContinueToStoreStack} />
             <Stack.Screen name="StoreStack" component={StoreStack} />
             <Stack.Screen name="Login" component={Login} />

@@ -371,7 +371,9 @@ class Start extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>null}>
+          <TouchableOpacity onPress ={()=>this.props.navigation.navigate("MemberAuth",{
+            screen:"SignUp"
+          })}>
             <View style={{width:80,justifyContent:'center'}}>
               <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS Member</Text>
             </View>

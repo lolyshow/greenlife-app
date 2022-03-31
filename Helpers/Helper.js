@@ -37,7 +37,7 @@ const Helper = {
   },
 
   getStates: async () => {
-    let url = Config.base_url + "/get-states";
+    let url = Config.base_url_live + "/get-states";
 
     let data;
 
@@ -64,7 +64,7 @@ const Helper = {
   },
 
   getLga: async (state) => {
-    let url = Config.base_url + "/get-lga";
+    let url = Config.base_url_live + "/get-lga";
     let data;
     let body = { state: state };
 
@@ -98,7 +98,7 @@ const Helper = {
       password: global.password,
     };
 
-    let url = Config.base_url + "/test/start";
+    let url = Config.base_url_live + "/test/start";
 
     await axios
       .post(url, body)
@@ -233,7 +233,7 @@ const Helper = {
     };
 
 
-    let url = Config.base_url+"MemberControllerServlet?"+payloads;
+    let url = Config.base_url_live+"MemberControllerServlet?"+payloads;
 
     
     let result = {};
@@ -299,13 +299,14 @@ const Helper = {
     };
 
 
-    let url = Config.base_url+"MemberControllerServlet?"+payloads;
+    let url = Config.base_url_live+"MemberControllerServlet?"+payloads;
 
     let result = {};
     
     await axios
       .post(url, LoginData, { headers: headerPayload })
       .then(function(response) {
+        console.log(response)
         let { loginStatus } = response.data;
         
         if (loginStatus != true) {
@@ -396,7 +397,7 @@ const Helper = {
     
     
     var data = qs.stringify(dataPayload);
-    let urls = Config.base_url+linkUrl;
+    let urls = Config.base_url_live+linkUrl;
     let result = {};
     var config = {
       method: method,

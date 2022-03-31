@@ -228,7 +228,8 @@ class Home extends React.Component {
 
         <View>
           <Avatar.Image 
-              source={require('../../assets/avatar2.jpg')}
+              source={require('../../assets/avatar1.png')}
+              backgroundColor={"grey"}
               size={40}
           />
         </View>

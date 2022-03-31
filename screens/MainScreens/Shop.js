@@ -118,32 +118,36 @@ const Shop = ({ navigation,props }) => {
 
                 <View style = {[styles.Card2,{marginTop:20,flexDirection:'row',}]}>
 
-                    <View style = {{marginRight:20,paddingLeft:20,justifyContent:'center'}}>
+                    <View style = {{marginRight:20, paddingLeft:20,alignItems:'center',justifyContent:'center',alignContent:'center'}}>
+                      <View>  
                         <Image
-                            source = {ShopImage}
-                            size = {200}
+                              source = {ShopImage}
+                              size = {200}
                         />
+                      </View>
                     </View>
 
-                    <ScrollView style = {{}} showsVerticalScrollIndicator={false}>
-                        <View style = {{marginBottom:20}}>
-                            <Text style = {{marginBottom:8,}}>Shop Number</Text>
-                            <Text style = {styles.BoldText}>{shopid?shopid:"......."}</Text>
-                        </View>
-                        <View style = {{marginBottom:20}}>
-                            <Text style = {{marginBottom:8,}}>Shop Number</Text>
-                            <Text style = {styles.BoldText}>{shop_street?shop_street:"......."}</Text>
-                        </View>
+                    <ScrollView contentContainerStyle = {{alignItems:'center'}} showsVerticalScrollIndicator={false}>
+                        <View style={{height:250, justifyContent:'center',}}>
+                          <View style = {{marginBottom:10}}>
+                              <Text style = {{marginBottom:8,fontSize:12}}>Shop Number</Text>
+                              <Text style = {styles.BoldText}>{shopid?shopid:"......."}</Text>
+                          </View>
+                          <View style = {{marginBottom:10}}>
+                              <Text style = {{marginBottom:8,fontSize:12}}>Shop Number</Text>
+                              <Text style = {styles.BoldText}>{shop_street?shop_street:"......."}</Text>
+                          </View>
 
-                        <View style = {{marginBottom:20}}>
-                            <Text style = {{marginBottom:8,}}>Shop Street</Text>
-                            <Text style = {styles.BoldText}>{shop_lga?shop_lga:"........"}</Text>
+                          <View style = {{marginBottom:10}}>
+                              <Text style = {{marginBottom:8,fontSize:12}}>Shop Street</Text>
+                              <Text style = {styles.BoldText}>{shop_lga?shop_lga:"........"}</Text>
+                          </View>
                         </View>
                     </ScrollView>
                     
                 </View>
 
-                <View style = {{marginTop:25,}}>
+                <View style = {{marginTop:10,}}>
                     <Text style = {[styles.BoldText,{alignSelf:'center'}]}>Its time to start adding to your stocks!!!</Text>
                 </View>
 
@@ -206,7 +210,7 @@ const styles = StyleSheet.create({
   },
   BoldText:{
     fontWeight:'bold',
-    fontSize:15,
+    fontSize:14,
 
   },
     Card:{

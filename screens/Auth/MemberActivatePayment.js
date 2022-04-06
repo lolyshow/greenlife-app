@@ -70,7 +70,7 @@ const MemberActivatePayment = ({ navigation,props }) => {
 
 
     const submitForm = async()=>{
-
+        
         if(amount>0){
             if(paymentType!="" && memberid!="" && amount!=0 && tellerNo!="" && bank!="" && formatedDate!="" && depositorName!=""){
                 let payload = {
@@ -85,7 +85,6 @@ const MemberActivatePayment = ({ navigation,props }) => {
                     textFunction: 'new',
                     textPayID: 'blabla',
                 }
-                console.log(payload);
                 // return;
                 try {
 
@@ -95,19 +94,16 @@ const MemberActivatePayment = ({ navigation,props }) => {
                     await Helper.Request(linkUrl,"post",payload)
                     .then((result) =>{ 
                     let { message, error, response } = result;
-                    console.log(response);
                     setProcessing(false);
                     if (!error) {
                         // setDetailsResponse(result.response);
                         resetForm();
 
                         if(response.status == true){
-                          console.log("insideTrue1")
                          
                           return navigation.navigate("MemberAuth",{message:"Payment Successful, please enter your login Details"})
                           
                         }else{
-                          console.log("insideFalse1")
                         }
                         Alert.alert("Payment", result.response.msg);
                     } else {

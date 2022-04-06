@@ -108,7 +108,6 @@ const styles_ = StyleSheet.create({
               memberid:this.state.email,
               password:this.state.password,
             }
-              console.log("this.Props.userDetails",this.props.userDetails)
               if(response.status.toUpperCase() == "ACTIVE"){
               // return;
               await AsyncStorage.setItem("userLogin",JSON.stringify(userLogin));

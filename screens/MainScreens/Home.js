@@ -89,7 +89,6 @@ class Home extends React.Component {
         let { message, error, response } = result;
         this.setState({ processing: false });
         if (!error) {
-          console.log("HomeData",result)
           this.setState({ dashboard : result.response });
           this.setState({accBalance:response.balance});
         } else {
@@ -116,7 +115,6 @@ class Home extends React.Component {
       .then((result) =>{ 
         let { message, error, response } = result;
         if (!error) {
-          console.log("homeGerologySumary",result.response)
           this.props.dispatch(handlesaveGenerologySummary(result.response))
           this.setState({ generologySummary : result.response });
         } else {
@@ -206,9 +204,7 @@ class Home extends React.Component {
     let {accBalance,isEnabled,generologySummary} = this.state;
     const {first,referral,total_withdraw,total_withdraw_naira,total_stocks,total_views,referral_shop,shopname,shopid,balance} = this.state.dashboard;
     // const {memberid}= this.props.userDetails
-    console.log("memememememeeeeeeeeeee")
     const {memberid}=this.props.userDetails.response;
-    // console.log("this.props.userDetails,bbhjgh",this.props.userDetails)
     return (
     <View style={styles.container}>
 

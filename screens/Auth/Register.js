@@ -102,7 +102,6 @@ const styles_ = StyleSheet.create({
           "sponsor": sponsor,
           "btn-submit": 'Admin-Login' 
         }
-        console.log("myPayload",payload)
         try {
     
           this.setState({ processing: true });
@@ -110,7 +109,6 @@ const styles_ = StyleSheet.create({
           let linkUrl = "MemberControllerServlet?action=Member_Register_Online&api";
             await Helper.Request(linkUrl,"post",payload)
             .then((result) =>{ 
-              console.log("resultHErer",result)
               let { message, error, response } = result;
               this.setState({ processing: false });
               if (!error && result.response.success === true) {

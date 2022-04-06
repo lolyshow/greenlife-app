@@ -306,7 +306,6 @@ const Helper = {
     await axios
       .post(url, LoginData, { headers: headerPayload })
       .then(function(response) {
-        console.log(response)
         let { loginStatus } = response.data;
         
         if (loginStatus != true) {
@@ -365,6 +364,7 @@ const Helper = {
     await axios(config)
     .then(function (response) {
       let data = response.data;
+
         if (!data) {
           result = {
             message: "There seems to be an Error",

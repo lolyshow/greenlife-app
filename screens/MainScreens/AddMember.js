@@ -22,6 +22,7 @@ const AddMember = ({ navigation,props }) => {
     const [isEmail, setIsEmail] = useState(true);
     const [processing, setProcessing] = useState(false);
     const [DetailsResponse, setDetailsResponse] = useState({});
+    const [sponsorid, setSponsorid] = useState("");
     
     const Back = () =>{
         navigation.goBack()
@@ -51,7 +52,8 @@ const AddMember = ({ navigation,props }) => {
             textPhone: phone,
             memberid: ' 202012340517',
             comboSideID: phone,
-            textMemberID: ' 202012340008' 
+            textMemberID: '202012340008',
+            sponsorid 
           }
           try {
   
@@ -194,6 +196,21 @@ const AddMember = ({ navigation,props }) => {
                       background="#FFFFFF"
                       />
                   </View>
+
+
+                  <View style = {{paddingTop:30}}>
+                      <InputBox
+                      // keyboardType="numeric"
+                      onChangeText={(value) => setSponsorid(value)}
+                      inputValue={sponsorid}
+                      borderWidth={1}
+                      inputLabel = {"sponsorid"}
+                      placeholder={"Sponsor ID"}
+                      textColor="black"
+                      background="#FFFFFF"
+                      />
+                  </View>
+
 
 
                   

@@ -58,15 +58,12 @@ const styles = StyleSheet.create({
   }
 
   gotToNextScreen = async() => {
-    console.log("ResultNotNull")
     
     // const { loginStatus, showSplash } = useSelector((state) => state.reducers);
     await AsyncStorage
     .getItem("userData")
     .then( async (result)=>{
-      console.log("insideuserDataResult",result)
       if(result !==null){
-        console.log("usersDataNotNull")
         await AsyncStorage
         .getItem("userLogin")
         .then((result)=>{
@@ -82,7 +79,6 @@ const styles = StyleSheet.create({
         
         
       }else{
-        console.log("couldNotFindUserData")
         this.setState({storedCredentials:null})
         this.props.dispatch(
           handleShowSplashScreen(false)
@@ -95,7 +91,6 @@ const styles = StyleSheet.create({
 
   signIn = async (email, password) => {
   
-    console.log("myLoginHere")
     try {
 
       this.setState({ processing: true });
@@ -104,7 +99,6 @@ const styles = StyleSheet.create({
       let { message, error, user, response } = await Helper.logInApi(
         payload
       ).then((result) => res = result);
-      // console.log("loginResponseghjggjjgjh",res)
       // return;
       this.setState({ processing: false });
 

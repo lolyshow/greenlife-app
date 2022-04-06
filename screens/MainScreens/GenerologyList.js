@@ -48,7 +48,6 @@ const GenerologyList = ({ navigation,props }) => {
             let { message, error, response } = result;
             setProcessing(false);
             if (!error) {
-                console.log(result)
                 setDetailsResponse(result.response);
             } else {
                 Alert.alert("Payment", message);

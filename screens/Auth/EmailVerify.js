@@ -12,7 +12,7 @@ import Helper from "../../Helpers/Helper";
 import {CodeField,Cursor,useBlurOnFulfill,useClearByFocusCell} from 'react-native-confirmation-code-field';
 import { handleActiveTab } from "../../reduxx/actions/requests";
 
-const CELL_COUNT = 6;
+const CELL_COUNT = 10;
 
 
 
@@ -51,22 +51,22 @@ export default function EmailVerify({navigation,route}) {
   const submitForm = async () => {
     let payload = {
       "memid": route.params.memberid,
-      "code": value+"0728"
+      "code": value
     }
-    console.log("myPayloadVerify",payload)
+    
     try {
 
       setProcessing(true)
       let linkUrl = "AjaxCodeConfirmationServlet?action=confirmEmail&api";
         await Helper.Request(linkUrl,"post",payload)
         .then((result) =>{ 
-          console.log("resultHErerEmailVerify",result)
+          
           let { message, error, response } = result;
           setProcessing(false)
           if (!error && result.response.status === true) {
             setProcessing(false)
             dispatch(handleActiveTab(true))
-            navigation.navigate("MemberAuth")
+            navigation.navigate("MemberActivatePayment",{message:"Confirmation Successfull, please login to continue"})
             
           } else {
             setProcessing(false)
@@ -82,7 +82,6 @@ export default function EmailVerify({navigation,route}) {
   };
 
 
-  console.log("mynav",route.params)
   return (
     <View
         source={unsplash}
@@ -189,15 +188,15 @@ const styles = StyleSheet.create({
   root: {flex: 1, padding: 20},
   title: {textAlign: 'center', fontSize: 30},
   codeFieldRoot: {marginTop: 20},
-  cell: {
-    width: 10,
-    height: 20,
-    // lineHeight: 38,
-    // fontSize: 24,
-    // borderWidth: 2,
-    borderColor: '#00000030',
-    textAlign: 'center',
-  },
+  // cell: {
+  //   width: 10,
+  //   height: 20,
+  //   // lineHeight: 38,
+  //   // fontSize: 24,
+  //   // borderWidth: 2,
+  //   borderColor: '#00000030',
+  //   textAlign: 'center',
+  // },
   focusCell: {
     borderColor: '#000',
   },
@@ -208,11 +207,11 @@ const styles = StyleSheet.create({
     // backgroundColor:'blue'
   },
   cell: {
-    width: 40,
-    height: 40,
-    lineHeight: 55,
+    width: 20,
+    height: 30,
+    // lineHeight: 55,
     fontSize: 30,
-    fontWeight: '700',
+    fontWeight:"400",
     textAlign: 'center',
     marginLeft: 8,
     borderWidth:1,

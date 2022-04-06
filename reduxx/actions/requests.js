@@ -37,7 +37,6 @@ export function handlesaveuserAuth(currentUser) {
 
 export function handleSaveUserDetails(userDetails){
 
-  console.log("SaveUserDetails",userDetails)
   return (dispatch)=>{
     return(
       dispatch(saveUserDetails(userDetails))

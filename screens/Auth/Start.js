@@ -359,13 +359,13 @@ class Start extends Component {
 
 
         <View style ={{flexDirection:'row',marginTop:-20}}>
-          <TouchableOpacity onPress={()=>null}>
+          <TouchableOpacity onPress={()=>this.gotoUserLogin()}>
             <View style={{width:80,justifyContent:'center'}}>
               <Text style={{textAlign:'center',marginTop:-10}}>Login As GTPS User</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>null}>
+          <TouchableOpacity onPress={()=>this.gotoUserSignup()}>
             <View style={{width:80,justifyContent:'center'}}>
               <Text style={{textAlign:'center',marginTop:-10}}>Register As GTPS User</Text>
             </View>

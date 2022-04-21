@@ -23,7 +23,10 @@ const AddStock = ({ navigation,route }) => {
     const [herbalCategory, setHerbalCategory] = useState("");
     const [showProductBrand, setShowProductBrand] = useState(false);
     const [productBrand, setProductBrand] = useState("false");
+    const [greenlifeProduct, setGreenlifeProduct] = useState("");
     const [amount, setAmount] = useState(0);
+
+    
 
     const resetForm = () =>{
         setCategory("");
@@ -69,7 +72,7 @@ const AddStock = ({ navigation,route }) => {
     
     ];
 
-    const productBrands = [
+    const greenlifeProducts = [
         { label: 'Aloevera', value: 'Aloevera' },
         { label: 'Angel Tea', value: 'Angel Tea' },
         { label: 'Anticol', value: 'Anticol' },
@@ -104,6 +107,7 @@ const AddStock = ({ navigation,route }) => {
     }
 
     const setHerbalCategoryFunc =(value)=>{
+        setHerbalCategory(value)
         if(value == "Greenlife Product"){
             setShowProductBrand(true)
         }else{
@@ -133,7 +137,9 @@ const AddStock = ({ navigation,route }) => {
                     textPage: "shop_details"
                    
                 }
-                // return;
+                console.log(payload)
+
+                return;
                 try {
   
                     setProcessing(true);
@@ -164,8 +170,18 @@ const AddStock = ({ navigation,route }) => {
             Alert.alert("Payment", "Please Enter A Valid Amount");
         }
     }
+
+
+    const setSelectedHarbalCategory =(value)=>{
+        setGreenlifeProduct(value)
+    }
+
+    
     const {msg} = DetailsResponse;
     
+
+    console.log("myshowProductBrand",showProductBrand)
+    console.log("setHerbalCategoryFunc",herbalCategory)
     
   return (
     <View style={styles.container}>
@@ -228,10 +244,11 @@ const AddStock = ({ navigation,route }) => {
                 {showProductBrand? 
                 <View style = {{marginTop:30}}>
                     <SelectBox
-                        value={productBrand}
-                        onValueChange={(value) => setHerbalCategory(value)}
+                        items={greenlifeProducts}
+                        value={greenlifeProduct}
+                        onValueChange={(value) => setSelectedHarbalCategory(value)}
                         placeholder={{ label: "Select Your Greenlife Product:", value: null }}
-                        items={productBrands}
+                        
                         
                     />
                 </View>:<View></View>
@@ -339,7 +356,7 @@ const AddStock = ({ navigation,route }) => {
                             textinput="Reset"
                             buttonWidth={250}
                             onPress={() => resetForm()}
-                            processing={processing}
+                            // processing={processing}
                             boldText = {"bold"}
                             backgroundColor = {"#1976D2"}
                             borderRadius = {16}

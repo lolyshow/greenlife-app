@@ -19,7 +19,7 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
           <Feather color="#FFFFFF" name = {icon}/>
         </View>
         {processing ? (
-          <Text style={styles.ButtonText}>
+          <Text style={[styles.ButtonText,]}>
             Processing <ActivityIndicator size="small" color="#ffffff" />
           </Text>
         ):(
@@ -44,7 +44,7 @@ const ButtonComponent = ({ onPress, textinput, size, buttonWidth, backgroundColo
           Processing <ActivityIndicator size="small" color="#ffffff" />
         </Text>
       ):(
-      <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'bold', fontSize: 12,}]}>
+      <Text style={[styles.appButtonText, {color:textColor, fontWeight:boldText?boldText:'bold', fontSize: fontSize,}]}>
         {textinput}
       </Text>
       )}

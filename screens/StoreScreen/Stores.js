@@ -6,7 +6,7 @@ import {
   Image,
   StatusBar,
   ImageBackground,
-  View,Alert,Text,TouchableOpacity,ScrollView,ActivityIndicator
+  View,Alert,Text,TouchableOpacity,ScrollView,ActivityIndicator,Linking
 } from "react-native";
 import Helper from "../../Helpers/Helper";
 import ButtonComponent from "../../components/ButtonComponent";
@@ -184,9 +184,7 @@ class Stores extends Component {
   }
   
 
-  onPressCall = () =>{
-
-  }
+  
 
 
     logout =()=>{
@@ -221,6 +219,10 @@ class Stores extends Component {
       </View>
     )
   }
+  callOut = (phoneNumber) =>{
+    
+    Linking.openURL(`tel:${phoneNumber}`)
+  }
 
   renderProductCard = () => {
     
@@ -239,7 +241,7 @@ class Stores extends Component {
         renderItem={({ item }) => 
           (
             
-            <StoreCard filepath ={item.filepath} shopname={item.gl_productname} address={item.shop_location} phone={item.phone} onPressCall={this.onPressCall.bind(this,item.phone)} onPressProduct = {this.onPressProduct.bind(this,item.memshopid)} count = {count+=1}/>
+            <StoreCard filepath ={item.filepath} shopname={item.gl_productname} address={item.shop_location} phone={item.phone} onPressCall={this.callOut.bind(this,item.phone)} onPressProduct = {this.onPressProduct.bind(this,item.memshopid)} count = {count+=1}/>
           )
          
         }
@@ -259,17 +261,7 @@ class Stores extends Component {
             
 
           <View style = {{padding:20}}>
-              {/* <View style = {styles.Card}>
-                  <Text style = {{}}>Welcome to GTPS Online Stores </Text>
-
-                  <Text style = {{marginTop:10,}}>We know our frustrating it is to need something but can't afford; and even more frustrating to have the means and not find exactly what you need. At GTPS, we need connect you to e-stores that will provide you with what you need..
-
-                  </Text>
-                  
-              </View>
-
-              <View><Text style = {{fontWeight:'bold',fontSize:20}}>Stores selling: Danshen Plus:</Text></View>
-               */}
+              
               {processing?(<View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
 
                 <ActivityIndicator size="large" color="#0C9344" />

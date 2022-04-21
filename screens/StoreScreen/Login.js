@@ -131,9 +131,23 @@ const styles_ = StyleSheet.create({
       
     }
   
-  
+    validate = (text) => {
+      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+      if (reg.test(text) === false) {
+        console.log("not Correct")
+        return false;
+      }
+      else {
+        console.log("Correct")
+        true;
+      }
+    }
+
     submitForm = async () => {
-      
+
+        if(this.validate(this.state.email) ===false){
+          return Alert.alert("Validation Error", "Please enter A valid Email")
+        }
 
       try {
         let { email, password } = this.state;

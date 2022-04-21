@@ -84,21 +84,12 @@ class ProductDetails extends React.Component {
    }
 
    logout =()=>{
-    // this.props?.dispatch(handleUpdateUserLoggedIn(false))
-    // this.props?.dispatch(
-    //   handlesaveuserAuth({
-    //     email:"",
-    //     password:""
-    //   })
-    // )
-    // console.log("hhhhhhhh")
+    
         this.props.navigation.navigate("Products")
-    // this.props.navigation.dispatch(StackActions.popToTop());
 } 
   renderHeader=()=>{
     const {userLoggedIn} = this.props;
     return(
-    
       <View style = {{backgroundColor:'#0C9344',padding:5}}>
         <EcommerceHeader loggedin = {userLoggedIn} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Products Details"} memberId = {"10000203445"} />
       </View>

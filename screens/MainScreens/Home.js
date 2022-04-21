@@ -1,6 +1,6 @@
 
 import React from "react";
-import { View, Text, StyleSheet,ScrollView,StatusBar,TouchableOpacity,Switch,Alert, Platform,ActivityIndicator, Button } from "react-native";
+import { View, Text, TouchableHighlight,FlatList, StyleSheet,ScrollView,StatusBar,TouchableOpacity,Switch,Alert, Platform,ActivityIndicator, Button } from "react-native";
 import {Avatar} from 'react-native-paper';
 import SearchBar from "../../components/SearchBar";
 import Clipboard from '@react-native-community/clipboard';
@@ -33,6 +33,8 @@ class Home extends React.Component {
       referral:"",
       dashboard:{},
       accBalance:0,
+      referesh:false,
+      processing:false,
       options : {
         title:"Awesome Contents",
         url:"https://awesome.contents.com/",
@@ -88,6 +90,7 @@ class Home extends React.Component {
       .then((result) =>{ 
         let { message, error, response } = result;
         this.setState({ processing: false });
+        this.setState({ referesh: false });
         if (!error) {
           this.setState({ dashboard : result.response });
           this.setState({accBalance:response.balance});
@@ -100,6 +103,7 @@ class Home extends React.Component {
       
     } catch (error) {
       this.setState({ processing: false });
+      this.setState({ referesh: false });
       Alert.alert("Error", error.toString());
     }
   }
@@ -114,9 +118,11 @@ class Home extends React.Component {
       await Helper.Request(payload)
       .then((result) =>{ 
         let { message, error, response } = result;
+        this.setState({ referesh: false });
         if (!error) {
           this.props.dispatch(handlesaveGenerologySummary(result.response))
           this.setState({ generologySummary : result.response });
+          
         } else {
           Alert.alert("Home", message);
         }
@@ -124,6 +130,7 @@ class Home extends React.Component {
       });
 
     } catch (error) {
+      this.setState({ referesh: false });
       Alert.alert("Error", error.toString());
     }
   }
@@ -199,6 +206,13 @@ class Home extends React.Component {
       );
     }
 
+    refreshPage =()=>{
+      this.setState({referesh:false})
+      this.fetchHomepage();
+      this.FetchGenerologySummary();
+      console.log("refreshing......");
+    }
+
 
   render(){
     let {accBalance,isEnabled,generologySummary} = this.state;
@@ -206,6 +220,10 @@ class Home extends React.Component {
     // const {memberid}= this.props.userDetails
     const {memberid}=this.props.userDetails.response;
     return (
+
+      
+
+
     <View style={styles.container}>
 
       {/* header Starts */}
@@ -239,194 +257,223 @@ class Home extends React.Component {
         <Text style = {{fontSize:12, color:"#979797"}}>How are you feeeling today?</Text>
       </View>
       
-      <View >
 
-        <SearchBar
-          searchPhrase={this.state.searchPhrase}
-          setSearchPhrase={(text) => this.setSearchPhrase(text)}
-          clicked={this.state.clicked}
-          setClicked={(clicked) => this.setClicked(clicked)}
-        />
-      </View>
-      {this.state.processing?<View>
-
-        <ActivityIndicator size="large" color="#0C9344" />
-      </View>:
-      <ScrollView style = {styles.innerContainer} showsVerticalScrollIndicator={false}>
-        <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
-          <View style = {{justifyContent:'center'}}>
-            <Text style = {styles.boldText}>Referral Panel</Text>
-          </View>
-
-          <View style = {{flexDirection:'row'}}>
-            
-              <TouchableOpacity onPress={()=>this.share(referral)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
-              
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                  <Text style = {{fontSize:12, color:"#979797"}}>{referral?referral:"......"}</Text>
-                </ScrollView>
-              </TouchableOpacity>
-            
-            <TouchableOpacity onPress={()=>this.share(referral)} >
-              <View style = {{padding:3,color:'#0C9344'}}>
-                <Feather name="share" size = {20} color = {"#0C9344"}/>
-              </View>
-            </TouchableOpacity>
-
-            {/* onclick Copy Ends */}
-          </View>
-        </View>
-        {/* header Ends */}
-
-        <View>
-          <View style = {{flexDirection:'row', margin:10,marginTop:15,marginLeft:0}}> 
-            <Switch
-              trackColor={{ false: "#f0f0f0", true: "green" }}
-              thumbColor={this.state.isEnabled ? "#c0c0c0" : "#c0c0c0"}
-              ios_backgroundColor="#FFFFFF"
-              borderColor= '#6fa6d3'
-              borderWidth = {2}
-              // style={[this.state.isEnabled ?styles.switchEnableBorder:styles.switchDisableBorder]}
-              onValueChange={this.toggleSwitch}
-              value={this.state.isEnabled}
+      <FlatList
+        ItemSeparatorComponent={
+          Platform.OS !== 'android' &&
+          (({ highlighted }) => (
+            <View
+              style={[
+                style.separator,
+                highlighted && { marginLeft: 0 }
+              ]}
             />
+          ))
+        }
+        refreshing={this.state.referesh}
+        onRefresh={()=>this.refreshPage()}
+        data={[{ title: 'Title Text', key: 'item1' }]}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item, index, separators }) => (
+          <View>
+            <View >
 
-            <View style = {{justifyContent:'center', marginLeft:10,}}>
-              <Text>Show in Naira</Text>
+                <SearchBar
+                searchPhrase={this.state.searchPhrase}
+                setSearchPhrase={(text) => this.setSearchPhrase(text)}
+                clicked={this.state.clicked}
+                setClicked={(clicked) => this.setClicked(clicked)}
+                />
             </View>
-          </View>
-        </View>
+
+            
 
 
-        <View >
-          <ScrollView style = {styles.upperScrollView} horizontal={true} showsHorizontalScrollIndicator={false} bouncesZoom={true} showsVerticalScrollIndicator={true}>
-            <View style = {[styles.innerScrollView,{}]}>
-              <Text style = {{color:'#FFFFFF',fontSize:16,textAlign:'center', fontWeight:'bold'}}>E-Wallet</Text>
-              <Text style = {{color:'#FFFFFF',fontSize:18,fontWeight:'bold'}}>{balance? isEnabled? '\u20A6'+accBalance:'$'+accBalance:'0.00'}</Text>
 
-              <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:10}}>
+          {this.state.processing?<View>
 
-                <View style = {{marginRight:10}}>
-                  <View>
-                    <ButtonComponent
-                        textinput="Deposit"
-                        buttonWidth={90}
-                        onPress={() => this.submitForm()}
+                <ActivityIndicator size="large" color="#0C9344" />
+            </View>:
+            <ScrollView style = {styles.innerContainer} showsVerticalScrollIndicator={false}>
+                <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
+                <View style = {{justifyContent:'center'}}>
+                    <Text style = {styles.boldText}>Referral Panel</Text>
+                </View>
+
+                <View style = {{flexDirection:'row'}}>
+                    
+                    <TouchableOpacity onPress={()=>this.share(referral)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
+                    
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                        <Text style = {{fontSize:12, color:"#979797"}}>{referral?referral:"......"}</Text>
+                        </ScrollView>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity onPress={()=>this.share(referral)} >
+                    <View style = {{padding:3,color:'#0C9344'}}>
+                        <Feather name="share" size = {20} color = {"#0C9344"}/>
+                    </View>
+                    </TouchableOpacity>
+
+                    {/* onclick Copy Ends */}
+                </View>
+                </View>
+                {/* header Ends */}
+
+                <View>
+                <View style = {{flexDirection:'row', margin:10,marginTop:15,marginLeft:0}}> 
+                    <Switch
+                    trackColor={{ false: "#f0f0f0", true: "green" }}
+                    thumbColor={this.state.isEnabled ? "#c0c0c0" : "#c0c0c0"}
+                    ios_backgroundColor="#FFFFFF"
+                    borderColor= '#6fa6d3'
+                    borderWidth = {2}
+                    // style={[this.state.isEnabled ?styles.switchEnableBorder:styles.switchDisableBorder]}
+                    onValueChange={this.toggleSwitch}
+                    value={this.state.isEnabled}
+                    />
+
+                    <View style = {{justifyContent:'center', marginLeft:10,}}>
+                    <Text>Show in Naira</Text>
+                    </View>
+                </View>
+                </View>
+
+
+                <View >
+                  <ScrollView style = {styles.upperScrollView} horizontal={true} showsHorizontalScrollIndicator={false} bouncesZoom={true} showsVerticalScrollIndicator={true}>
+                      <View style = {[styles.innerScrollView,{}]}>
+                      <Text style = {{color:'#FFFFFF',fontSize:16,textAlign:'center', fontWeight:'bold'}}>E-Wallet</Text>
+                      <Text style = {{color:'#FFFFFF',fontSize:18,fontWeight:'bold'}}>{balance? isEnabled? '\u20A6'+accBalance:'$'+accBalance:'0.00'}</Text>
+
+                      <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:10}}>
+
+                          <View style = {{marginRight:10}}>
+                          <View>
+                              <ButtonComponent
+                                  textinput="Deposit"
+                                  buttonWidth={90}
+                                  onPress={() => this.submitForm()}
+                                  size ={"sm"}
+                                  fontSize ={10}
+                                  backgroundColor = {"#0C9344"}
+                                  borderRadius = {8}
+                                  textColor={"#FFFFFF"}
+                                  borderWidth = {1}
+                                  borderColors = {"#FFFFFF"}
+
+                              />
+                          </View>
+                          </View>
+
+                          <View style = {{}}>
+                          <ButtonComponent
+                              buttonWidth={90}
+                              textinput="Withdrawal"
+                              fontSize ={10}
+                              onPress={() => this.submitForm()}
+                              size ={"sm"}
+                              backgroundColor = {"#FFFFFF"}
+                              borderRadius = {8}
+                              textColor={"#0C9344"}
+                              borderColors = {"#FFFFFF"}
+
+                          />
+                          </View>
+                      </View>
+                      </View>
+
+                      
+                      {this.CommissionCard("Total Withdrawn")}
+                      
+
+                      {this.CommissionCard("Total Earned")}
+                      
+                      <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',flexDirection:'row',padding:20,marginLeft:10}]}>
+                      <View style={{flex:1}}>
+                          <Text style = {{color:'#0C9344',fontSize:20,fontWeight:'bold'}}>{"Total Referrals"}</Text>
+                          <Text style = {{color:'#0C9344',fontSize:25,fontWeight:'bold'}}>{generologySummary?generologySummary.total:"..."}</Text>
+                      </View>
+
+                      <View style = {{margin:10}}>
+                          
+                          
+                          {this.RefferalSmallCard("Total A-Side",generologySummary?generologySummary.side_a:"...")}
+
+                          {this.RefferalSmallCard("Total B-Side",generologySummary?generologySummary.side_b:"...")}
+                          
+                      </View>
+
+
+                      
+                      </View>
+
+                      
+                  </ScrollView>
+
+                  <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
+                      <View style = {{justifyContent:'center'}}>
+                          <Text style = {styles.boldText}>My E-shop</Text>
+                      </View>
+
+                      <View style = {{flexDirection:'row'}}>
+                          {/* onclick Copy Starts */}
+                          <TouchableOpacity onPress={()=>this.share(referral_shop)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
+                          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                              <Text style = {{fontSize:12, color:"#979797"}}>{referral_shop}</Text>
+                          </ScrollView>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={()=>this.share(referral_shop)} >
+                          <View style = {{padding:3,color:'#0C9344'}}>
+                              <Feather name="share" size = {20} color = {"#0C9344"}/>
+                          </View>
+                          </TouchableOpacity>
+                          {/* onclick Copy Ends */}
+                      </View>
+                  </View>
+                </View>
+
+
+                <ScrollView style = {[styles.upperScrollView, {marginTop:10}]} horizontal={true} showsHorizontalScrollIndicator={false}  bouncesZoom={true} showsVerticalScrollIndicator={true}>
+                <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',width:150}]}>
+                    <Entypo name="shop" size = {50} color = {"#0C9344"}/>
+                    <Text style = {{fontSize:18, margin:10,fontWeight:'bold'}}>{shopid?shopid:"....."}</Text>
+                    <Text style = {{fontSize:14,}}>{shopname?shopname:"....."}</Text>
+
+                    
+                </View>
+
+                <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',width:150}]}>
+                    <Text style = {{fontSize:14, margin:10,}}>Total Stocks</Text>
+                    <Text style = {{fontSize:25,fontWeight:'bold'}}>{total_stocks?total_stocks:"...."}</Text>
+                    <View style = {{margin:10}}>
+                        <ButtonComponent
+                        buttonWidth={100}
+                        textinput="View Stock"
+                        onPress={() => this.gotoStocks()}
                         size ={"sm"}
-                        backgroundColor = {"#0C9344"}
-                        borderRadius = {8}
+                        backgroundColor = {"#1976D2"}
+                        borderRadius = {2}
                         textColor={"#FFFFFF"}
-                        borderWidth = {1}
                         borderColors = {"#FFFFFF"}
 
-                    />
-                  </View>
+                        />
+                    </View>
                 </View>
 
-                <View style = {{}}>
-                  <ButtonComponent
-                      buttonWidth={90}
-                      textinput="Withdrawal"
-                      onPress={() => this.submitForm()}
-                      size ={"sm"}
-                      backgroundColor = {"#FFFFFF"}
-                      borderRadius = {8}
-                      textColor={"#0C9344"}
-                      borderColors = {"#FFFFFF"}
-
-                  />
+                <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',width:150}]}>
+                    <Text style = {{fontSize:14, margin:10,}}>Total Views</Text>
+                    <Text style = {{fontSize:25,fontWeight:'bold'}}>{total_views?total_views:"....."}</Text>
+                    <Text style = {{fontSize:25,fontWeight:'bold',color:'#0C9344'}}>----------</Text>
                 </View>
-              </View>
-            </View>
 
-            
-            {this.CommissionCard("Total Withdrawn")}
-            
+                </ScrollView>
 
-            {this.CommissionCard("Total Earned")}
-            
-            <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',flexDirection:'row',padding:20,marginLeft:10}]}>
-              <View style={{flex:1}}>
-                <Text style = {{color:'#0C9344',fontSize:20,fontWeight:'bold'}}>{"Total Referrals"}</Text>
-                <Text style = {{color:'#0C9344',fontSize:25,fontWeight:'bold'}}>{generologySummary?generologySummary.total:"..."}</Text>
-              </View>
-
-              <View style = {{margin:10}}>
-                
-                
-                {this.RefferalSmallCard("Total A-Side",generologySummary?generologySummary.side_a:"...")}
-
-                {this.RefferalSmallCard("Total B-Side",generologySummary?generologySummary.side_b:"...")}
-                
-              </View>
-
-
-              
-            </View>
-
-            
-          </ScrollView>
-
-          <View style = {{flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
-              <View style = {{justifyContent:'center'}}>
-                <Text style = {styles.boldText}>My E-shop</Text>
-              </View>
-
-              <View style = {{flexDirection:'row'}}>
-                {/* onclick Copy Starts */}
-                <TouchableOpacity onPress={()=>this.share(referral_shop)} style = {{borderColor:"#0C9344",borderWidth:1,borderRadius:5,padding:3,width:140}}>
-                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <Text style = {{fontSize:12, color:"#979797"}}>{referral_shop}</Text>
-                  </ScrollView>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=>this.share(referral_shop)} >
-                  <View style = {{padding:3,color:'#0C9344'}}>
-                    <Feather name="share" size = {20} color = {"#0C9344"}/>
-                  </View>
-                </TouchableOpacity>
-                {/* onclick Copy Ends */}
-              </View>
-          </View>
-        </View>
-
-
-        <ScrollView style = {styles.upperScrollView} horizontal={true} showsHorizontalScrollIndicator={false}  bouncesZoom={true} showsVerticalScrollIndicator={true}>
-          <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',width:150}]}>
-            <Entypo name="shop" size = {50} color = {"#0C9344"}/>
-            <Text style = {{fontSize:18, margin:10,fontWeight:'bold'}}>{shopid?shopid:"....."}</Text>
-            <Text style = {{fontSize:14,}}>{shopname?shopname:"....."}</Text>
-
-            
-          </View>
-
-          <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',width:150}]}>
-            <Text style = {{fontSize:14, margin:10,}}>Total Stocks</Text>
-            <Text style = {{fontSize:25,fontWeight:'bold'}}>{total_stocks?total_stocks:"...."}</Text>
-              <View style = {{margin:10}}>
-                <ButtonComponent
-                  buttonWidth={100}
-                  textinput="View Stock"
-                  onPress={() => this.gotoStocks()}
-                  size ={"sm"}
-                  backgroundColor = {"#1976D2"}
-                  borderRadius = {2}
-                  textColor={"#FFFFFF"}
-                  borderColors = {"#FFFFFF"}
-
-                />
-              </View>
-          </View>
-
-          <View style = {[styles.innerScrollView,{backgroundColor:'#FFFFFF',width:150}]}>
-            <Text style = {{fontSize:14, margin:10,}}>Total Views</Text>
-            <Text style = {{fontSize:25,fontWeight:'bold'}}>{total_views?total_views:"....."}</Text>
-            <Text style = {{fontSize:25,fontWeight:'bold',color:'#0C9344'}}>----------</Text>
-          </View>
-
-        </ScrollView>
-
-      </ScrollView>
-      }
+            </ScrollView>
+          }
+    </View>
+        )}
+      />
     </View>
   )
   }

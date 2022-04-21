@@ -20,6 +20,7 @@ import { FlatList } from "react-native-gesture-handler";
 import Productcard from "../../components/ProductCard";
 import EcommerceHeader from "../../components/EcommerceHeader";
 import { connect } from "react-redux";
+import Loader from "../../components/Loader";
 import { handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
 // import { Consumer } from "react-native-paper/lib/typescript/core/settings";
 const styles = StyleSheet.create({
@@ -55,11 +56,18 @@ class Products extends React.Component {
 
   componentDidMount() {
     // console.log("component Launched");
+    this.Home();
+    
+  }
+
+  Home(){
     this.renderHeader();
     this.fetchShopDetails();
   }
 
+
   fetchShopDetails =async()=>{
+    console.log("loading...please wait");
     try {
 
       this.setState({processing:true});
@@ -68,12 +76,14 @@ class Products extends React.Component {
       await Helper.getRequest(payload)
       .then((result) =>{ 
         let { message, error, response } = result;
-      
         this.setState({processing:false});
+        
         if (!error) {
+          console.log("loaded");
           this.setState({detailsResponse:result.response});
           
         } else {
+          this.setState({processing:false});
           Alert.alert("Shop", message);
         }
 
@@ -127,6 +137,8 @@ class Products extends React.Component {
       <FlatGrid
         itemDimension={half}
         data={stocks}
+        refreshing={false}
+        onRefresh={()=>this.Home()}
         horizontal={false}
         showsVerticalScrollIndicator={false}
         style={styles.gridView}
@@ -186,7 +198,7 @@ class Products extends React.Component {
         
         <View style={styles.container}>
             {this.renderHeader()}
-
+            <Loader loading = {this.state.processing}/>
             <View style = {{padding:20,paddingBottom:0,}}>
 
               <SearchBar
@@ -207,9 +219,9 @@ class Products extends React.Component {
 
             :(<View style={{justifyContent:'center',alignContent:'center',marginTop:20}}>
 
-              <ActivityIndicator size="large" color="#0C9344" />
+              {/* <ActivityIndicator size="large" color="#0C9344" />
               <Text style={{textAlign:'center'
-              }}>Loading, Please wait......</Text>
+              }}>Loading, Please wait......</Text> */}
             </View>)
 
           }

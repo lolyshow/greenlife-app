@@ -21,6 +21,7 @@
     "@react-navigation/stack": "^6.1.1",
     "@rescript-react-native/safe-area-view": "^2.0.2",
     "axios": "^0.26.0",
+    "currency.js": "^2.0.4",
     "expo": "~44.0.2",
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",

@@ -222,7 +222,7 @@ class Stores extends Component {
     return(
     
       <View style = {{backgroundColor:'#0C9344',padding:5}}>
-        <EcommerceHeader loggedin = {userLoggedIn} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {stores.length>0?stores[0].gl_productname+" Store":"Stores"} memberId = {"10000203445"} />
+        <EcommerceHeader loggedin = {userLoggedIn} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {stores.length>0?stores[0].gl_productname+" Stores":"Stores"} memberId = {"10000203445"} />
       </View>
     )
   }

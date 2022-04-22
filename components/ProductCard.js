@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import { cos } from "react-native-reanimated";
 import ButtonComponent from "../components/ButtonComponent";
-
+let currency = require('currency.js');
+const NGN = value => currency(value, {precision: 0, symbol: ''});
 const Productcard = ({count,filepath,desc,productname,cost,btn_txt,onpressText,submitForm})=>{
     return(
         <View>
@@ -36,7 +37,7 @@ const Productcard = ({count,filepath,desc,productname,cost,btn_txt,onpressText,s
                         <Text style = {{backgroundColor:"#5cb85c",color:"#FFFFFF", fontSize:12}}>View Details</Text>
                     </Text>
                     <Text style={{fontSize:10,fontWeight:'bold'}}>{productname}</Text>
-                    <Text style={{fontSize:10,fontWeight:'bold'}}>{"\u20A6"}{cost}</Text>
+                    <Text style={{fontSize:10,fontWeight:'bold'}}>{"\u20A6"}{NGN(cost).format()}</Text>
                   </TouchableOpacity> 
                 </View>
     

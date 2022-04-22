@@ -7,7 +7,7 @@ import BackBtn from "../../components/BackBtn";
 import SelectBox from "../../components/SelectBox";
 import SearchBar from "../../components/SearchBar";
 import HeaderComponent from "../../components/HeaderComponent";
-import FontAwesome from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Feather from "react-native-vector-icons/Feather";
 import ShopImage from "../../assets/shop.png";
 import { getCountriesApiServices } from "../../services/getCountries";
@@ -175,7 +175,7 @@ const Stocks = ({ navigation,props }) => {
                       
                     let payload = {
                         comboCategory:2, //selectedData.category_name,
-                        textProductName: selectedData.productname,
+                        textProductName: selectedData.gl_productname,
                         textDescription: selectedData.desc,
                         textUnitCost: selectedData.cost,
                         textDiscount: Math.floor(selectedData.disc_cost),
@@ -187,7 +187,7 @@ const Stocks = ({ navigation,props }) => {
                         textMemID: ShopDetailsResponse?.memberid,                            
                     }
                     
-                    console.log("myRequestPayloadHere",payload)
+                    // console.log("myRequestPayloadHere",payload)
 
                     try {
 
@@ -206,7 +206,6 @@ const Stocks = ({ navigation,props }) => {
                             Alert.alert("Stock Update", result.response.msg);
                             setModalVisible(false)
                         } else {
-                            
                             Alert.alert("Stock Update", message);
                         }
                 
@@ -412,7 +411,16 @@ const Stocks = ({ navigation,props }) => {
                       </View>
                     </View>
                     <TouchableOpacity onPress={()=>toggleEdit(data)}>
-                      <View style = {{alignItems:'flex-end',}} key = {count+=1}><Text style = {{size:14, color:"#2962ff"}}>Edit</Text></View>
+                      <View>
+                          
+                          <View style = {{alignItems:'flex-end',}} key = {count+=1}>
+                            <View style={{flexDirection:'row'}}>
+                              <MaterialIcon size={14} color={"#2962ff"} name = "edit"/>
+                              <Text style = {{size:14, color:"#2962ff"}}>Edit</Text>
+                            </View>
+                          </View>
+                      </View>
+                      
                     </TouchableOpacity>
                   </View>
 

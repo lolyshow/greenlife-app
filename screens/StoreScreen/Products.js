@@ -22,6 +22,8 @@ import EcommerceHeader from "../../components/EcommerceHeader";
 import { connect } from "react-redux";
 import Loader from "../../components/Loader";
 import { handlesaveuserAuth, handleUpdateUserLoggedIn } from "../../reduxx/actions/requests";
+let currency = require('currency.js');
+const NGN = value => currency(value, {precision: 0, symbol: 'N'});
 // import { Consumer } from "react-native-paper/lib/typescript/core/settings";
 const styles = StyleSheet.create({
   container: {
@@ -96,12 +98,11 @@ class Products extends React.Component {
     }
   }
   
-  submitForm =(memberid)=>{
-
+  submitForm =(memberid,productname)=>{
     const {userLoggedIn} = this.props;
     {userLoggedIn?
-      this.props.navigation.navigate("Stores", {memberid}):
-      (this.props.navigation.navigate("UserAuth",{memberid,gotoStore:true}))
+      this.props.navigation.navigate("Stores", {memberid,productname}):
+      (this.props.navigation.navigate("UserAuth",{memberid,gotoStore:true,productname}))
     
     }
   }
@@ -144,7 +145,7 @@ class Products extends React.Component {
         style={styles.gridView}
         renderItem={({ item }) => 
           (
-            <Productcard viewProductDetails = {this.viewProductDetails} filepath = {item.filepath} desc ={item.desc} submitForm = {this.submitForm.bind(this,item.glprodid?item.glprodid:null)} cost={item.cost} productname={item.productname} btn_txt ={"View Store"}  onpressText = {this.onpressText.bind(this,item)}  count = {count+=1}/>
+            <Productcard viewProductDetails = {this.viewProductDetails} filepath = {item.filepath} desc ={item.desc} submitForm = {this.submitForm.bind(this,item.glprodid?item.glprodid:null,item.productname)} cost={item.cost} productname={item.productname} btn_txt ={"View Store"}  onpressText = {this.onpressText.bind(this,item)}  count = {count+=1}/>
             )
          
         }

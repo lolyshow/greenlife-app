@@ -12,6 +12,8 @@ import Helper from "../../Helpers/Helper";
 import ButtonComponent from "../../components/ButtonComponent";
 import { FlatGrid } from "react-native-super-grid";
 import { StackActions } from '@react-navigation/native';
+  let currency = require('currency.js');
+  const NGN = value => currency(value, {precision: 0, symbol: 'N'});
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const screenHeight = Math.round(Dimensions.get("window").height);
@@ -156,7 +158,10 @@ class Stores extends Component {
       let payload = "view_stores.jsp?product="+memberid+"&api";
       await Helper.Request(payload,"post",body)
       .then((result) =>{ 
+
+        
         let { message, error, response } = result;
+        console.log(response);
         this.setState({processing:false});
         this.setState({appReady:true});
         if (!error) {
@@ -212,10 +217,12 @@ class Stores extends Component {
 
   renderHeader=()=>{
     const {userLoggedIn} = this.props;
+    // let stores = [];
+    let stores = this.state.detailsResponse?.stores?this.state.detailsResponse.stores:[];
     return(
     
       <View style = {{backgroundColor:'#0C9344',padding:5}}>
-        <EcommerceHeader loggedin = {userLoggedIn} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {"Store"} memberId = {"10000203445"} />
+        <EcommerceHeader loggedin = {userLoggedIn} onpressLogout = {this.logout} onPress = {this.toggleNav} title = {stores.length>0?stores[0].gl_productname+" Store":"Stores"} memberId = {"10000203445"} />
       </View>
     )
   }
@@ -241,7 +248,7 @@ class Stores extends Component {
         renderItem={({ item }) => 
           (
             
-            <StoreCard filepath ={item.filepath} shopname={item.gl_productname} address={item.shop_location} phone={item.phone} onPressCall={this.callOut.bind(this,item.phone)} onPressProduct = {this.onPressProduct.bind(this,item.memshopid)} count = {count+=1}/>
+            <StoreCard filepath ={item.filepath} shopname={item.shopname} address={item.shop_location} phone={item.phone} onPressCall={this.callOut.bind(this,item.phone)} onPressProduct = {this.onPressProduct.bind(this,item.memshopid)} count = {count+=1}/>
           )
          
         }

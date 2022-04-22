@@ -108,7 +108,6 @@ const Shop = ({ navigation,props }) => {
 
                     </Text>
                     
-                    <Text style = {{marginTop:10,fontSize:12}}>For easy implementation, we are piloting this service in Nigeria first.</Text>
                 </View>
 
                 {/* <View>

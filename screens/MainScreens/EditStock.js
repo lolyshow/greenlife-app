@@ -8,7 +8,7 @@ import Helper from "../../Helpers/Helper";
 import { Provider, useSelector } from "react-redux";
     
 
-const AddStock = ({ navigation,route }) => {
+const EditStock = ({ navigation,route }) => {
     const {name,memberid} = useSelector((state) => state.appReducer.userDetails.response);
     const [processing, setProcessing] = useState(false);
     const [DetailsResponse, setDetailsResponse] = useState({});
@@ -412,4 +412,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AddStock;
+export default EditStock;
